@@ -1,3 +1,2 @@
-.DS_Store 
-/build
-/work
+.DS_Store
+build/
