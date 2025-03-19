@@ -1,0 +1,28 @@
+module seven_seg_AlUFN (
+    input char[16],
+    output segs[8]
+) {
+    always {
+        case(char){
+            
+            0:  segs = 8b00000000//blank
+            1: segs = 8b01011110 //D
+            2: segs = 8b01101101 //S
+            3: segs = 8b00111110// U
+            4: segs = 8b01111100// b
+            5: segs = 8b01110111//A
+            6: segs = 8b00111000//L
+            7: segs = 8b00110111//N
+            8: segs = 8b00111111//O
+            9: segs = 8b00110001//R
+            10: segs = 8b10110001//R.
+            11: segs = 8b01110110//H
+            12: segs = 8b00111001//C
+            13: segs = 8b01110011//P
+            14: segs = 8b01111001//E
+            15: segs = 8b10111000//L.
+            
+            default : segs = 7b0000000
+        }
+    }
+}

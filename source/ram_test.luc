@@ -1,0 +1,20 @@
+testbench ram_test {
+    sig clk
+    alu alu(.clk(clk))
+    fun tick_clock() {
+        clk = 1
+        $tick() // tick without capturing signals
+        clk = 0
+        $tick()
+    }
+
+    test myTest {
+        clk =0
+        alu.a = 32h0C00E03F
+        alu.b = 32h0C00E03F
+        alu.alufn = 6b110111
+        $print(alu.out)
+
+        // test goes here
+    }
+}

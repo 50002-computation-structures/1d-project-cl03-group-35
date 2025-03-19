@@ -1,0 +1,14 @@
+module simple_ram (
+    input clk,                            // clock
+    input address[$clog2(32)] ,  // address to read or write
+    output read_data [32] ,     // data read
+    input write_data[32] ,         // data to write
+    input write_enable     
+) {dff reg[32][32](.clk(clk))
+    always {
+        read_data = reg.q[address]
+        if (write_enable){
+            reg.d[address] = write_data
+        }
+    }
+}

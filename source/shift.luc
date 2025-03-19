@@ -1,0 +1,21 @@
+testbench shift {
+    sig clk
+
+    
+    alu alu
+    
+    test myTest {
+        //alu.a = 32b10010000000000010000000000010001
+        //alu.b = 32b0000000000000000000000000010111
+        //alu.alufn= 6b100001
+        
+        alu.a = 32b10000000000000000000000000010001
+        alu.b = 32b00000000000000000000000000000001
+        alu.alufn= 6b100011
+    
+          
+    $print(alu.out)
+    $print(alu.v)
+
+    }
+}
