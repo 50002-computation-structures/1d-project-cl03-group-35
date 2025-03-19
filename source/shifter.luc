@@ -17,7 +17,7 @@ module shifter (
     
     always {
         ra.in = a
-
+        
         repeat(i,32){
             inp.s0[i] = alufn[0]
             inp.in[i][0]= a[i]
@@ -51,7 +51,7 @@ module shifter (
         
         repeat(i,32){
             shift_out.s0[i] = alufn[0] 
-            shift_out.in[i][0]= a[i]
+            shift_out.in[i][0]= left_shifter_1.out[i]
             shift_out.in[i][1]= shr.reversed[i]
         }
         shift = shift_out.out
