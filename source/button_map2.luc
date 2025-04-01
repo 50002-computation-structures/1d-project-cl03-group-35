@@ -1,0 +1,31 @@
+module button_map (
+    input clk,  // clock
+    input rst,  // reset
+    output col[4],
+    input row[4],
+    output out [8]
+) {.clk(clk), .rst(rst) {
+        counter ctr (#DIV(21), #SIZE(4), #TOP(4-1)) 
+        dff state[4]
+    }
+    always {
+        state.d = state.q
+        state.d = 4b0000
+        state.d[ctr.value] = 1 
+        col = state.q
+        out = 8b0
+        if(row[0]){
+            out = c{state.q,4b0001}
+        }
+        if(row[1]){
+            out = c{state.q,4b0010}
+        }
+        if(row[2]){
+            out = c{state.q,4b0100}
+        }
+        if(row[3]){
+            out = c{state.q,4b1000}
+        }
+        
+    }
+}

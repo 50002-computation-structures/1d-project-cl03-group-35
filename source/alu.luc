@@ -15,7 +15,7 @@ module alu (
     compare compare
     shifter shifter
     bool boolean(#SIZE(32))
-    simple_ram reg(.clk(clk))
+
     always {
         
         z=adder.z
@@ -30,9 +30,7 @@ module alu (
         multiplier.a =a
         multiplier.b = b
         
-        reg.address= b[4:0]
-        reg.write_data = a
-        reg.write_enable=0
+
         
         boolean.a =a 
         boolean.b = b
@@ -60,15 +58,8 @@ module alu (
             
             
             2b01:
-                case(alufn[0]){
-            1b0:
             out =boolean.bool
-            1b1:
-            reg.write_enable = ~alufn[1]
-            out= reg.read_data
-                }
-            
-           
+
             2b10:
             out = shifter.shift
             2b11:

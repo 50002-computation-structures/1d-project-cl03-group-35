@@ -1,14 +1,29 @@
 module simple_ram (
     input clk,                            // clock
-    input address[$clog2(32)] ,  // address to read or write
-    output read_data [32] ,     // data read
+    input ra1[$clog2(32)] ,
+    input ra2[$clog2(32)] ,
+    input rc[$clog2(32)],  // address to read or write
+    output rd1 [32] ,
+    output rd2 [32] ,     // data read
+    output reg0[32],
+    output button_led[32],
+    output count_display[32],
+    output count_min[32],
+    output rom_sel[32],
     input write_data[32] ,         // data to write
     input write_enable     
+    
 ) {dff reg[32][32](.clk(clk))
     always {
-        read_data = reg.q[address]
+        rd1 = reg.q[ra1]
+        rd2 = reg.q[ra2]
+        button_led = reg.q[1]
+        count_display = reg.q[2]
+        count_min = reg.q[3]
+        rom_sel = reg.q[7]
+        reg0 = reg.q[0]
         if (write_enable){
-            reg.d[address] = write_data
+            reg.d[rc] = write_data
         }
     }
 }

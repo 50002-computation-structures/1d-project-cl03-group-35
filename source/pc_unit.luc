@@ -1,0 +1,40 @@
+module mux_8 (
+    input s0,  // clock
+    input s1,
+    input s2,  // reset
+    input in0,
+    input in1,
+    input in2,
+    input in3,
+    input in4,
+    input in5,
+    input in6,
+    input in7,
+    
+    output out
+) {
+    always {
+        
+        case(c{s0,s1,s2}){
+            3b000:
+            out =in0
+            3b001:
+            out =in1
+            3b010:
+            out =in2
+            3b011:
+            out =in3
+            3b100:
+            out =in4
+            3b101:
+            out =in5
+            3b110:
+            out =in6
+            3b111:
+            out =in7
+            default:
+            out = in7
+            
+        }
+    }
+}

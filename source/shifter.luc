@@ -17,7 +17,7 @@ module shifter (
     
     always {
         ra.in = a
-        
+
         repeat(i,32){
             inp.s0[i] = alufn[0]
             inp.in[i][0]= a[i]

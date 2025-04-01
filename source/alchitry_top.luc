@@ -2,39 +2,141 @@ module alchitry_top (
     input clk,              // 100MHz clock
     input rst_n,            // reset button (active low)
     output led[8],          // 8 user controllable LEDs
-    input usb_rx,            // USB->Serial input
-    output usb_tx,           // USB->Serial output
-    output io_led[3][8],     // LEDs on IO Shield
-    output io_segment[8],        // 7-segment LEDs on IO Shield
-    output io_select[4],        // Digit select on IO Shield
-    input io_button[5],      // 5 buttons on IO Shield
-    input io_dip[3][8]       // DIP switches on IO Shield
+    input usb_rx,           // USB->Serial input
+    output usb_tx,          // USB->Serial output
+    input select_button[1],
+    input start_button[1],
+    input row[4],
+    output col[4]
 ) {
-    
+
     sig rst                 // reset signal
-    
+    enum States{ IDLE,SELECT_GAME,LOAD,LOAD_INCREASE,LOAD_CHECK,SELECT_LEVEL,LOAD_MAP,PLAYER_INPUT,RESET,UPDATE,GAMEOVER,
+    CHECK}
     .clk(clk) {
-        // The reset     conditioner is used to synchronize the reset signal to the FPGA
+        // The reset conditioner is used to synchronize the reset signal to the FPGA
         // clock. This ensures the entire FPGA comes out of reset at the same time.
         reset_conditioner reset_cond
+        dff state[$width(States)]
+
+        dff gamemode
+        alu alu
+        
+        edge_detector io_button_edge_row[4](#RISE(4x{{1}}), #FALL(4x{{0}}))
+        button_conditioner io_button_cond_row[4](#CLK_FREQ(4x{{100000000}})) 
+        
+        edge_detector io_button_edge_start[1](#RISE({1}), #FALL({0}))
+        button_conditioner io_button_cond_start[1](#CLK_FREQ({100000000})) 
+        
+        edge_detector io_button_edge_select[1](#RISE({1}), #FALL({0}))
+        button_conditioner io_button_cond_select[1](#CLK_FREQ({100000000})) 
+        
+        button_map button_map(.rst(rst))
+        simple_ram reg
+
     }
+    instruction_ROM instruction_ROM
+    cu control_unit
     
     
-    alu_manual_tester alu_manual(.clk(clk), .rst(rst), .io_button(io_button), .io_dip(io_dip)) 
-    
+
     always {
+        
+        io_button_cond_start.in = start_button
+        io_button_edge_start.in = io_button_cond_start.out
+        io_button_cond_select.in = select_button
+        io_button_edge_select.in = io_button_cond_select.out
+        
+        
+        instruction_ROM.address = 0
+        io_button_cond_row.in = row
+        io_button_edge_row.in = io_button_cond_row.out
+        button_map.row = io_button_edge_row.out
+       
+        col = button_map.col
+        
+        alu.alufn = control_unit.alufn
+        
+        
+        control_unit.in = instruction_ROM.out[31:26]
+        reg.ra1 = instruction_ROM.out[20:16]
+        reg.ra2 = instruction_ROM.out[15:11]
+        reg.write_enable = control_unit.we
+        reg.rc = instruction_ROM.out[25:21]
+        alu.a =reg.rd1
+        case(control_unit.asel){
+            default: 
+            alu.b = instruction_ROM.out[15:0]   
+            1b0:
+            alu.b = instruction_ROM.out[15:0]
+            1b1:
+            alu.b = reg.rd2
+        }
+        reg.write_data = alu.out 
+       
+        usb_tx = usb_rx         // loop serial port
+        
         reset_cond.in = ~rst_n  // input raw inverted reset signal
         rst = reset_cond.out    // conditioned reset
+        state.d = state.q
+        led = 8h00              // turn LEDs off
         
-                    // turn LEDs off
-        
-        usb_tx = usb_rx          // loop serial port
-        
+        case (state.q){
+            States.IDLE:
+            state.d = States.SELECT_GAME
+            
+            States.SELECT_GAME:
+            if (select_button){
+            gamemode.d = gamemode.q ^1
+                }
+            if (start_button){
+                   state.d =  States.LOAD
+                if( gamemode.q){
+                instruction_ROM.address = 16haa      
+                    } else{
+                   instruction_ROM.address = 16ha1    
+                    }
+                }
+            States.LOAD:
+            if (gamemode.q) {
+            instruction_ROM.address = reg.rom_sel      
+            
+                } 
+            States.LOAD_INCREASE:
+            instruction_ROM.address = 16h8 
+           
+            
+            States.LOAD_CHECK:
+            instruction_ROM.address   = 16h11 
 
-        // to test ALU 
-        io_segment = alu_manual.io_segment
-        io_select = alu_manual.io_select         
-        io_led = alu_manual.io_led
-        led = alu_manual.led
+            if (reg.reg0){
+                    state.d =  States.LOAD
+                } else{
+                    state.d =  States.SELECT_LEVEL
+                }
+            States.SELECT_LEVEL:
+            if (select_button) {
+             instruction_ROM.address   = 16h12                   
+                } 
+            if (start_button){
+                 state.d = States.LOAD_MAP  
+                }
+            
+            States.LOAD_MAP :
+            instruction_ROM.address = reg.rom_sel
+            
+            States.PLAYER_INPUT :
+            if (button_map.out != 0 ){
+            instruction_ROM.address = button_map.out
+            state.d = States.UPDATE
+                }
+            States.UPDATE:
+             instruction_ROM.address = 16h21   
+            
+            States.CHECK:
+              instruction_ROM.address = 16h21   
+            
+                 
+        }
     }
 }

@@ -1,0 +1,8 @@
+module instruction_ROM (
+    input address,
+    output out[32]
+) {
+    always {
+        out = 0
+    }
+}

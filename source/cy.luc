@@ -1,0 +1,14 @@
+module cu (
+    input in[32],
+    output out[32],
+    output alufn,
+    output asel,
+    output we
+) {
+    always {
+        out = 0
+        asel = 0
+        alufn = 0
+        we = 0
+    }
+}
