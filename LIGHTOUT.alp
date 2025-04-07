@@ -26,12 +26,6 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/pc_unit.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
                     "path": "source/button_map2.luc"
                 }
             },
@@ -142,19 +136,55 @@
                     "type": "DiskFile",
                     "path": "source/rca.luc"
                 }
-            }
-        ],
-        "constraintFiles": [
+            },
             {
                 "file": {
-                    "type": "Component",
-                    "path": "Constraints/alchitry.acf"
+                    "type": "DiskFile",
+                    "path": "source/pc_unit.luc"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
+                    "path": "source/button_decoder.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/tester.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/testere.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/button_MAPER.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/led_mapper.luc"
+                }
+            }
+        ],
+        "constraintFiles": [
+            {
+                "file": {
+                    "type": "DiskFile",
                     "path": "constraint/io_v1_pulldown.acf"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "constraint/alchitry.acf"
                 }
             }
         ],

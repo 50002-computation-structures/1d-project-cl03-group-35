@@ -1,0 +1,166 @@
+module testere (
+    input clk,              // 100MHz clock
+    input rst_n,            // reset button (active low)
+    output led[8],          // 8 user controllable LEDs
+   
+    input select_button[1],
+    input start_button[1],
+    input row[4],
+    output ledbut[16],
+    output pc_[6],
+    output col[4],
+    output rd2[32],
+output ablu[32]
+) {
+
+    sig rst                 // reset signal
+    enum States{ IDLE,SELECT_GAME,LOAD,LOAD_INCREASE,LOAD_CHECK,SELECT_LEVEL,LOAD_MAP,PLAYER_INPUT,RESET,UPDATE,GAMEOVER,
+    CHECK,LOAD_IN}
+    .clk(clk) {
+        // The reset conditioner is used to synchronize the reset signal to the FPGA
+        // clock. This ensures the entire FPGA comes out of reset at the same time.
+        reset_conditioner reset_cond
+        dff state[$width(States)]
+
+       
+        alu alu
+        
+      //  edge_detector io_button_edge_row[4](#RISE(4x{{1}}), #FALL(4x{{0}}))
+      //  button_conditioner io_button_cond_row[4](#CLK_FREQ(4x{{100000000}})) 
+        
+        edge_detector io_button_edge_start[1](#RISE({1}), #FALL({0}))
+        button_conditioner io_button_cond_start[1](#CLK_FREQ({100000000})) 
+        
+        edge_detector io_button_edge_select[1](#RISE({1}), #FALL({0}))
+        button_conditioner io_button_cond_select[1](#CLK_FREQ({100000000})) 
+        
+        button_map button_map(.rst(rst))
+        simple_ram reg
+        
+       // pc_unit pc(.rst(rst))
+        
+        dff pc_reg[6]
+        
+    }
+    instruction_ROM instruction_ROM
+    cu control_unit
+    button_decoder button_decoder
+    sig reg_data_1[32]
+    sig b_sel
+    sig blu [32]
+
+    always {
+        pc_reg.d = pc_reg.q
+        io_button_cond_start.in = start_button
+        io_button_edge_start.in = io_button_cond_start.out
+        io_button_cond_select.in = select_button
+        io_button_edge_select.in = io_button_cond_select.out
+        reg_data_1 = reg.rd1
+        ledbut = reg.button_led[15:0]
+       // pc.pc_in = pc.pc_out
+       // pc.pc_sel = control_unit.pc_sel
+        //pc.rd1 = reg_data_1
+        //pc.game_state = 0
+       // pc.player = button_map.out
+        
+        instruction_ROM.address = pc_reg.q
+       // io_button_cond_row.in = row
+        //io_button_edge_row.in = io_button_cond_row.out
+        button_map.row = row
+        button_decoder.in = button_map.out
+        col = button_map.col
+        
+        alu.alufn = control_unit.alufn
+        
+        
+        control_unit.opcode = instruction_ROM.out[31:26]
+        reg.ra1 = instruction_ROM.out[20:16]
+        reg.ra2 = instruction_ROM.out[15:11]
+       // pc.sxct = instruction_ROM.out[15:0]  
+        reg.write_enable = control_unit.we
+        reg.rc = instruction_ROM.out[25:21]
+        rd2 = reg.rd2
+        alu.a =reg_data_1
+        b_sel = control_unit.bsel
+        
+        case(control_unit.bsel){
+              
+            b0:
+            blu = instruction_ROM.out[15:0]
+            b1:
+            blu = reg.rd2
+            default: 
+            blu = instruction_ROM.out[15:0] 
+        }
+        reg.write_data = alu.out 
+        alu.b = blu
+        ablu =blu
+        reset_cond.in = ~rst_n  // input raw inverted reset signal
+        rst = reset_cond.out    // conditioned reset
+        state.d = state.q
+        led = 8h00              // turn LEDs off
+        pc_ = pc_reg.q
+        
+        case (state.q){
+            States.IDLE:
+                
+            state.d = States.SELECT_GAME
+            
+            States.SELECT_GAME:
+            pc_reg.d = 0
+            if(select_button){
+            pc_reg.d = 1
+                }
+            if (start_button){
+            state.d = States.LOAD
+           
+                }
+            States.LOAD:
+            pc_reg.d = 3
+            state.d = States.LOAD_INCREASE
+            States.LOAD_INCREASE:
+            pc_reg.d = pc_reg.q +1
+            if (pc_reg.q == 18 ){
+                    state.d = States.SELECT_LEVEL
+                }
+            
+            States.LOAD_CHECK:
+            instruction_ROM.address   = 16h11 
+            if (reg.reg0){
+                    state.d =  States.LOAD
+                } else{
+                    state.d =  States.SELECT_LEVEL
+                }
+            States.SELECT_LEVEL:
+            pc_reg.d =0
+            if(select_button){
+            pc_reg.d = 36
+                }
+            if (start_button){
+     
+            state.d = States.LOAD_MAP
+           
+                }
+            
+            States.LOAD_MAP :
+            pc_reg.d = 37
+            state.d = States.LOAD_IN
+            States.LOAD_IN :
+                pc_reg.d = 40
+            state.d = States.PLAYER_INPUT
+            States.PLAYER_INPUT :
+            pc_reg.d = 0
+            if (row != 0){
+            pc_reg.d = button_decoder.out
+                }
+            
+            States.UPDATE:
+             instruction_ROM.address = 16h21   
+            
+            States.CHECK:
+              instruction_ROM.address = 16h21   
+            
+                 
+        }
+    }
+}

@@ -1,0 +1,35 @@
+testbench button_MAPER {
+    sig clk
+    sig rst
+    sig col[4]
+    sig out[8]
+    fun tick_clock() {
+        clk = 1
+        $tick() // tick without capturing signals
+        clk = 0
+        $tick()
+    }
+    button_map button_map(.clk(clk),.rst(rst))
+    test myTest {
+        rst = 0
+        clk = 0 // initialize the value
+        button_map.row = 4b0000
+        col = button_map.col
+        out = button_map.out
+        $tick_clock() // capture initial state
+        col = button_map.col
+    $tick_clock()
+        col = button_map.col
+        button_map.row = 4b0001
+        $tick_clock()
+        col = button_map.col
+        button_map.row = 4b0000
+        $tick_clock()
+        col = button_map.col
+        $tick_clock()
+        col = button_map.col
+        $tick_clock()
+col = button_map.col
+        // test goes here
+    }
+}

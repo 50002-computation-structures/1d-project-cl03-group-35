@@ -1,40 +1,36 @@
-module mux_8 (
-    input s0,  // clock
-    input s1,
-    input s2,  // reset
-    input in0,
-    input in1,
-    input in2,
-    input in3,
-    input in4,
-    input in5,
-    input in6,
-    input in7,
+module pc_unit (
+    input clk,  // clock
+    input rst,  // reset
+    output pc_out[32],
+    input pc_in[32],
+
+    input game_state,
+    input pc_sel[2],
+    input player[32] // address sent by player should be decoder already
+) { dff pc_reg[32] (#INIT(1),.clk(clk))
     
-    output out
-) {
     always {
-        
-        case(c{s0,s1,s2}){
-            3b000:
-            out =in0
-            3b001:
-            out =in1
-            3b010:
-            out =in2
-            3b011:
-            out =in3
-            3b100:
-            out =in4
-            3b101:
-            out =in5
-            3b110:
-            out =in6
-            3b111:
-            out =in7
-            default:
-            out = in7
+        pc_reg.d = pc_reg.q
+        case (game_state){
+            b1: // if gamestate is 1 wait for player inputs running any instructions
+            if (player == 0){
+            pc_reg.d = 0 // if not input address 0 blank instruction
+                } else{
+            pc_reg.d  = player
+                }
+            b0:// if gamestate is 0 auto increment address in rom
+            case(pc_sel){
+            d0:
+            pc_reg.d  = pc_in + 1
             
+          
+            d3:
+            pc_reg.d = b00
+                }
+            if (rst){
+            pc_reg.d = 0
+                }
         }
+        pc_out = pc_reg.q
     }
 }

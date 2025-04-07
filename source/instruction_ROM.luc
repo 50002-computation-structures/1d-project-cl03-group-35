@@ -1,8 +1,75 @@
 module instruction_ROM (
-    input address,
+    input address[32],
     output out[32]
 ) {
+    const INSTRUCTIONS = {
+
+hA94AF800,
+hA94AF000,
+hA94AE000,
+hA94AD800,
+hA94AD000,
+hA94AC800,
+hA94AC000,
+hA94AB800,
+hA94AB000,
+hA94AA800,
+hA94AA000,
+hA94A9800,
+hA94A9000,
+hA94A8800,
+hA94A8000,
+hA94A7800,
+h814A2800,
+hC0A5DFD3,
+hC0A51248,
+hC0A53C82,
+hC0840001,
+hC3FF101B,
+hC3DE2027,
+hC39C404E,
+hC37B808D,
+hC35A01B1,
+hC3390272,
+hC31804E4,
+hC2F708D8,
+hC2D61B10,
+hC2B52720,
+hC2944E40,
+hC2738D80,
+hC252B101,
+hC2317202,
+hC210E404,
+hC1EFD808,
+hED000011,
+hC3FF0013,
+hC3DE0027,
+hC39C004E,
+hC37B008C,
+hC35A0131,
+hC3390272,
+hC31804E4,
+hC2F708C8,
+hC2D61310,
+hC2B52720,
+hC2944E40,
+hC2738C80,
+hC2523100,
+hC2317200,
+hC210E400,
+hC1EFC800,
+h74800002,
+hE8000001,
+h00000000}
+    const NUM_OF_INSTRUCTIONS = $width(INSTRUCTIONS,0) // compute how many instructions are there
+    
     always {
-        out = 0
+        if (address < NUM_OF_INSTRUCTIONS){ // check if addr < number of instructions before slicing the array
+            out = INSTRUCTIONS[address]
+        }
+        else{
+            out = 0
+        }
+       
     }
 }

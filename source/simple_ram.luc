@@ -6,7 +6,7 @@ module simple_ram (
     output rd1 [32] ,
     output rd2 [32] ,     // data read
     output reg0[32],
-    output button_led[32],
+    output button_led[16],
     output count_display[32],
     output count_min[32],
     output rom_sel[32],
@@ -17,7 +17,7 @@ module simple_ram (
     always {
         rd1 = reg.q[ra1]
         rd2 = reg.q[ra2]
-        button_led = reg.q[1]
+        button_led = reg.q[h0A]
         count_display = reg.q[2]
         count_min = reg.q[3]
         rom_sel = reg.q[7]
