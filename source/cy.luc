@@ -5,12 +5,15 @@ module cu (
     output we,
     output pc_sel[2]
 ) {
-    const CONTROL_SIG = {b00,b01}
 
 
     always {
         case(opcode){
-            
+            b110010: //MULTIPLY C
+            bsel = 0
+            pc_sel =1
+            alufn = 000010
+            we =1
             b011101: //BEQ
             bsel = 0
             pc_sel =1
@@ -22,10 +25,21 @@ module cu (
             alufn = b010110
             we =1
         6b110000://ADDC
-        bsel = 0
+            bsel = 0
             pc_sel =0
             alufn = 0
             we =1
+            
+        b011000: //choose A
+             bsel = 0
+            pc_sel =0
+            alufn = b011010
+            we =1  
+        b011100: //choose b sxtc
+            bsel = 0
+            pc_sel =0
+            alufn = b011011
+            we =1    
         b111011://JMPC
             bsel = 0
             pc_sel =2
@@ -47,6 +61,17 @@ module cu (
          pc_sel =0
          alufn = b010110
          we =1 
+        b110110: //CMPLC
+         bsel = 0
+         pc_sel =0
+         alufn = b110111
+         we =1 
+        b110001://SUBC
+         bsel = 0
+         pc_sel =0
+         alufn = b000001
+         we =1   
+
         default: 
             bsel =1
             pc_sel = 0

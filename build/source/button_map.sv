@@ -11,17 +11,17 @@ module button_map (
         input wire [3:0] row,
         output reg [7:0] out
     );
-    localparam _MP_SIZE_869145400 = 3'h4;
-    localparam _MP_DIV_869145400 = 1'h0;
-    localparam _MP_TOP_869145400 = 4'h3;
-    localparam _MP_UP_869145400 = 1'h1;
+    localparam _MP_SIZE_288565794 = 3'h4;
+    localparam _MP_DIV_288565794 = 5'h15;
+    localparam _MP_TOP_288565794 = 4'h3;
+    localparam _MP_UP_288565794 = 1'h1;
     logic [3:0] M_ctr_value;
     
     counter #(
-        .SIZE(_MP_SIZE_869145400),
-        .DIV(_MP_DIV_869145400),
-        .TOP(_MP_TOP_869145400),
-        .UP(_MP_UP_869145400)
+        .SIZE(_MP_SIZE_288565794),
+        .DIV(_MP_DIV_288565794),
+        .TOP(_MP_TOP_288565794),
+        .UP(_MP_UP_288565794)
     ) ctr (
         .clk(clk),
         .rst(rst),

@@ -5,20 +5,20 @@
 */
 
 module button_conditioner #(
-        parameter CLK_FREQ = 27'h5f5e100,
-        parameter MIN_DELAY = 5'h14,
+        parameter CLK_FREQ = 24'h989680,
+        parameter MIN_DELAY = 5'h1e,
         parameter NUM_SYNC = 2'h2
     ) (
         input wire clk,
         input wire in,
         output reg out
     );
-    localparam _MP_DEPTH_984612721 = NUM_SYNC;
+    localparam _MP_DEPTH_1639499660 = NUM_SYNC;
     logic M_sync_in;
     logic M_sync_out;
     
     pipeline #(
-        .DEPTH(_MP_DEPTH_984612721)
+        .DEPTH(_MP_DEPTH_1639499660)
     ) sync (
         .clk(clk),
         .in(M_sync_in),
@@ -26,7 +26,7 @@ module button_conditioner #(
     );
     
     
-    logic [($clog2(CLK_FREQ * MIN_DELAY / 10'h3e8))-1:0] D_ctr_d, D_ctr_q = 0;
+    logic [20:0] D_ctr_d, D_ctr_q = 0;
     always @* begin
         D_ctr_d = D_ctr_q;
         

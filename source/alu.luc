@@ -2,7 +2,7 @@ module alu (
     input a[32],
     input b[32],
     input alufn[6],
-    input clk,
+
     output out[32],
     output z,
     output v,
@@ -58,7 +58,13 @@ module alu (
             
             
             2b01:
-            out =boolean.bool
+            if (alufn == b011011){
+            out = b
+                }else{
+                out =boolean.bool    
+                }
+            
+                
 
             2b10:
             out = shifter.shift

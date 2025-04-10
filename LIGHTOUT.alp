@@ -49,12 +49,6 @@
             },
             {
                 "file": {
-                    "type": "Component",
-                    "path": "Conditioning/button_conditioner.luc"
-                }
-            },
-            {
-                "file": {
                     "type": "DiskFile",
                     "path": "source/instruction_ROM.luc"
                 }
@@ -140,37 +134,55 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/pc_unit.luc"
+                    "path": "source/manual_tester.luc"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/button_decoder.luc"
+                    "path": "source/testing.luc"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/tester.luc"
+                    "path": "source/button_conditioner.luc"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/testere.luc"
+                    "path": "source/multi_seven_seg.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Miscellaneous/decoder.luc"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/button_MAPER.luc"
+                    "path": "source/seven_seg.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Miscellaneous/bin_to_dec.luc"
                 }
             },
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/led_mapper.luc"
+                    "path": "source/multi_word_seg.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/letter_seg.luc"
                 }
             }
         ],

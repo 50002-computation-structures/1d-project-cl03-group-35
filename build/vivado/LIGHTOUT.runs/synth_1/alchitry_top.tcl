@@ -86,24 +86,29 @@ OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/adder.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/alu.sv
+  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/bin_to_dec.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/bit_reverse.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/bool.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/button_conditioner.sv
-  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/button_decoder.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/button_map.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/compare.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/counter.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/cu.sv
+  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/decoder.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/edge_detector.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/fa.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/instruction_ROM.sv
-  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/led_mapper.sv
+  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/letter_seg.sv
+  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/manual_tester.sv
+  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/multi_seven_seg.sv
+  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/multi_word_seg.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/multiplier.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/mux_2.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/mux_4.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/pipeline.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/rca.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/reset_conditioner.sv
+  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/seven_seg.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/shifter.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/simple_ram.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/x_bit_left_shifter.sv

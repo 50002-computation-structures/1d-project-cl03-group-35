@@ -11,25 +11,33 @@ module simple_ram (
         input wire [4:0] rc,
         output reg [31:0] rd1,
         output reg [31:0] rd2,
-        output reg [31:0] reg0,
+        output reg z,
         output reg [15:0] button_led,
-        output reg [31:0] count_display,
+        output reg [31:0] level_select,
         output reg [31:0] count_min,
         output reg [31:0] rom_sel,
         input wire [31:0] write_data,
-        input wire write_enable
+        input wire write_enable,
+        output reg [15:0] button1
     );
     logic [31:0][31:0] D_reg_d, D_reg_q = 0;
+    logic [15:0] button2;
+    logic [15:0] button3;
+    logic [15:0] button4;
     always @* begin
         D_reg_d = D_reg_q;
         
         rd1 = D_reg_q[ra1];
         rd2 = D_reg_q[ra2];
-        button_led = D_reg_q[8'ha];
-        count_display = D_reg_q[2'h2];
-        count_min = D_reg_q[2'h3];
-        rom_sel = D_reg_q[3'h7];
-        reg0 = D_reg_q[1'h0];
+        button_led = D_reg_q[3'h4][4'hf:1'h0];
+        level_select = D_reg_q[3'h7];
+        count_min = D_reg_q[3'h5];
+        rom_sel = D_reg_q[4'hb];
+        z = D_reg_q[1'h1][1'h0];
+        button1 = D_reg_q[4'hf][4'hf:1'h0];
+        button2 = D_reg_q[5'h11][4'hf:1'h0];
+        button3 = D_reg_q[5'h12][4'hf:1'h0];
+        button4 = D_reg_q[5'h13][4'hf:1'h0];
         if (write_enable) begin
             D_reg_d[rc] = write_data;
         end

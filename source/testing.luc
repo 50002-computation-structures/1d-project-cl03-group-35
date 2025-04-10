@@ -1,0 +1,108 @@
+testbench testing {
+    sig clk
+    sig rst
+    fun tick_clock() {
+        clk = 1
+        $tick() // tick without capturing signals
+        clk = 0
+        $tick()
+
+    }
+  manual_tester cpu(.clk(clk),.rst(rst))
+    test myTest {
+        rst = 0
+ 
+        clk = 0 // initialize the value
+         cpu.select_button =0
+        cpu.start_button =0
+        cpu.row = b0000
+        $tick_clock() // capture initial state
+        $tick_clock() 
+        cpu.start_button =1
+        $tick_clock() 
+        cpu.start_button =0
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+                $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+                $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        cpu.start_button =1
+        $tick_clock() 
+        cpu.start_button =0
+        $tick_clock() 
+        
+        
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        $tick_clock() 
+        
+        $tick_clock() 
+        $tick_clock() 
+        
+        // test goes here
+    }
+}

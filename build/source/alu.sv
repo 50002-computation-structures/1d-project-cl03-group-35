@@ -8,7 +8,6 @@ module alu (
         input wire [31:0] a,
         input wire [31:0] b,
         input wire [5:0] alufn,
-        input wire clk,
         output reg [31:0] out,
         output reg z,
         output reg v,
@@ -25,7 +24,7 @@ module alu (
     );
     
     
-    localparam _MP_SIZE_980443024 = 6'h20;
+    localparam _MP_SIZE_1662252781 = 6'h20;
     logic [31:0] M_adder_a;
     logic [31:0] M_adder_b;
     logic [5:0] M_adder_alufn;
@@ -35,7 +34,7 @@ module alu (
     logic M_adder_n;
     
     adder #(
-        .SIZE(_MP_SIZE_980443024)
+        .SIZE(_MP_SIZE_1662252781)
     ) adder (
         .a(M_adder_a),
         .b(M_adder_b),
@@ -75,14 +74,14 @@ module alu (
     );
     
     
-    localparam _MP_SIZE_2130853743 = 6'h20;
+    localparam _MP_SIZE_994102111 = 6'h20;
     logic [31:0] M_boolean_a;
     logic [31:0] M_boolean_b;
     logic [5:0] M_boolean_alufn;
     logic [31:0] M_boolean_bool;
     
     bool #(
-        .SIZE(_MP_SIZE_2130853743)
+        .SIZE(_MP_SIZE_994102111)
     ) boolean (
         .a(M_boolean_a),
         .b(M_boolean_b),
@@ -125,7 +124,11 @@ module alu (
                 endcase
             end
             2'h1: begin
-                out = M_boolean_bool;
+                if (alufn == 6'h1b) begin
+                    out = b;
+                end else begin
+                    out = M_boolean_bool;
+                end
             end
             2'h2: begin
                 out = M_shifter_shift;
