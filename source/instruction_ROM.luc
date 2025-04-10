@@ -3,7 +3,9 @@ module instruction_ROM (
     output out[32]
 ) {
     const INSTRUCTIONS = {
-hD8270003,
+hCC240000,
+h81673000,
+hD8270004,
 hC4E70004,
 hC0E70001,
 hC0A50001,
@@ -24,7 +26,10 @@ hA8849000,
 hA8848800,
 hA8848000,
 hA8847800,
-h80841800,
+h80801800,
+hC063DFD3,
+hC0631248,
+hC0633C82,
 hC063DFD3,
 hC0631248,
 hC0633C82,
@@ -66,9 +71,11 @@ hC252008C,
 hC231004E,
 hC2100027,
 hC1EF0013,
-h64400404,
 h716B0014,
-h716B0003
+h716B0003,
+h00000000
+
+
     }
     const NUM_OF_INSTRUCTIONS = $width(INSTRUCTIONS,0) // compute how many instructions are there
     

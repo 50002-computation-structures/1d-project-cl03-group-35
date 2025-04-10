@@ -31,7 +31,7 @@
    delay will be between MIN_DELAY and 2 * MIN_DELAY.
 */
 
-module button_conditioner #(
+module button_conditioner_matrix #(
     CLK_FREQ ~ 10000000 : CLK_FREQ > 0,// clock frequency
     MIN_DELAY = 30 : MIN_DELAY > 0,     // minimum delay in ms
     NUM_SYNC = 2 : NUM_SYNC > 1         // number of sync flip flops
@@ -42,16 +42,31 @@ module button_conditioner #(
 ) {
 
     .clk(clk) {
-        pipeline sync(#DEPTH(NUM_SYNC)) // synchronizing chain
+        pipeline sync(#DEPTH(2)) // synchronizing chain
 
         // CLK_FREQ * MIN_DELAY / 1000 = clock cycles for MIN_DELAY milliseconds
         dff ctr[$clog2(10000000 * 200/ 1000)]
+        dff ctr2[$clog2(10000000 * 2000/ 1000)]
+        dff on[1] 
     }
 
     always {
-        sync.in = in
-        out = &ctr.q          // output 1 when ctr is full
-
+       sync.in = in
+ 
+        out = on.q         // output 1 when ctr is full
+        if (on.q==0){
+            on.d = &ctr.q
+            ctr2.d =hfffffffffff
+        }
+        if (on.q==1){
+            if (in==1){
+                ctr2.d =hfffffffffff
+            }
+            ctr2.d = ctr2.q-1
+            if(ctr2.q<=0){
+                on.d=0
+            }
+        }
         if (!&ctr.q)          // if counter isn't full
             ctr.d = ctr.q + 1 // increment it
 

@@ -17,13 +17,9 @@ module simple_ram (
         output reg [31:0] count_min,
         output reg [31:0] rom_sel,
         input wire [31:0] write_data,
-        input wire write_enable,
-        output reg [15:0] button1
+        input wire write_enable
     );
     logic [31:0][31:0] D_reg_d, D_reg_q = 0;
-    logic [15:0] button2;
-    logic [15:0] button3;
-    logic [15:0] button4;
     always @* begin
         D_reg_d = D_reg_q;
         
@@ -33,11 +29,7 @@ module simple_ram (
         level_select = D_reg_q[3'h7];
         count_min = D_reg_q[3'h5];
         rom_sel = D_reg_q[4'hb];
-        z = D_reg_q[1'h1][1'h0];
-        button1 = D_reg_q[4'hf][4'hf:1'h0];
-        button2 = D_reg_q[5'h11][4'hf:1'h0];
-        button3 = D_reg_q[5'h12][4'hf:1'h0];
-        button4 = D_reg_q[5'h13][4'hf:1'h0];
+        z = D_reg_q[1'h1];
         if (write_enable) begin
             D_reg_d[rc] = write_data;
         end

@@ -34,6 +34,8 @@ module manual_tester (
     localparam E_States_LOAD_COUNTER = 5'hf;
     localparam E_States_LEVEL_ADVANCE = 5'h10;
     localparam E_States_CHECK_LEVEL = 5'h11;
+    localparam E_States_PRE_SELECT = 5'h12;
+    localparam E_States_MAP_SELECTOR = 5'h13;
     logic [3:0] M_button_map_col;
     logic [3:0] M_button_map_row;
     logic [7:0] M_button_map_out;
@@ -63,7 +65,6 @@ module manual_tester (
     logic [31:0] M_reg_rom_sel;
     logic [31:0] M_reg_write_data;
     logic M_reg_write_enable;
-    logic [15:0] M_reg_button1;
     
     simple_ram L_reg (
         .clk(clk),
@@ -78,20 +79,19 @@ module manual_tester (
         .count_min(M_reg_count_min),
         .rom_sel(M_reg_rom_sel),
         .write_data(M_reg_write_data),
-        .write_enable(M_reg_write_enable),
-        .button1(M_reg_button1)
+        .write_enable(M_reg_write_enable)
     );
     
     
-    localparam _MP_DIGITS_1676852617 = 3'h4;
-    localparam _MP_DIV_1676852617 = 3'h4;
+    localparam _MP_DIGITS_958817258 = 3'h4;
+    localparam _MP_DIV_958817258 = 3'h4;
     logic [3:0][3:0] M_seg_values;
     logic [7:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_1676852617),
-        .DIV(_MP_DIV_1676852617)
+        .DIGITS(_MP_DIGITS_958817258),
+        .DIV(_MP_DIV_958817258)
     ) seg (
         .rst(rst),
         .clk(clk),
@@ -101,15 +101,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1160655609 = 3'h4;
-    localparam _MP_DIV_1160655609 = 3'h4;
+    localparam _MP_DIGITS_1261056099 = 3'h4;
+    localparam _MP_DIV_1261056099 = 3'h4;
     logic [3:0][3:0] M_word_seg_values;
     logic [7:0] M_word_seg_seg;
     logic [3:0] M_word_seg_sel;
     
     multi_word_seg #(
-        .DIGITS(_MP_DIGITS_1160655609),
-        .DIV(_MP_DIV_1160655609)
+        .DIGITS(_MP_DIGITS_1261056099),
+        .DIV(_MP_DIV_1261056099)
     ) word_seg (
         .rst(rst),
         .clk(clk),
@@ -162,14 +162,14 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_299498829 = 3'h4;
-    localparam _MP_LEADING_ZEROS_299498829 = 1'h1;
+    localparam _MP_DIGITS_1205505591 = 3'h4;
+    localparam _MP_LEADING_ZEROS_1205505591 = 1'h1;
     logic [13:0] M_decimal_renderer_value;
     logic [3:0][3:0] M_decimal_renderer_digits;
     
     bin_to_dec #(
-        .DIGITS(_MP_DIGITS_299498829),
-        .LEADING_ZEROS(_MP_LEADING_ZEROS_299498829)
+        .DIGITS(_MP_DIGITS_1205505591),
+        .LEADING_ZEROS(_MP_LEADING_ZEROS_1205505591)
     ) decimal_renderer (
         .value(M_decimal_renderer_value),
         .digits(M_decimal_renderer_digits)
@@ -229,7 +229,7 @@ module manual_tester (
                     D_gamemode_d = D_gamemode_q ^ 1'h1;
                 end
                 if (start_button) begin
-                    M_iROM_address = D_gamemode_q;
+                    M_iROM_address = D_gamemode_q + 1'h1;
                     D_state_d = 5'h2;
                 end
             end
@@ -246,44 +246,46 @@ module manual_tester (
                 D_state_d = 5'h4;
             end
             5'h4: begin
-                if (~M_reg_z) begin
+                if (M_reg_rom_sel > 5'h12) begin
                     D_state_d = 5'h6;
                     M_iROM_address = 6'h27;
                 end else begin
-                    M_iROM_address = 2'h2;
                     D_state_d = 5'h2;
                 end
             end
             5'h6: begin
-                M_iROM_address = 7'h41;
                 M_seg_values = {{{4'hf}}, {{4'hf}}, {M_reg_level_select[3'h7:3'h4]}, {M_reg_level_select[2'h3:1'h0]}};
-                D_led_d = M_reg_z;
                 if (select_button) begin
-                    M_iROM_address = 6'h3f;
-                    D_state_d = 5'h10;
+                    M_iROM_address = 6'h28;
+                    D_state_d = 5'h12;
                 end
                 if (start_button) begin
-                    M_iROM_address = 7'h40;
+                    D_state_d = 5'h7;
                 end
             end
+            5'h12: begin
+                M_iROM_address = 6'h28;
+                D_state_d = 5'h10;
+            end
             5'h10: begin
-                D_led_d = M_reg_z;
-                M_iROM_address = 2'h2;
-                if (~M_reg_z) begin
-                    M_iROM_address = 7'h40;
+                if (M_reg_z == 1'h0) begin
+                    M_iROM_address = 6'h28;
                 end
                 D_state_d = 5'h6;
             end
             5'h7: begin
-                M_iROM_address = 6'h29;
-                D_state_d = 5'h8;
+                M_seg_values = {{{4'hf}}, {{4'ha}}, {M_reg_rom_sel[3'h7:3'h4]}, {M_reg_rom_sel[2'h3:1'h0]}};
+                if (select_button) begin
+                    M_iROM_address = 6'h29;
+                    D_state_d = 5'h8;
+                end
             end
             5'h8: begin
-                M_iROM_address = 6'h2c;
+                M_iROM_address = 6'h2f;
                 D_state_d = 5'hf;
             end
             5'hf: begin
-                M_iROM_address = 6'h3d;
+                M_iROM_address = 7'h40;
                 D_state_d = 5'h9;
             end
             5'h9: begin
@@ -294,68 +296,68 @@ module manual_tester (
                 
                 case (M_button_map_out)
                     8'h11: begin
-                        M_iROM_address = 6'h2d;
-                        D_led_d = 6'h2d;
-                    end
-                    8'h21: begin
-                        M_iROM_address = 6'h2e;
-                        D_led_d = 6'h2e;
-                    end
-                    8'h41: begin
-                        M_iROM_address = 6'h2f;
-                        D_led_d = 6'h2f;
-                    end
-                    8'h81: begin
                         M_iROM_address = 6'h30;
                         D_led_d = 6'h30;
                     end
-                    8'h12: begin
+                    8'h21: begin
                         M_iROM_address = 6'h31;
                         D_led_d = 6'h31;
                     end
-                    8'h22: begin
+                    8'h41: begin
                         M_iROM_address = 6'h32;
                         D_led_d = 6'h32;
                     end
-                    8'h42: begin
+                    8'h81: begin
                         M_iROM_address = 6'h33;
                         D_led_d = 6'h33;
                     end
-                    8'h82: begin
+                    8'h12: begin
                         M_iROM_address = 6'h34;
                         D_led_d = 6'h34;
                     end
-                    8'h14: begin
+                    8'h22: begin
                         M_iROM_address = 6'h35;
                         D_led_d = 6'h35;
                     end
-                    8'h24: begin
+                    8'h42: begin
                         M_iROM_address = 6'h36;
                         D_led_d = 6'h36;
                     end
-                    8'h44: begin
+                    8'h82: begin
                         M_iROM_address = 6'h37;
                         D_led_d = 6'h37;
                     end
-                    8'h84: begin
+                    8'h14: begin
                         M_iROM_address = 6'h38;
                         D_led_d = 6'h38;
                     end
-                    8'h18: begin
+                    8'h24: begin
                         M_iROM_address = 6'h39;
                         D_led_d = 6'h39;
                     end
-                    8'h28: begin
+                    8'h44: begin
                         M_iROM_address = 6'h3a;
                         D_led_d = 6'h3a;
                     end
-                    8'h48: begin
+                    8'h84: begin
                         M_iROM_address = 6'h3b;
                         D_led_d = 6'h3b;
                     end
-                    8'h88: begin
+                    8'h18: begin
                         M_iROM_address = 6'h3c;
                         D_led_d = 6'h3c;
+                    end
+                    8'h28: begin
+                        M_iROM_address = 6'h3d;
+                        D_led_d = 6'h3d;
+                    end
+                    8'h48: begin
+                        M_iROM_address = 6'h3e;
+                        D_led_d = 6'h3e;
+                    end
+                    8'h88: begin
+                        M_iROM_address = 6'h3f;
+                        D_led_d = 6'h3f;
                     end
                     default: begin
                         D_led_d = D_led_q;
@@ -363,12 +365,19 @@ module manual_tester (
                 endcase
             end
             5'hb: begin
-                D_led_d = 6'h3e;
-                M_iROM_address = 6'h3e;
+                M_iROM_address = 7'h41;
                 D_state_d = 5'h9;
             end
             5'hd: begin
-                M_iROM_address = 6'h3e;
+                M_iROM_address = 7'h46;
+                D_state_d = 5'hc;
+            end
+            5'hc: begin
+                if (M_reg_z == 1'h1) begin
+                    D_state_d = 5'h1;
+                end else begin
+                    D_state_d = 5'h9;
+                end
             end
         endcase
     end

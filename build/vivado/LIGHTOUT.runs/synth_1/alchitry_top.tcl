@@ -90,6 +90,7 @@ read_verilog -library xil_defaultlib -sv {
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/bit_reverse.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/bool.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/button_conditioner.sv
+  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/button_conditioner_matrix.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/button_map.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/compare.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/counter.sv

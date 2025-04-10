@@ -13,7 +13,8 @@ module manual_tester (
 
 
     enum States{ IDLE,SELECT_GAME,LOAD,LOAD_INCREASE,LOAD_ADVANCE,LOAD_CHECK,SELECT_LEVEL,LOAD_MAP_TO_3,
-        LOAD_MAP_TO_4,PLAYER_INPUT,RESET,UPDATE,GAMEOVER,CHECK,LOAD_IN,LOAD_COUNTER,LEVEL_ADVANCE,CHECK_LEVEL}
+        LOAD_MAP_TO_4,PLAYER_INPUT,RESET,UPDATE,GAMEOVER,CHECK,LOAD_IN,LOAD_COUNTER,LEVEL_ADVANCE,CHECK_LEVEL,
+    PRE_SELECT,MAP_SELECTOR}
     .clk(clk) {
              
         button_map button_map(.rst(rst))
@@ -45,7 +46,7 @@ module manual_tester (
         io_segment = ~seg.seg
         seg_selector = ~seg.sel 
         
-        
+
         // control_unit
         control_unit.opcode = iROM.out[31:26]
         
@@ -85,61 +86,80 @@ module manual_tester (
         seg_selector = ~word_seg.sel 
             if (select_button){
                    gamemode.d = gamemode.q ^ 1 
-
+                    
                 }
             if(start_button){
-                  iROM.address = gamemode.q 
+                  iROM.address = gamemode.q +1
                   state.d = States.LOAD  
                   
                 }
            States.LOAD:
+                
              iROM.address =  reg.rom_sel  
             state.d = States.LOAD_INCREASE
            States.LOAD_INCREASE:
-             iROM.address = 36// add 1 to reg[7]
-            state.d = States.LOAD_CHECK
+                
+ 
+            iROM.address = 36// add 1 to ROM SEL
+            state.d = States.LOAD_CHECK     
+
+
            States.LOAD_CHECK:
-            iROM.address = 37 // CHECK if reg[7]<16
+            iROM.address = 37 // CHECK if ROMSEL <19
             state.d = States.LOAD_ADVANCE
-           States.LOAD_ADVANCE:     
-            if (~reg.z){ // if z = 1 , have not complete loading
+           States.LOAD_ADVANCE:   
+                  
+            if (reg.rom_sel >18){ // if z = 1 , have not complete loading
              state.d = States.SELECT_LEVEL
             iROM.address = 39
-                }else{
-            iROM.address = 2 // blank
+                }
+            else{
             state.d = States.LOAD 
                 }
            States.SELECT_LEVEL:
-           iROM.address = 65 
-            seg.values  = c{{4hf},{4hf},{reg.level_select[7:4]},{reg.level_select[3:0]}} //display difficulty level
-            led.d = reg.z
-              if (select_button){
-                  iROM.address = 63 // ADD  1 to level select
-                  state.d = States.LEVEL_ADVANCE 
+           
+           seg.values  = c{{4hf},{4hf},{reg.level_select[7:4]},{reg.level_select[3:0]}} //display difficulty level
+           
+             if (select_button){
+             iROM.address = 40 // ADD  1 to level select
+             state.d = States.PRE_SELECT
                 }
             if(start_button){
-             iROM.address = 64 // -4                   
+            state.d =States.LOAD_MAP_TO_3
                 }  
-
+            
+            
+            States.PRE_SELECT:
+            iROM.address = 40// CMPLEC if LEVEL SELECT <3
+ 
+            state.d = States.LEVEL_ADVANCE
+            
             States.LEVEL_ADVANCE:
-             led.d = reg.z
-                iROM.address = 2 // blank
-             if (~reg.z){ // if z = 1 , level select <3
-            iROM.address = 64 // reset to 0
+            
+            if (reg.z== 0){
+                  iROM.address = 40 // -4  RESET REG[7] SUBC 4
                 }
             
-            state.d = States.SELECT_LEVEL 
-                
+            state.d = States.SELECT_LEVEL    
             
-           States.LOAD_MAP_TO_3:
-                iROM.address = 41 // ADDC to REG[3]
-            state.d = States.LOAD_MAP_TO_4 
+          
+            
+           States.LOAD_MAP_TO_3:    
+                seg.values  = c{{4hf},{4hA},{reg.rom_sel[7:4]},{reg.rom_sel[3:0]}} 
+            if(select_button){
+            iROM.address = 41 // ADDC to REG[3]
+            state.d = States.LOAD_MAP_TO_4         
+                }
+
+            
             States.LOAD_MAP_TO_4:
-             iROM.address = 44 // ADD REG3 to REG 4
+             iROM.address = 47 // ADD REG3 to REG 4
                 
             state.d = States.LOAD_COUNTER  
+            
+          
             States.LOAD_COUNTER:
-             iROM.address = 61 // ADD Min move to Reg 5
+             iROM.address = 64 // ADD Min move to Reg 5
             state.d = States.PLAYER_INPUT 
            States.PLAYER_INPUT:
             ledout  = reg.count_min[7:0]
@@ -149,62 +169,70 @@ module manual_tester (
         
             case(button_map.out){      
                 b00010001:
-                    iROM.address = 45
-                    led.d = 45
-                b00100001:
-                    iROM.address = 46
-                    led.d = 46
-                b01000001:
-                    iROM.address = 47
-                    led.d = 47
-                b10000001:
                     iROM.address = 48
                     led.d = 48
-                b00010010:
+                b00100001:
                     iROM.address = 49
                     led.d = 49
-                b00100010:
+                b01000001:
                     iROM.address = 50
                     led.d = 50
-                b01000010:
+                b10000001:
                     iROM.address = 51
                     led.d = 51
-                b10000010:
+                b00010010:
                     iROM.address = 52
                     led.d = 52
-                b00010100:
+                b00100010:
                     iROM.address = 53
                     led.d = 53
-                b00100100:
+                b01000010:
                     iROM.address = 54
                     led.d = 54
-                b01000100:
+                b10000010:
                     iROM.address = 55
                     led.d = 55
-                b10000100:
+                b00010100:
                     iROM.address = 56
                     led.d = 56
-                b00011000:
+                b00100100:
                     iROM.address = 57
                     led.d = 57
-                b00101000:
+                b01000100:
                     iROM.address = 58
                     led.d = 58
-                b01001000:
+                b10000100:
                     iROM.address = 59
                     led.d = 59
-                b10001000:
+                b00011000:
                     iROM.address = 60
                     led.d = 60
+                b00101000:
+                    iROM.address = 61
+                    led.d = 61
+                b01001000:
+                    iROM.address = 62
+                    led.d = 62
+                b10001000:
+                    iROM.address = 63
+                    led.d = 63
                 default:
                 led.d = led.q
                     }
                States.UPDATE:
-                led.d = 62
-                iROM.address = 62
+
+                iROM.address = 65
                state.d = States.PLAYER_INPUT   
             States.CHECK  :
-                iROM.address = 62       
+                iROM.address = 70   
+                state.d = States.GAMEOVER      
+            States.GAMEOVER:   
+            if (reg.z ==1){
+                 state.d = States.SELECT_GAME     
+                }
+            else{
+                state.d = States.PLAYER_INPUT      
+                }
             
         }
         }

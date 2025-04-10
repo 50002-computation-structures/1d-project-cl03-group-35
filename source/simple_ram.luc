@@ -11,14 +11,12 @@ module simple_ram (
     output count_min[32],
     output rom_sel[32],
     input write_data[32],         // data to write
-    input write_enable,
-    output button1[16]
+    input write_enable
+
     
 ) {dff reg[32][32](.clk(clk))
     
-    sig button2[16]
-    sig button3[16]
-    sig button4[16]
+
     always {
         rd1 = reg.q[ra1]
         rd2 = reg.q[ra2]
@@ -26,11 +24,8 @@ module simple_ram (
         level_select = reg.q[7]
         count_min = reg.q[5]
         rom_sel = reg.q[11]
-        z = reg.q[1][0]
-        button1 = reg.q[15][15:0]
-        button2 = reg.q[17][15:0]
-        button3 = reg.q[18][15:0]
-        button4 = reg.q[19][15:0]
+        z = reg.q[1]
+
         if (write_enable){
             reg.d[rc] = write_data
         }

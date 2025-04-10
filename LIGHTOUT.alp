@@ -140,12 +140,6 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/testing.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
                     "path": "source/button_conditioner.luc"
                 }
             },
@@ -183,6 +177,12 @@
                 "file": {
                     "type": "DiskFile",
                     "path": "source/letter_seg.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "Component",
+                    "path": "Conditioning/button_conditioner.luc"
                 }
             }
         ],

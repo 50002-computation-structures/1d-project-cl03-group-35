@@ -4,21 +4,21 @@
     This is a temporary file and any changes made to it will be destroyed.
 */
 
-module button_conditioner #(
-        parameter CLK_FREQ = 27'h5f5e100,
-        parameter MIN_DELAY = 5'h14,
+module button_conditioner_matrix #(
+        parameter CLK_FREQ = 24'h989680,
+        parameter MIN_DELAY = 5'h1e,
         parameter NUM_SYNC = 2'h2
     ) (
         input wire clk,
         input wire in,
         output reg out
     );
-    localparam _MP_DEPTH_606224423 = NUM_SYNC;
+    localparam _MP_DEPTH_1151989812 = 2'h2;
     logic M_sync_in;
     logic M_sync_out;
     
     pipeline #(
-        .DEPTH(_MP_DEPTH_606224423)
+        .DEPTH(_MP_DEPTH_1151989812)
     ) sync (
         .clk(clk),
         .in(M_sync_in),
@@ -26,12 +26,29 @@ module button_conditioner #(
     );
     
     
-    logic [($clog2(CLK_FREQ * MIN_DELAY / 10'h3e8))-1:0] D_ctr_d, D_ctr_q = 0;
+    logic [20:0] D_ctr_d, D_ctr_q = 0;
+    logic [24:0] D_ctr2_d, D_ctr2_q = 0;
+    logic [0:0] D_on_d, D_on_q = 0;
     always @* begin
+        D_on_d = D_on_q;
+        D_ctr2_d = D_ctr2_q;
         D_ctr_d = D_ctr_q;
         
         M_sync_in = in;
-        out = (&D_ctr_q);
+        out = D_on_q;
+        if (D_on_q == 1'h0) begin
+            D_on_d = (&D_ctr_q);
+            D_ctr2_d = 44'hfffffffffff;
+        end
+        if (D_on_q == 1'h1) begin
+            if (M_sync_out == 1'h1) begin
+                D_ctr2_d = 44'hfffffffffff;
+            end
+            D_ctr2_d = D_ctr2_q - 1'h1;
+            if (D_ctr2_q <= 1'h0) begin
+                D_on_d = 1'h0;
+            end
+        end
         if (!(&D_ctr_q)) begin
             D_ctr_d = D_ctr_q + 1'h1;
         end
@@ -43,6 +60,8 @@ module button_conditioner #(
     
     always @(posedge (clk)) begin
         D_ctr_q <= D_ctr_d;
+        D_ctr2_q <= D_ctr2_d;
+        D_on_q <= D_on_d;
         
     end
 endmodule

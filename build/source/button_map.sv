@@ -11,17 +11,17 @@ module button_map (
         input wire [3:0] row,
         output reg [7:0] out
     );
-    localparam _MP_SIZE_288565794 = 3'h4;
-    localparam _MP_DIV_288565794 = 5'h15;
-    localparam _MP_TOP_288565794 = 4'h3;
-    localparam _MP_UP_288565794 = 1'h1;
+    localparam _MP_SIZE_431497914 = 3'h4;
+    localparam _MP_DIV_431497914 = 5'h15;
+    localparam _MP_TOP_431497914 = 4'h3;
+    localparam _MP_UP_431497914 = 1'h1;
     logic [3:0] M_ctr_value;
     
     counter #(
-        .SIZE(_MP_SIZE_288565794),
-        .DIV(_MP_DIV_288565794),
-        .TOP(_MP_TOP_288565794),
-        .UP(_MP_UP_288565794)
+        .SIZE(_MP_SIZE_431497914),
+        .DIV(_MP_DIV_431497914),
+        .TOP(_MP_TOP_431497914),
+        .UP(_MP_UP_431497914)
     ) ctr (
         .clk(clk),
         .rst(rst),
@@ -30,6 +30,7 @@ module button_map (
     
     
     logic [3:0] D_state_d, D_state_q = 0;
+    logic [3:0] out_col;
     always @* begin
         D_state_d = D_state_q;
         
@@ -39,13 +40,13 @@ module button_map (
         col = D_state_q;
         out = 8'h0;
         if (row[1'h0]) begin
-            out = {D_state_q, 4'h1};
+            out = {D_state_q >> 1'h1, 4'h1};
         end
         if (row[1'h1]) begin
-            out = {D_state_q, 4'h2};
+            out = {D_state_q >> 1'h1, 4'h2};
         end
         if (row[2'h2]) begin
-            out = {D_state_q, 4'h4};
+            out = {D_state_q >> 1'h1, 4'h4};
         end
         if (row[2'h3]) begin
             out = {D_state_q, 4'h8};
