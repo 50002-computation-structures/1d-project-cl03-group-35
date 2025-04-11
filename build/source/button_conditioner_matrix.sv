@@ -13,12 +13,12 @@ module button_conditioner_matrix #(
         input wire in,
         output reg out
     );
-    localparam _MP_DEPTH_1151989812 = 2'h2;
+    localparam _MP_DEPTH_1611479796 = 2'h2;
     logic M_sync_in;
     logic M_sync_out;
     
     pipeline #(
-        .DEPTH(_MP_DEPTH_1151989812)
+        .DEPTH(_MP_DEPTH_1611479796)
     ) sync (
         .clk(clk),
         .in(M_sync_in),
@@ -27,7 +27,7 @@ module button_conditioner_matrix #(
     
     
     logic [20:0] D_ctr_d, D_ctr_q = 0;
-    logic [24:0] D_ctr2_d, D_ctr2_q = 0;
+    logic [23:0] D_ctr2_d, D_ctr2_q = 0;
     logic [0:0] D_on_d, D_on_q = 0;
     always @* begin
         D_on_d = D_on_q;
@@ -41,10 +41,10 @@ module button_conditioner_matrix #(
             D_ctr2_d = 44'hfffffffffff;
         end
         if (D_on_q == 1'h1) begin
-            if (M_sync_out == 1'h1) begin
+            D_ctr2_d = D_ctr2_q - 1'h1;
+            if (in) begin
                 D_ctr2_d = 44'hfffffffffff;
             end
-            D_ctr2_d = D_ctr2_q - 1'h1;
             if (D_ctr2_q <= 1'h0) begin
                 D_on_d = 1'h0;
             end

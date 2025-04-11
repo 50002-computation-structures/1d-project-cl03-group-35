@@ -162,7 +162,8 @@ module manual_tester (
              iROM.address = 64 // ADD Min move to Reg 5
             state.d = States.PLAYER_INPUT 
            States.PLAYER_INPUT:
-            ledout  = reg.count_min[7:0]
+            seg.values  = c{{ha},{iROM.out[27:24]},{iROM.out[23:20]},{iROM.out[19:16]}}
+                
             if(|button_map.out[3:0]){
                 state.d = States.UPDATE   
                 }
@@ -170,57 +171,56 @@ module manual_tester (
             case(button_map.out){      
                 b00010001:
                     iROM.address = 48
-                    led.d = 48
+        
                 b00100001:
                     iROM.address = 49
-                    led.d = 49
+              
                 b01000001:
                     iROM.address = 50
-                    led.d = 50
+               
                 b10000001:
                     iROM.address = 51
-                    led.d = 51
+               
                 b00010010:
                     iROM.address = 52
-                    led.d = 52
+                
                 b00100010:
                     iROM.address = 53
-                    led.d = 53
+                
                 b01000010:
                     iROM.address = 54
-                    led.d = 54
+                
                 b10000010:
                     iROM.address = 55
-                    led.d = 55
+                
                 b00010100:
                     iROM.address = 56
-                    led.d = 56
+          
                 b00100100:
                     iROM.address = 57
-                    led.d = 57
+        
                 b01000100:
                     iROM.address = 58
-                    led.d = 58
+           
                 b10000100:
                     iROM.address = 59
-                    led.d = 59
+
                 b00011000:
                     iROM.address = 60
-                    led.d = 60
+          
                 b00101000:
                     iROM.address = 61
-                    led.d = 61
+     
                 b01001000:
                     iROM.address = 62
-                    led.d = 62
+         
                 b10001000:
                     iROM.address = 63
-                    led.d = 63
-                default:
-                led.d = led.q
+
+             
+               
                     }
                States.UPDATE:
-
                 iROM.address = 65
                state.d = States.PLAYER_INPUT   
             States.CHECK  :

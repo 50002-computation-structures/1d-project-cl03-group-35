@@ -83,15 +83,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_958817258 = 3'h4;
-    localparam _MP_DIV_958817258 = 3'h4;
+    localparam _MP_DIGITS_782146763 = 3'h4;
+    localparam _MP_DIV_782146763 = 3'h4;
     logic [3:0][3:0] M_seg_values;
     logic [7:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_958817258),
-        .DIV(_MP_DIV_958817258)
+        .DIGITS(_MP_DIGITS_782146763),
+        .DIV(_MP_DIV_782146763)
     ) seg (
         .rst(rst),
         .clk(clk),
@@ -101,15 +101,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1261056099 = 3'h4;
-    localparam _MP_DIV_1261056099 = 3'h4;
+    localparam _MP_DIGITS_1347695982 = 3'h4;
+    localparam _MP_DIV_1347695982 = 3'h4;
     logic [3:0][3:0] M_word_seg_values;
     logic [7:0] M_word_seg_seg;
     logic [3:0] M_word_seg_sel;
     
     multi_word_seg #(
-        .DIGITS(_MP_DIGITS_1261056099),
-        .DIV(_MP_DIV_1261056099)
+        .DIGITS(_MP_DIGITS_1347695982),
+        .DIV(_MP_DIV_1347695982)
     ) word_seg (
         .rst(rst),
         .clk(clk),
@@ -162,14 +162,14 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1205505591 = 3'h4;
-    localparam _MP_LEADING_ZEROS_1205505591 = 1'h1;
+    localparam _MP_DIGITS_609702221 = 3'h4;
+    localparam _MP_LEADING_ZEROS_609702221 = 1'h1;
     logic [13:0] M_decimal_renderer_value;
     logic [3:0][3:0] M_decimal_renderer_digits;
     
     bin_to_dec #(
-        .DIGITS(_MP_DIGITS_1205505591),
-        .LEADING_ZEROS(_MP_LEADING_ZEROS_1205505591)
+        .DIGITS(_MP_DIGITS_609702221),
+        .LEADING_ZEROS(_MP_LEADING_ZEROS_609702221)
     ) decimal_renderer (
         .value(M_decimal_renderer_value),
         .digits(M_decimal_renderer_digits)
@@ -289,7 +289,7 @@ module manual_tester (
                 D_state_d = 5'h9;
             end
             5'h9: begin
-                ledout = M_reg_count_min[3'h7:1'h0];
+                M_seg_values = {{{4'ha}}, {M_iROM_out[5'h1b:5'h18]}, {M_iROM_out[5'h17:5'h14]}, {M_iROM_out[5'h13:5'h10]}};
                 if ((|M_button_map_out[2'h3:1'h0])) begin
                     D_state_d = 5'hb;
                 end

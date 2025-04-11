@@ -18,12 +18,12 @@ module alchitry_top (
         output reg [3:0] seg_selector
     );
     logic rst;
-    localparam _MP_STAGES_185097771 = 3'h4;
+    localparam _MP_STAGES_99609384 = 3'h4;
     logic M_reset_cond_in;
     logic M_reset_cond_out;
     
     reset_conditioner #(
-        .STAGES(_MP_STAGES_185097771)
+        .STAGES(_MP_STAGES_99609384)
     ) reset_cond (
         .clk(clk),
         .in(M_reset_cond_in),
@@ -31,133 +31,133 @@ module alchitry_top (
     );
     
     
-    localparam logic [3:0][0:0] _MP_RISE_1973388391 = {{1'h1, 1'h1, 1'h1, 1'h1}};
-    localparam logic [3:0][0:0] _MP_FALL_1973388391 = {{1'h0, 1'h0, 1'h0, 1'h0}};
+    localparam logic [3:0][0:0] _MP_RISE_1226946597 = {{1'h1, 1'h1, 1'h1, 1'h1}};
+    localparam logic [3:0][0:0] _MP_FALL_1226946597 = {{1'h0, 1'h0, 1'h0, 1'h0}};
     logic [3:0] M_io_button_edge_row_in;
     logic [3:0] M_io_button_edge_row_out;
     
-    genvar idx_0_1973388391;
+    genvar idx_0_1226946597;
     
     generate
-        for (idx_0_1973388391 = 0; idx_0_1973388391 < 4; idx_0_1973388391 = idx_0_1973388391 + 1) begin: forLoop_idx_0_1973388391
+        for (idx_0_1226946597 = 0; idx_0_1226946597 < 4; idx_0_1226946597 = idx_0_1226946597 + 1) begin: forLoop_idx_0_1226946597
             edge_detector #(
-                .RISE(_MP_RISE_1973388391[idx_0_1973388391]),
-                .FALL(_MP_FALL_1973388391[idx_0_1973388391])
+                .RISE(_MP_RISE_1226946597[idx_0_1226946597]),
+                .FALL(_MP_FALL_1226946597[idx_0_1226946597])
             ) io_button_edge_row (
                 .clk(clk),
-                .in(M_io_button_edge_row_in[idx_0_1973388391]),
-                .out(M_io_button_edge_row_out[idx_0_1973388391])
+                .in(M_io_button_edge_row_in[idx_0_1226946597]),
+                .out(M_io_button_edge_row_out[idx_0_1226946597])
             );
         end
     endgenerate
     
     
-    localparam logic [3:0][23:0] _MP_CLK_FREQ_424647445 = {{24'h989680, 24'h989680, 24'h989680, 24'h989680}};
-    localparam _MP_MIN_DELAY_424647445 = 5'h1e;
-    localparam _MP_NUM_SYNC_424647445 = 2'h2;
+    localparam logic [3:0][23:0] _MP_CLK_FREQ_925489245 = {{24'h989680, 24'h989680, 24'h989680, 24'h989680}};
+    localparam _MP_MIN_DELAY_925489245 = 5'h1e;
+    localparam _MP_NUM_SYNC_925489245 = 2'h2;
     logic [3:0] M_io_button_cond_row_in;
     logic [3:0] M_io_button_cond_row_out;
     
-    genvar idx_0_424647445;
+    genvar idx_0_925489245;
     
     generate
-        for (idx_0_424647445 = 0; idx_0_424647445 < 4; idx_0_424647445 = idx_0_424647445 + 1) begin: forLoop_idx_0_424647445
+        for (idx_0_925489245 = 0; idx_0_925489245 < 4; idx_0_925489245 = idx_0_925489245 + 1) begin: forLoop_idx_0_925489245
             button_conditioner_matrix #(
-                .CLK_FREQ(_MP_CLK_FREQ_424647445[idx_0_424647445]),
-                .MIN_DELAY(_MP_MIN_DELAY_424647445),
-                .NUM_SYNC(_MP_NUM_SYNC_424647445)
+                .CLK_FREQ(_MP_CLK_FREQ_925489245[idx_0_925489245]),
+                .MIN_DELAY(_MP_MIN_DELAY_925489245),
+                .NUM_SYNC(_MP_NUM_SYNC_925489245)
             ) io_button_cond_row (
                 .clk(clk),
-                .in(M_io_button_cond_row_in[idx_0_424647445]),
-                .out(M_io_button_cond_row_out[idx_0_424647445])
+                .in(M_io_button_cond_row_in[idx_0_925489245]),
+                .out(M_io_button_cond_row_out[idx_0_925489245])
             );
         end
     endgenerate
     
     
-    localparam logic [0:0][0:0] _MP_RISE_1993842959 = {{1'h1}};
-    localparam logic [0:0][0:0] _MP_FALL_1993842959 = {{1'h0}};
+    localparam logic [0:0][0:0] _MP_RISE_824675833 = {{1'h1}};
+    localparam logic [0:0][0:0] _MP_FALL_824675833 = {{1'h0}};
     logic [0:0] M_io_button_edge_start_in;
     logic [0:0] M_io_button_edge_start_out;
     
-    genvar idx_0_1993842959;
+    genvar idx_0_824675833;
     
     generate
-        for (idx_0_1993842959 = 0; idx_0_1993842959 < 1; idx_0_1993842959 = idx_0_1993842959 + 1) begin: forLoop_idx_0_1993842959
+        for (idx_0_824675833 = 0; idx_0_824675833 < 1; idx_0_824675833 = idx_0_824675833 + 1) begin: forLoop_idx_0_824675833
             edge_detector #(
-                .RISE(_MP_RISE_1993842959[idx_0_1993842959]),
-                .FALL(_MP_FALL_1993842959[idx_0_1993842959])
+                .RISE(_MP_RISE_824675833[idx_0_824675833]),
+                .FALL(_MP_FALL_824675833[idx_0_824675833])
             ) io_button_edge_start (
                 .clk(clk),
-                .in(M_io_button_edge_start_in[idx_0_1993842959]),
-                .out(M_io_button_edge_start_out[idx_0_1993842959])
+                .in(M_io_button_edge_start_in[idx_0_824675833]),
+                .out(M_io_button_edge_start_out[idx_0_824675833])
             );
         end
     endgenerate
     
     
-    localparam logic [0:0][23:0] _MP_CLK_FREQ_1554515130 = {{24'h989680}};
-    localparam _MP_MIN_DELAY_1554515130 = 5'h14;
-    localparam _MP_NUM_SYNC_1554515130 = 2'h2;
+    localparam logic [0:0][23:0] _MP_CLK_FREQ_1491760460 = {{24'h989680}};
+    localparam _MP_MIN_DELAY_1491760460 = 5'h14;
+    localparam _MP_NUM_SYNC_1491760460 = 2'h2;
     logic [0:0] M_io_button_cond_start_in;
     logic [0:0] M_io_button_cond_start_out;
     
-    genvar idx_0_1554515130;
+    genvar idx_0_1491760460;
     
     generate
-        for (idx_0_1554515130 = 0; idx_0_1554515130 < 1; idx_0_1554515130 = idx_0_1554515130 + 1) begin: forLoop_idx_0_1554515130
+        for (idx_0_1491760460 = 0; idx_0_1491760460 < 1; idx_0_1491760460 = idx_0_1491760460 + 1) begin: forLoop_idx_0_1491760460
             button_conditioner #(
-                .CLK_FREQ(_MP_CLK_FREQ_1554515130[idx_0_1554515130]),
-                .MIN_DELAY(_MP_MIN_DELAY_1554515130),
-                .NUM_SYNC(_MP_NUM_SYNC_1554515130)
+                .CLK_FREQ(_MP_CLK_FREQ_1491760460[idx_0_1491760460]),
+                .MIN_DELAY(_MP_MIN_DELAY_1491760460),
+                .NUM_SYNC(_MP_NUM_SYNC_1491760460)
             ) io_button_cond_start (
                 .clk(clk),
-                .in(M_io_button_cond_start_in[idx_0_1554515130]),
-                .out(M_io_button_cond_start_out[idx_0_1554515130])
+                .in(M_io_button_cond_start_in[idx_0_1491760460]),
+                .out(M_io_button_cond_start_out[idx_0_1491760460])
             );
         end
     endgenerate
     
     
-    localparam logic [0:0][0:0] _MP_RISE_1421330584 = {{1'h1}};
-    localparam logic [0:0][0:0] _MP_FALL_1421330584 = {{1'h0}};
+    localparam logic [0:0][0:0] _MP_RISE_1399609076 = {{1'h1}};
+    localparam logic [0:0][0:0] _MP_FALL_1399609076 = {{1'h0}};
     logic [0:0] M_io_button_edge_select_in;
     logic [0:0] M_io_button_edge_select_out;
     
-    genvar idx_0_1421330584;
+    genvar idx_0_1399609076;
     
     generate
-        for (idx_0_1421330584 = 0; idx_0_1421330584 < 1; idx_0_1421330584 = idx_0_1421330584 + 1) begin: forLoop_idx_0_1421330584
+        for (idx_0_1399609076 = 0; idx_0_1399609076 < 1; idx_0_1399609076 = idx_0_1399609076 + 1) begin: forLoop_idx_0_1399609076
             edge_detector #(
-                .RISE(_MP_RISE_1421330584[idx_0_1421330584]),
-                .FALL(_MP_FALL_1421330584[idx_0_1421330584])
+                .RISE(_MP_RISE_1399609076[idx_0_1399609076]),
+                .FALL(_MP_FALL_1399609076[idx_0_1399609076])
             ) io_button_edge_select (
                 .clk(clk),
-                .in(M_io_button_edge_select_in[idx_0_1421330584]),
-                .out(M_io_button_edge_select_out[idx_0_1421330584])
+                .in(M_io_button_edge_select_in[idx_0_1399609076]),
+                .out(M_io_button_edge_select_out[idx_0_1399609076])
             );
         end
     endgenerate
     
     
-    localparam logic [0:0][23:0] _MP_CLK_FREQ_700915038 = {{24'h989680}};
-    localparam _MP_MIN_DELAY_700915038 = 5'h14;
-    localparam _MP_NUM_SYNC_700915038 = 2'h2;
+    localparam logic [0:0][23:0] _MP_CLK_FREQ_670295104 = {{24'h989680}};
+    localparam _MP_MIN_DELAY_670295104 = 5'h14;
+    localparam _MP_NUM_SYNC_670295104 = 2'h2;
     logic [0:0] M_io_button_cond_select_in;
     logic [0:0] M_io_button_cond_select_out;
     
-    genvar idx_0_700915038;
+    genvar idx_0_670295104;
     
     generate
-        for (idx_0_700915038 = 0; idx_0_700915038 < 1; idx_0_700915038 = idx_0_700915038 + 1) begin: forLoop_idx_0_700915038
+        for (idx_0_670295104 = 0; idx_0_670295104 < 1; idx_0_670295104 = idx_0_670295104 + 1) begin: forLoop_idx_0_670295104
             button_conditioner #(
-                .CLK_FREQ(_MP_CLK_FREQ_700915038[idx_0_700915038]),
-                .MIN_DELAY(_MP_MIN_DELAY_700915038),
-                .NUM_SYNC(_MP_NUM_SYNC_700915038)
+                .CLK_FREQ(_MP_CLK_FREQ_670295104[idx_0_670295104]),
+                .MIN_DELAY(_MP_MIN_DELAY_670295104),
+                .NUM_SYNC(_MP_NUM_SYNC_670295104)
             ) io_button_cond_select (
                 .clk(clk),
-                .in(M_io_button_cond_select_in[idx_0_700915038]),
-                .out(M_io_button_cond_select_out[idx_0_700915038])
+                .in(M_io_button_cond_select_in[idx_0_670295104]),
+                .out(M_io_button_cond_select_out[idx_0_670295104])
             );
         end
     endgenerate

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-| Date         : Fri Apr 11 04:14:45 2025
+| Date         : Fri Apr 11 15:24:16 2025
 | Host         : Ideapad_S340 running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file alchitry_top_control_sets_placed.rpt
 | Design       : alchitry_top
@@ -27,7 +27,7 @@ Table of Contents
 |    Minimum number of control sets                        |    49 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    66 |
+| Unused register locations in slices containing registers |    54 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -40,10 +40,10 @@ Table of Contents
 |       Fanout       | Count |
 +--------------------+-------+
 | Total control sets |    49 |
-| >= 0 to < 4        |     0 |
+| >= 0 to < 4        |     1 |
 | >= 4 to < 6        |     2 |
 | >= 6 to < 8        |     0 |
-| >= 8 to < 10       |     1 |
+| >= 8 to < 10       |     0 |
 | >= 10 to < 12      |     0 |
 | >= 12 to < 14      |     0 |
 | >= 14 to < 16      |     2 |
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              23 |           12 |
+| No           | No                    | No                     |              29 |           11 |
 | No           | No                    | Yes                    |               4 |            1 |
-| No           | Yes                   | No                     |              67 |           21 |
-| Yes          | No                    | No                     |            1044 |          478 |
+| No           | Yes                   | No                     |              60 |           17 |
+| Yes          | No                    | No                     |            1045 |          476 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |             212 |           60 |
+| Yes          | Yes                   | No                     |             208 |           56 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -73,55 +73,55 @@ Table of Contents
 +----------------+---------------------------------------------------------------------------+-------------------------------------------------------------------------+------------------+----------------+--------------+
 |  Clock Signal  |                               Enable Signal                               |                             Set/Reset Signal                            | Slice Load Count | Bel Load Count | Bels / Slice |
 +----------------+---------------------------------------------------------------------------+-------------------------------------------------------------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG |                                                                           | reset_cond/Q[0]                                                         |                1 |              1 |         1.00 |
+|  clk_IBUF_BUFG | cpu/FSM_sequential_D_state_q[3]_i_1_n_0                                   |                                                                         |                2 |              4 |         2.00 |
 |  clk_IBUF_BUFG |                                                                           | reset_cond/M_reset_cond_in                                              |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG | cpu/FSM_sequential_D_state_q[3]_i_1_n_0                                   |                                                                         |                1 |              4 |         4.00 |
-|  clk_IBUF_BUFG |                                                                           | reset_cond/Q[0]                                                         |                5 |              8 |         1.60 |
-|  clk_IBUF_BUFG | forLoop_idx_0_700915038[0].io_button_cond_select/D_ctr_q[0]_i_2_n_0       | forLoop_idx_0_700915038[0].io_button_cond_select/sync/D_pipe_q_reg[1]_0 |                4 |             14 |         3.50 |
-|  clk_IBUF_BUFG | forLoop_idx_0_1554515130[0].io_button_cond_start/D_ctr_q[0]_i_2__4_n_0    | forLoop_idx_0_1554515130[0].io_button_cond_start/sync/D_pipe_q_reg[1]_0 |                4 |             14 |         3.50 |
-|  clk_IBUF_BUFG |                                                                           | cpu/word_seg/ctr/D_ctr_q[0]_i_1__7_n_0                                  |                5 |             18 |         3.60 |
+|  clk_IBUF_BUFG | forLoop_idx_0_670295104[0].io_button_cond_select/D_ctr_q_reg[7]_0         | forLoop_idx_0_670295104[0].io_button_cond_select/sync/D_pipe_q_reg[1]_0 |                4 |             14 |         3.50 |
+|  clk_IBUF_BUFG | forLoop_idx_0_1491760460[0].io_button_cond_start/D_ctr_q[0]_i_2__4_n_0    | forLoop_idx_0_1491760460[0].io_button_cond_start/sync/D_pipe_q_reg[1]_0 |                4 |             14 |         3.50 |
 |  clk_IBUF_BUFG |                                                                           | cpu/seg/ctr/D_ctr_q[0]_i_1__6_n_0                                       |                5 |             18 |         3.60 |
-|  clk_IBUF_BUFG | forLoop_idx_0_424647445[2].io_button_cond_row/D_ctr_q[0]_i_2__2_n_0       | forLoop_idx_0_424647445[2].io_button_cond_row/sync/D_pipe_q_reg[1]_0    |                6 |             21 |         3.50 |
-|  clk_IBUF_BUFG | forLoop_idx_0_424647445[3].io_button_cond_row/D_ctr_q[0]_i_2__3_n_0       | forLoop_idx_0_424647445[3].io_button_cond_row/sync/D_pipe_q_reg[1]_0    |                6 |             21 |         3.50 |
-|  clk_IBUF_BUFG | forLoop_idx_0_424647445[0].io_button_cond_row/sel                         | forLoop_idx_0_424647445[0].io_button_cond_row/sync/D_pipe_q_reg[1]_0    |                6 |             21 |         3.50 |
-|  clk_IBUF_BUFG | forLoop_idx_0_424647445[1].io_button_cond_row/D_ctr_q[0]_i_2__1_n_0       | forLoop_idx_0_424647445[1].io_button_cond_row/sync/D_pipe_q_reg[1]_0    |                6 |             21 |         3.50 |
+|  clk_IBUF_BUFG |                                                                           | cpu/word_seg/ctr/D_ctr_q[0]_i_1__7_n_0                                  |                5 |             18 |         3.60 |
+|  clk_IBUF_BUFG | forLoop_idx_0_925489245[3].io_button_cond_row/D_ctr_q[0]_i_2__3_n_0       | forLoop_idx_0_925489245[3].io_button_cond_row/sync/D_pipe_q_reg[1]_0    |                6 |             21 |         3.50 |
+|  clk_IBUF_BUFG | forLoop_idx_0_925489245[2].io_button_cond_row/D_ctr_q[0]_i_2__2_n_0       | forLoop_idx_0_925489245[2].io_button_cond_row/sync/D_pipe_q_reg[1]_0    |                6 |             21 |         3.50 |
+|  clk_IBUF_BUFG | forLoop_idx_0_925489245[1].io_button_cond_row/D_ctr_q[0]_i_2__1_n_0       | forLoop_idx_0_925489245[1].io_button_cond_row/sync/D_pipe_q_reg[1]_0    |                6 |             21 |         3.50 |
+|  clk_IBUF_BUFG | forLoop_idx_0_925489245[0].io_button_cond_row/sel                         | forLoop_idx_0_925489245[0].io_button_cond_row/sync/clear                |                6 |             21 |         3.50 |
 |  clk_IBUF_BUFG |                                                                           | cpu/button_map/ctr/D_ctr_q[0]_i_1__5_n_0                                |                6 |             23 |         3.83 |
-|  clk_IBUF_BUFG |                                                                           |                                                                         |               12 |             23 |         1.92 |
-|  clk_IBUF_BUFG | forLoop_idx_0_424647445[2].io_button_cond_row/M_io_button_cond_row_out[0] | forLoop_idx_0_424647445[2].io_button_cond_row/D_ctr2_q[0]_i_1__0_n_0    |                7 |             25 |         3.57 |
-|  clk_IBUF_BUFG | forLoop_idx_0_424647445[3].io_button_cond_row/M_io_button_cond_row_out[0] | forLoop_idx_0_424647445[3].io_button_cond_row/D_ctr2_q[0]_i_1_n_0       |                7 |             25 |         3.57 |
-|  clk_IBUF_BUFG | forLoop_idx_0_424647445[1].io_button_cond_row/D_on_q_reg[0]_0[0]          | forLoop_idx_0_424647445[1].io_button_cond_row/D_ctr2_q[0]_i_1__1_n_0    |                7 |             25 |         3.57 |
-|  clk_IBUF_BUFG | forLoop_idx_0_424647445[0].io_button_cond_row/M_io_button_cond_row_out[0] | forLoop_idx_0_424647445[0].io_button_cond_row/D_ctr2_q[0]_i_1__2_n_0    |                7 |             25 |         3.57 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[10][31]_i_1_n_0                                         |                                                                         |               16 |             32 |         2.00 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[0][31]_i_1_n_0                                          |                                                                         |                9 |             32 |         3.56 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[11][31]_i_1_n_0                                         |                                                                         |                9 |             32 |         3.56 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[8][31]_i_1_n_0                                          |                                                                         |               17 |             32 |         1.88 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[9][31]_i_1_n_0                                          |                                                                         |               24 |             32 |         1.33 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[16][31]_i_1_n_0                                         |                                                                         |               16 |             32 |         2.00 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[15][31]_i_1_n_0                                         |                                                                         |               12 |             32 |         2.67 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[13][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[21][31]_i_1_n_0                                         |                                                                         |               16 |             32 |         2.00 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[14][31]_i_1_n_0                                         |                                                                         |               13 |             32 |         2.46 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[23][31]_i_1_n_0                                         |                                                                         |               19 |             32 |         1.68 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[20][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[6][31]_i_1_n_0                                          |                                                                         |               16 |             32 |         2.00 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[19][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[12][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[29][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[25][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[17][31]_i_1_n_0                                         |                                                                         |               11 |             32 |         2.91 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_d                                                         |                                                                         |               18 |             32 |         1.78 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[7][31]_i_1_n_0                                          |                                                                         |               15 |             32 |         2.13 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[3][31]_i_1_n_0                                          |                                                                         |               16 |             32 |         2.00 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[18][31]_i_1_n_0                                         |                                                                         |               12 |             32 |         2.67 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[1][31]_i_1_n_0                                          |                                                                         |               10 |             32 |         3.20 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[27][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[28][31]_i_1_n_0                                         |                                                                         |               16 |             32 |         2.00 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[5][31]_i_1_n_0                                          |                                                                         |               16 |             32 |         2.00 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[30][31]_i_1_n_0                                         |                                                                         |               14 |             32 |         2.29 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[24][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[22][31]_i_1_n_0                                         |                                                                         |               16 |             32 |         2.00 |
+|  clk_IBUF_BUFG | forLoop_idx_0_925489245[0].io_button_cond_row/M_io_button_cond_row_out[0] | forLoop_idx_0_925489245[0].io_button_cond_row/D_ctr2_d                  |                6 |             24 |         4.00 |
+|  clk_IBUF_BUFG | forLoop_idx_0_925489245[3].io_button_cond_row/M_io_button_cond_row_out[0] | forLoop_idx_0_925489245[3].io_button_cond_row/D_ctr2_d                  |                6 |             24 |         4.00 |
+|  clk_IBUF_BUFG | forLoop_idx_0_925489245[1].io_button_cond_row/M_io_button_cond_row_out[0] | forLoop_idx_0_925489245[1].io_button_cond_row/D_ctr2_d                  |                6 |             24 |         4.00 |
+|  clk_IBUF_BUFG | forLoop_idx_0_925489245[2].io_button_cond_row/M_io_button_cond_row_out[0] | forLoop_idx_0_925489245[2].io_button_cond_row/D_ctr2_d                  |                6 |             24 |         4.00 |
+|  clk_IBUF_BUFG |                                                                           |                                                                         |               11 |             29 |         2.64 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[30][31]_i_1_n_0                                         |                                                                         |               17 |             32 |         1.88 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[3][31]_i_1_n_0                                          |                                                                         |               17 |             32 |         1.88 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[16][31]_i_1_n_0                                         |                                                                         |               12 |             32 |         2.67 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[17][31]_i_1_n_0                                         |                                                                         |               13 |             32 |         2.46 |
 |  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[2][31]_i_1_n_0                                          |                                                                         |               10 |             32 |         3.20 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[18][31]_i_1_n_0                                         |                                                                         |               20 |             32 |         1.60 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[14][31]_i_1_n_0                                         |                                                                         |               14 |             32 |         2.29 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[27][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[24][31]_i_1_n_0                                         |                                                                         |               14 |             32 |         2.29 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[21][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[19][31]_i_1_n_0                                         |                                                                         |               13 |             32 |         2.46 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[20][31]_i_1_n_0                                         |                                                                         |               16 |             32 |         2.00 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[22][31]_i_1_n_0                                         |                                                                         |               14 |             32 |         2.29 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[29][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
 |  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[26][31]_i_1_n_0                                         |                                                                         |               13 |             32 |         2.46 |
-|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[4][31]_i_1_n_0                                          |                                                                         |               23 |             48 |         2.09 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[9][31]_i_1_n_0                                          |                                                                         |               18 |             32 |         1.78 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_d                                                         |                                                                         |               22 |             32 |         1.45 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[6][31]_i_1_n_0                                          |                                                                         |               16 |             32 |         2.00 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[0][31]_i_1_n_0                                          |                                                                         |               15 |             32 |         2.13 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[11][31]_i_1_n_0                                         |                                                                         |                8 |             32 |         4.00 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[5][31]_i_1_n_0                                          |                                                                         |               12 |             32 |         2.67 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[28][31]_i_1_n_0                                         |                                                                         |               16 |             32 |         2.00 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[13][31]_i_1_n_0                                         |                                                                         |               13 |             32 |         2.46 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[8][31]_i_1_n_0                                          |                                                                         |               17 |             32 |         1.88 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[23][31]_i_1_n_0                                         |                                                                         |               18 |             32 |         1.78 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[12][31]_i_1_n_0                                         |                                                                         |                9 |             32 |         3.56 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[25][31]_i_1_n_0                                         |                                                                         |               15 |             32 |         2.13 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[15][31]_i_1_n_0                                         |                                                                         |               12 |             32 |         2.67 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[7][31]_i_1_n_0                                          |                                                                         |               20 |             32 |         1.60 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[10][31]_i_1_n_0                                         |                                                                         |               10 |             32 |         3.20 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[1][31]_i_1_n_0                                          |                                                                         |               16 |             33 |         2.06 |
+|  clk_IBUF_BUFG | cpu/L_reg/D_reg_q[4][31]_i_1_n_0                                          |                                                                         |               19 |             48 |         2.53 |
 +----------------+---------------------------------------------------------------------------+-------------------------------------------------------------------------+------------------+----------------+--------------+
 
 
