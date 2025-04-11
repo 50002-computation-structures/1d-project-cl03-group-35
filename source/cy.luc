@@ -66,6 +66,11 @@ module cu (
          pc_sel =0
          alufn = b110111
          we =1 
+        b110011: //CMEQC
+         bsel = 0
+         pc_sel =0
+         alufn = b110011
+         we =1 
         b110001://SUBC
          bsel = 0
          pc_sel =0

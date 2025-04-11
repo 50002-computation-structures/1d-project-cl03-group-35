@@ -1,6 +1,6 @@
 -------------------------------------
 | Tool Version : Vivado v.2023.2
-| Date         : Fri Apr 11 15:24:08 2025
+| Date         : Sat Apr 12 00:41:48 2025
 | Host         : Ideapad_S340
 | Design       : design_1
 | Device       : xc7a35t-ftg256-1--

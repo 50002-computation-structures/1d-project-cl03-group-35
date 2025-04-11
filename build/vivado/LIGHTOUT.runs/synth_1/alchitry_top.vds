@@ -3,8 +3,8 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Fri Apr 11 15:19:54 2025
-# Process ID: 13104
+# Start of session at: Sat Apr 12 00:38:40 2025
+# Process ID: 4136
 # Current directory: C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.runs/synth_1
 # Command line: vivado.exe -log alchitry_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source alchitry_top.tcl
 # Log file: C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.runs/synth_1/alchitry_top.vds
@@ -12,7 +12,7 @@
 # Running On: Ideapad_S340, OS: Windows, CPU Frequency: 2112 MHz, CPU Physical cores: 4, Host memory: 8384 MB
 #-----------------------------------------------------------
 source alchitry_top.tcl -notrace
-create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 473.668 ; gain = 179.254
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 474.266 ; gain = 178.023
 Command: synth_design -top alchitry_top -part xc7a35tftg256-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
@@ -20,9 +20,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t
 INFO: [Device 21-403] Loading part xc7a35tftg256-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 6756
+INFO: [Synth 8-7075] Helper process launched with PID 20640
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1306.926 ; gain = 440.504
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1306.531 ; gain = 438.730
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'alchitry_top' [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/alchitry_top.sv:7]
 INFO: [Synth 8-6157] synthesizing module 'edge_detector' [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/edge_detector.sv:7]
@@ -130,11 +130,12 @@ INFO: [Synth 8-6157] synthesizing module 'bin_to_dec' [C:/Users/weiya/OneDrive/D
 	Parameter DIGITS bound to: 3'b100 
 	Parameter LEADING_ZEROS bound to: 1'b1 
 INFO: [Synth 8-6155] done synthesizing module 'bin_to_dec' (0#1) [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/bin_to_dec.sv:7]
-INFO: [Synth 8-226] default block is never used [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/manual_tester.sv:204]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/manual_tester.sv:220]
+INFO: [Synth 8-226] default block is never used [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/manual_tester.sv:209]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/manual_tester.sv:315]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/manual_tester.sv:225]
 INFO: [Synth 8-6155] done synthesizing module 'manual_tester' (0#1) [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/manual_tester.sv:7]
 INFO: [Synth 8-6155] done synthesizing module 'alchitry_top' (0#1) [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/alchitry_top.sv:7]
-WARNING: [Synth 8-6014] Unused sequential element D_led_q_reg was removed.  [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/manual_tester.sv:390]
+WARNING: [Synth 8-6014] Unused sequential element D_led_q_reg was removed.  [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/manual_tester.sv:382]
 WARNING: [Synth 8-7129] Port alufn[5] in module bool is either unconnected or has no load
 WARNING: [Synth 8-7129] Port alufn[4] in module bool is either unconnected or has no load
 WARNING: [Synth 8-7129] Port b[31] in module shifter is either unconnected or has no load
@@ -178,18 +179,18 @@ WARNING: [Synth 8-7129] Port alufn[3] in module adder is either unconnected or h
 WARNING: [Synth 8-7129] Port alufn[2] in module adder is either unconnected or has no load
 WARNING: [Synth 8-7129] Port alufn[1] in module adder is either unconnected or has no load
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 1439.805 ; gain = 573.383
+Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1440.328 ; gain = 572.527
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1439.805 ; gain = 573.383
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1440.328 ; gain = 572.527
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1439.805 ; gain = 573.383
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1440.328 ; gain = 572.527
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.041 . Memory (MB): peak = 1439.805 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.043 . Memory (MB): peak = 1440.328 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -202,49 +203,51 @@ Parsing XDC File [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/
 Finished Parsing XDC File [C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/constraint/au_props.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1545.617 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1549.500 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 1545.617 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.023 . Memory (MB): peak = 1549.500 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1545.617 ; gain = 679.195
+Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1549.500 ; gain = 681.699
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tftg256-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 1545.617 ; gain = 679.195
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1549.500 ; gain = 681.699
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 1545.617 ; gain = 679.195
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1549.500 ; gain = 681.699
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'D_state_q_reg' in module 'manual_tester'
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
-                 iSTATE7 |                             0000 |                            00000
-                 iSTATE5 |                             0001 |                            00001
-                 iSTATE3 |                             0010 |                            00010
+                 iSTATE8 |                             0000 |                            00000
+                 iSTATE3 |                             0001 |                            00010
+                 iSTATE5 |                             0010 |                            00001
                  iSTATE2 |                             0011 |                            00011
-                iSTATE12 |                             0100 |                            00101
-                iSTATE13 |                             0101 |                            00100
-                 iSTATE9 |                             0110 |                            00110
-                 iSTATE8 |                             0111 |                            00111
-                iSTATE11 |                             1000 |                            01000
-                iSTATE14 |                             1001 |                            01111
-                iSTATE10 |                             1010 |                            01001
-                 iSTATE6 |                             1011 |                            01011
-                 iSTATE1 |                             1100 |                            10010
-                 iSTATE4 |                             1101 |                            10000
+                iSTATE16 |                             0100 |                            00100
+                iSTATE15 |                             0101 |                            00101
+                iSTATE10 |                             0110 |                            00111
+                 iSTATE7 |                             0111 |                            01011
+                iSTATE14 |                             1000 |                            01000
+                iSTATE13 |                             1001 |                            01001
+                 iSTATE6 |                             1010 |                            10110
+                 iSTATE4 |                             1011 |                            10001
+                 iSTATE9 |                             1100 |                            01010
+                 iSTATE0 |                             1101 |                            01101
+                iSTATE12 |                             1110 |                            10100
+                 iSTATE1 |                             1111 |                            10010
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'D_state_q_reg' using encoding 'sequential' in module 'manual_tester'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 1545.617 ; gain = 679.195
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1549.500 ; gain = 681.699
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -266,27 +269,28 @@ Detailed RTL Component Info :
 +---Muxes : 
 	   2 Input   32 Bit        Muxes := 4     
 	   4 Input   32 Bit        Muxes := 1     
-	  14 Input   32 Bit        Muxes := 1     
+	  76 Input   32 Bit        Muxes := 1     
+	  16 Input   32 Bit        Muxes := 1     
 	  10 Input   14 Bit        Muxes := 1     
 	   2 Input   14 Bit        Muxes := 3     
 	  10 Input   10 Bit        Muxes := 1     
-	   2 Input    8 Bit        Muxes := 5     
-	  17 Input    8 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 12    
 	   2 Input    7 Bit        Muxes := 2     
 	  10 Input    7 Bit        Muxes := 1     
-	  14 Input    7 Bit        Muxes := 1     
-	   7 Input    6 Bit        Muxes := 1     
+	  16 Input    7 Bit        Muxes := 1     
+	   8 Input    6 Bit        Muxes := 1     
+	  17 Input    5 Bit        Muxes := 1     
 	   4 Input    4 Bit        Muxes := 2     
 	  11 Input    4 Bit        Muxes := 1     
 	  12 Input    4 Bit        Muxes := 3     
-	  14 Input    4 Bit        Muxes := 7     
-	   2 Input    4 Bit        Muxes := 2     
-	  13 Input    3 Bit        Muxes := 1     
-	  13 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 270   
+	  16 Input    4 Bit        Muxes := 7     
+	   2 Input    4 Bit        Muxes := 3     
+	  14 Input    3 Bit        Muxes := 1     
+	  14 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 271   
 	   4 Input    1 Bit        Muxes := 33    
-	  13 Input    1 Bit        Muxes := 2     
 	  14 Input    1 Bit        Muxes := 2     
+	  16 Input    1 Bit        Muxes := 2     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -304,40 +308,25 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:45 ; elapsed = 00:01:47 . Memory (MB): peak = 1545.617 ; gain = 679.195
----------------------------------------------------------------------------------
----------------------------------------------------------------------------------
-Start ROM, RAM, DSP, Shift Register and Retiming Reporting
----------------------------------------------------------------------------------
-
-ROM: Preliminary Mapping Report
-+----------------+--------------+---------------+----------------+
-|Module Name     | RTL Object   | Depth x Width | Implemented As | 
-+----------------+--------------+---------------+----------------+
-|instruction_ROM | INSTRUCTIONS | 128x31        | LUT            | 
-|instruction_ROM | INSTRUCTIONS | 128x31        | LUT            | 
-+----------------+--------------+---------------+----------------+
-
----------------------------------------------------------------------------------
-Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:02 ; elapsed = 00:01:04 . Memory (MB): peak = 1549.500 ; gain = 681.699
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:52 ; elapsed = 00:01:54 . Memory (MB): peak = 1545.617 ; gain = 679.195
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:09 ; elapsed = 00:01:11 . Memory (MB): peak = 1549.500 ; gain = 681.699
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:02:45 ; elapsed = 00:02:48 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Finished Timing Optimization : Time (s): cpu = 00:01:44 ; elapsed = 00:01:47 . Memory (MB): peak = 1814.559 ; gain = 946.758
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:02:48 ; elapsed = 00:02:51 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Finished Technology Mapping : Time (s): cpu = 00:01:47 ; elapsed = 00:01:49 . Memory (MB): peak = 1814.559 ; gain = 946.758
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -355,37 +344,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:02:54 ; elapsed = 00:02:57 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Finished IO Insertion : Time (s): cpu = 00:01:53 ; elapsed = 00:01:55 . Memory (MB): peak = 1814.559 ; gain = 946.758
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:02:54 ; elapsed = 00:02:57 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:53 ; elapsed = 00:01:55 . Memory (MB): peak = 1814.559 ; gain = 946.758
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:55 ; elapsed = 00:02:58 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:54 ; elapsed = 00:01:56 . Memory (MB): peak = 1814.559 ; gain = 946.758
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:02:55 ; elapsed = 00:02:58 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:54 ; elapsed = 00:01:56 . Memory (MB): peak = 1814.559 ; gain = 946.758
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:02:55 ; elapsed = 00:02:58 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:54 ; elapsed = 00:01:56 . Memory (MB): peak = 1814.559 ; gain = 946.758
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:02:55 ; elapsed = 00:02:58 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:54 ; elapsed = 00:01:56 . Memory (MB): peak = 1814.559 ; gain = 946.758
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -403,43 +392,43 @@ Report Cell Usage:
 +------+-------+------+
 |1     |BUFG   |     1|
 |2     |CARRY4 |    82|
-|3     |LUT1   |   117|
-|4     |LUT2   |   519|
-|5     |LUT3   |   170|
-|6     |LUT4   |   140|
-|7     |LUT5   |   345|
-|8     |LUT6   |  1559|
-|9     |MUXF7  |   246|
-|10    |MUXF8  |    39|
+|3     |LUT1   |   113|
+|4     |LUT2   |   535|
+|5     |LUT3   |   184|
+|6     |LUT4   |   125|
+|7     |LUT5   |   229|
+|8     |LUT6   |  1510|
+|9     |MUXF7  |   199|
+|10    |MUXF8  |    78|
 |11    |FDPE   |     4|
 |12    |FDRE   |  1226|
-|13    |FDSE   |    96|
+|13    |FDSE   |    92|
 |14    |IBUF   |     9|
 |15    |OBUF   |    40|
 +------+-------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:02:55 ; elapsed = 00:02:58 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:54 ; elapsed = 00:01:56 . Memory (MB): peak = 1814.559 ; gain = 946.758
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:02:41 ; elapsed = 00:02:55 . Memory (MB): peak = 1953.586 ; gain = 981.352
-Synthesis Optimization Complete : Time (s): cpu = 00:02:55 ; elapsed = 00:02:58 . Memory (MB): peak = 1953.586 ; gain = 1087.164
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:41 ; elapsed = 00:01:53 . Memory (MB): peak = 1814.559 ; gain = 837.586
+Synthesis Optimization Complete : Time (s): cpu = 00:01:54 ; elapsed = 00:01:56 . Memory (MB): peak = 1814.559 ; gain = 946.758
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.037 . Memory (MB): peak = 1953.586 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 367 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.033 . Memory (MB): peak = 1814.559 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 359 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 WARNING: [Netlist 29-101] Netlist 'alchitry_top' is not ideal for floorplanning, since the cellview 'simple_ram' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1953.586 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1814.559 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: 5744ed7c
+Synth Design complete | Checksum: 9fd46c64
 INFO: [Common 17-83] Releasing license: Synthesis
-91 Infos, 47 Warnings, 0 Critical Warnings and 0 Errors encountered.
+92 Infos, 47 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:03:02 ; elapsed = 00:03:07 . Memory (MB): peak = 1953.586 ; gain = 1479.918
-Write ShapeDB Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.011 . Memory (MB): peak = 1953.586 ; gain = 0.000
+synth_design: Time (s): cpu = 00:02:00 ; elapsed = 00:02:04 . Memory (MB): peak = 1814.559 ; gain = 1340.293
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1814.559 ; gain = 0.000
 INFO: [Common 17-1381] The checkpoint 'C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.runs/synth_1/alchitry_top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file alchitry_top_utilization_synth.rpt -pb alchitry_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Fri Apr 11 15:23:14 2025...
+INFO: [Common 17-206] Exiting Vivado at Sat Apr 12 00:40:56 2025...

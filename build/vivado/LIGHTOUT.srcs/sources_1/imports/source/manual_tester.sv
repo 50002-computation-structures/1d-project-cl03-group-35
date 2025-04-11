@@ -17,25 +17,28 @@ module manual_tester (
         output reg [3:0] seg_selector
     );
     localparam E_States_IDLE = 5'h0;
-    localparam E_States_SELECT_GAME = 5'h1;
-    localparam E_States_LOAD = 5'h2;
-    localparam E_States_LOAD_INCREASE = 5'h3;
-    localparam E_States_LOAD_ADVANCE = 5'h4;
-    localparam E_States_LOAD_CHECK = 5'h5;
-    localparam E_States_SELECT_LEVEL = 5'h6;
-    localparam E_States_LOAD_MAP_TO_3 = 5'h7;
-    localparam E_States_LOAD_MAP_TO_4 = 5'h8;
-    localparam E_States_PLAYER_INPUT = 5'h9;
-    localparam E_States_RESET = 5'ha;
-    localparam E_States_UPDATE = 5'hb;
-    localparam E_States_GAMEOVER = 5'hc;
-    localparam E_States_CHECK = 5'hd;
-    localparam E_States_LOAD_IN = 5'he;
-    localparam E_States_LOAD_COUNTER = 5'hf;
-    localparam E_States_LEVEL_ADVANCE = 5'h10;
-    localparam E_States_CHECK_LEVEL = 5'h11;
-    localparam E_States_PRE_SELECT = 5'h12;
-    localparam E_States_MAP_SELECTOR = 5'h13;
+    localparam E_States_SETUP = 5'h1;
+    localparam E_States_SELECT_GAME = 5'h2;
+    localparam E_States_LOAD = 5'h3;
+    localparam E_States_LOAD_INCREASE = 5'h4;
+    localparam E_States_LOAD_ADVANCE = 5'h5;
+    localparam E_States_LOAD_CHECK = 5'h6;
+    localparam E_States_SELECT_LEVEL = 5'h7;
+    localparam E_States_LOAD_MAP_TO_3 = 5'h8;
+    localparam E_States_LOAD_MAP_TO_4 = 5'h9;
+    localparam E_States_PLAYER_INPUT = 5'ha;
+    localparam E_States_ADD_LEVEL_TO_ROM_SEL = 5'hb;
+    localparam E_States_RESET = 5'hc;
+    localparam E_States_UPDATE = 5'hd;
+    localparam E_States_GAMEOVER = 5'he;
+    localparam E_States_CHECK = 5'hf;
+    localparam E_States_LOAD_IN = 5'h10;
+    localparam E_States_LOAD_COUNTER = 5'h11;
+    localparam E_States_LEVEL_ADVANCE = 5'h12;
+    localparam E_States_CHECK_LEVEL = 5'h13;
+    localparam E_States_PRE_SELECT = 5'h14;
+    localparam E_States_MAP_SELECTOR = 5'h15;
+    localparam E_States_INCRESE_ROMSEL_BY_3 = 5'h16;
     logic [3:0] M_button_map_col;
     logic [3:0] M_button_map_row;
     logic [7:0] M_button_map_out;
@@ -65,6 +68,7 @@ module manual_tester (
     logic [31:0] M_reg_rom_sel;
     logic [31:0] M_reg_write_data;
     logic M_reg_write_enable;
+    logic [15:0] M_reg_temp;
     
     simple_ram L_reg (
         .clk(clk),
@@ -79,19 +83,20 @@ module manual_tester (
         .count_min(M_reg_count_min),
         .rom_sel(M_reg_rom_sel),
         .write_data(M_reg_write_data),
-        .write_enable(M_reg_write_enable)
+        .write_enable(M_reg_write_enable),
+        .temp(M_reg_temp)
     );
     
     
-    localparam _MP_DIGITS_782146763 = 3'h4;
-    localparam _MP_DIV_782146763 = 3'h4;
+    localparam _MP_DIGITS_1912787438 = 3'h4;
+    localparam _MP_DIV_1912787438 = 3'h4;
     logic [3:0][3:0] M_seg_values;
     logic [7:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_782146763),
-        .DIV(_MP_DIV_782146763)
+        .DIGITS(_MP_DIGITS_1912787438),
+        .DIV(_MP_DIV_1912787438)
     ) seg (
         .rst(rst),
         .clk(clk),
@@ -101,15 +106,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1347695982 = 3'h4;
-    localparam _MP_DIV_1347695982 = 3'h4;
+    localparam _MP_DIGITS_1237422374 = 3'h4;
+    localparam _MP_DIV_1237422374 = 3'h4;
     logic [3:0][3:0] M_word_seg_values;
     logic [7:0] M_word_seg_seg;
     logic [3:0] M_word_seg_sel;
     
     multi_word_seg #(
-        .DIGITS(_MP_DIGITS_1347695982),
-        .DIV(_MP_DIV_1347695982)
+        .DIGITS(_MP_DIGITS_1237422374),
+        .DIV(_MP_DIV_1237422374)
     ) word_seg (
         .rst(rst),
         .clk(clk),
@@ -162,14 +167,14 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_609702221 = 3'h4;
-    localparam _MP_LEADING_ZEROS_609702221 = 1'h1;
+    localparam _MP_DIGITS_1028860062 = 3'h4;
+    localparam _MP_LEADING_ZEROS_1028860062 = 1'h1;
     logic [13:0] M_decimal_renderer_value;
     logic [3:0][3:0] M_decimal_renderer_digits;
     
     bin_to_dec #(
-        .DIGITS(_MP_DIGITS_609702221),
-        .LEADING_ZEROS(_MP_LEADING_ZEROS_609702221)
+        .DIGITS(_MP_DIGITS_1028860062),
+        .LEADING_ZEROS(_MP_LEADING_ZEROS_1028860062)
     ) decimal_renderer (
         .value(M_decimal_renderer_value),
         .digits(M_decimal_renderer_digits)
@@ -219,9 +224,9 @@ module manual_tester (
         
         case (D_state_q)
             5'h0: begin
-                D_state_d = 5'h1;
+                D_state_d = 5'h2;
             end
-            5'h1: begin
+            5'h2: begin
                 M_word_seg_values = {{{4'hf}}, {{4'hf}}, {{4'hf}}, {{3'h0, D_gamemode_q}}};
                 io_segment = ~M_word_seg_seg;
                 seg_selector = ~M_word_seg_sel;
@@ -230,154 +235,141 @@ module manual_tester (
                 end
                 if (start_button) begin
                     M_iROM_address = D_gamemode_q + 1'h1;
-                    D_state_d = 5'h2;
+                    D_state_d = 5'h1;
                 end
             end
-            5'h2: begin
-                M_iROM_address = M_reg_rom_sel;
+            5'h1: begin
+                M_iROM_address = 2'h3;
                 D_state_d = 5'h3;
             end
             5'h3: begin
-                M_iROM_address = 6'h24;
-                D_state_d = 5'h5;
-            end
-            5'h5: begin
-                M_iROM_address = 6'h25;
+                M_iROM_address = M_reg_rom_sel;
                 D_state_d = 5'h4;
             end
             5'h4: begin
-                if (M_reg_rom_sel > 5'h12) begin
-                    D_state_d = 5'h6;
-                    M_iROM_address = 6'h27;
-                end else begin
-                    D_state_d = 5'h2;
-                end
+                M_iROM_address = 3'h5;
+                D_state_d = 5'h5;
             end
             5'h6: begin
-                M_seg_values = {{{4'hf}}, {{4'hf}}, {M_reg_level_select[3'h7:3'h4]}, {M_reg_level_select[2'h3:1'h0]}};
-                if (select_button) begin
-                    M_iROM_address = 6'h28;
-                    D_state_d = 5'h12;
-                end
-                if (start_button) begin
+                M_iROM_address = 3'h6;
+                D_state_d = 5'h5;
+            end
+            5'h5: begin
+                if (M_reg_temp < 5'h11) begin
+                    D_state_d = 5'h3;
+                    M_iROM_address = 3'h4;
+                end else begin
                     D_state_d = 5'h7;
                 end
             end
-            5'h12: begin
-                M_iROM_address = 6'h28;
-                D_state_d = 5'h10;
-            end
-            5'h10: begin
-                if (M_reg_z == 1'h0) begin
-                    M_iROM_address = 6'h28;
-                end
-                D_state_d = 5'h6;
-            end
             5'h7: begin
-                M_seg_values = {{{4'hf}}, {{4'ha}}, {M_reg_rom_sel[3'h7:3'h4]}, {M_reg_rom_sel[2'h3:1'h0]}};
+                M_seg_values = {{{4'hf}}, {{4'hf}}, {M_reg_level_select[3'h7:3'h4]}, {M_reg_level_select[2'h3:1'h0]}};
                 if (select_button) begin
-                    M_iROM_address = 6'h29;
-                    D_state_d = 5'h8;
+                    M_iROM_address = 4'h8;
+                    D_state_d = 5'h14;
                 end
+                if (start_button) begin
+                    D_state_d = 5'hb;
+                end
+            end
+            5'h14: begin
+                M_iROM_address = 4'h9;
+                D_state_d = 5'h12;
+            end
+            5'h12: begin
+                if (M_reg_z == 1'h0) begin
+                    M_iROM_address = 4'ha;
+                end
+                D_state_d = 5'h7;
+            end
+            5'hb: begin
+                M_iROM_address = 4'hb;
+                D_state_d = 5'h8;
             end
             5'h8: begin
-                M_iROM_address = 6'h2f;
-                D_state_d = 5'hf;
-            end
-            5'hf: begin
-                M_iROM_address = 7'h40;
+                M_iROM_address = M_reg_rom_sel;
                 D_state_d = 5'h9;
             end
             5'h9: begin
-                M_seg_values = {{{4'ha}}, {M_iROM_out[5'h1b:5'h18]}, {M_iROM_out[5'h17:5'h14]}, {M_iROM_out[5'h13:5'h10]}};
+                M_iROM_address = 4'hc;
+                D_state_d = 5'h16;
+            end
+            5'h16: begin
+                M_iROM_address = 4'hd;
+                D_state_d = 5'h11;
+            end
+            5'h11: begin
+                M_iROM_address = M_reg_rom_sel;
+                D_state_d = 5'ha;
+            end
+            5'ha: begin
+                M_iROM_address = 4'hf;
                 if ((|M_button_map_out[2'h3:1'h0])) begin
-                    D_state_d = 5'hb;
+                    D_led_d = M_reg_z;
+                    D_state_d = 5'hd;
+                end
+                if (select_button) begin
+                    D_state_d = 5'h9;
                 end
                 
                 case (M_button_map_out)
                     8'h11: begin
-                        M_iROM_address = 6'h30;
-                        D_led_d = 6'h30;
+                        M_iROM_address = 5'h10;
                     end
                     8'h21: begin
-                        M_iROM_address = 6'h31;
-                        D_led_d = 6'h31;
+                        M_iROM_address = 5'h11;
                     end
                     8'h41: begin
-                        M_iROM_address = 6'h32;
-                        D_led_d = 6'h32;
+                        M_iROM_address = 5'h12;
                     end
                     8'h81: begin
-                        M_iROM_address = 6'h33;
-                        D_led_d = 6'h33;
+                        M_iROM_address = 5'h13;
                     end
                     8'h12: begin
-                        M_iROM_address = 6'h34;
-                        D_led_d = 6'h34;
+                        M_iROM_address = 5'h14;
                     end
                     8'h22: begin
-                        M_iROM_address = 6'h35;
-                        D_led_d = 6'h35;
+                        M_iROM_address = 5'h15;
                     end
                     8'h42: begin
-                        M_iROM_address = 6'h36;
-                        D_led_d = 6'h36;
+                        M_iROM_address = 5'h16;
                     end
                     8'h82: begin
-                        M_iROM_address = 6'h37;
-                        D_led_d = 6'h37;
+                        M_iROM_address = 5'h17;
                     end
                     8'h14: begin
-                        M_iROM_address = 6'h38;
-                        D_led_d = 6'h38;
+                        M_iROM_address = 5'h18;
                     end
                     8'h24: begin
-                        M_iROM_address = 6'h39;
-                        D_led_d = 6'h39;
+                        M_iROM_address = 5'h19;
                     end
                     8'h44: begin
-                        M_iROM_address = 6'h3a;
-                        D_led_d = 6'h3a;
+                        M_iROM_address = 5'h1a;
                     end
                     8'h84: begin
-                        M_iROM_address = 6'h3b;
-                        D_led_d = 6'h3b;
+                        M_iROM_address = 5'h1b;
                     end
                     8'h18: begin
-                        M_iROM_address = 6'h3c;
-                        D_led_d = 6'h3c;
+                        M_iROM_address = 5'h1c;
                     end
                     8'h28: begin
-                        M_iROM_address = 6'h3d;
-                        D_led_d = 6'h3d;
+                        M_iROM_address = 5'h1d;
                     end
                     8'h48: begin
-                        M_iROM_address = 6'h3e;
-                        D_led_d = 6'h3e;
+                        M_iROM_address = 5'h1e;
                     end
                     8'h88: begin
-                        M_iROM_address = 6'h3f;
-                        D_led_d = 6'h3f;
-                    end
-                    default: begin
-                        D_led_d = D_led_q;
+                        M_iROM_address = 5'h1f;
                     end
                 endcase
             end
-            5'hb: begin
-                M_iROM_address = 7'h41;
-                D_state_d = 5'h9;
-            end
             5'hd: begin
-                M_iROM_address = 7'h46;
-                D_state_d = 5'hc;
+                M_iROM_address = 4'he;
+                D_state_d = 5'ha;
             end
-            5'hc: begin
-                if (M_reg_z == 1'h1) begin
-                    D_state_d = 5'h1;
-                end else begin
-                    D_state_d = 5'h9;
-                end
+            5'he: begin
+                M_iROM_address = 4'hf;
+                D_state_d = 5'h2;
             end
         endcase
     end

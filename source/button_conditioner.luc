@@ -46,7 +46,7 @@ module button_conditioner_matrix #(
 
         // CLK_FREQ * MIN_DELAY / 1000 = clock cycles for MIN_DELAY milliseconds
         dff ctr[$clog2(10000000 * 200/ 1000)]
-        dff ctr2[$clog2(10000000 * 600/ 1000)]
+        dff ctr2[$clog2(10000000 * 450/ 1000)]
         dff on[1] 
     }
 
@@ -56,13 +56,13 @@ module button_conditioner_matrix #(
         out = on.q         // output 1 when ctr is full
         if (on.q==0){
             on.d = &ctr.q
-            ctr2.d =hfffffffffff
+            ctr2.d =hffffff
         }
         if (on.q==1){
  
             ctr2.d = ctr2.q-1
             if(in){
-                ctr2.d=hfffffffffff
+                ctr2.d=hffffff
             }
             if(ctr2.q<=0){
                 on.d=0

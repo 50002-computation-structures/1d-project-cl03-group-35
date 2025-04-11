@@ -80,6 +80,12 @@ module cu (
                 alufn = 6'h37;
                 we = 1'h1;
             end
+            6'h33: begin
+                bsel = 1'h0;
+                pc_sel = 1'h0;
+                alufn = 6'h33;
+                we = 1'h1;
+            end
             6'h31: begin
                 bsel = 1'h0;
                 pc_sel = 1'h0;

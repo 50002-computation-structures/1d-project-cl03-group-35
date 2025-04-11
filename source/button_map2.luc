@@ -19,15 +19,27 @@ module button_map (
         out = 8b0
         if(row[0]){
             out = c{state.q>>1,4b0001}
+            if(state.q==b0001){
+                out = c{b1000,4b0001}
+            }
         }
         if(row[1]){
             out = c{state.q>>1,4b0010}
+            if(state.q==b0001){
+                out = c{b1000,4b0010}
+            }
         }
         if(row[2]){
             out = c{state.q>>1,4b0100}
+            if(state.q==b0001){
+                out = c{b1000,4b0100}
+            }
         }
         if(row[3]){
             out = c{state.q>>1,4b1000}
+            if(state.q==b0001){
+                out = c{b1000,4b1000}
+            }
         }
         
     }
