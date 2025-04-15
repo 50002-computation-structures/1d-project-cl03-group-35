@@ -20,10 +20,9 @@ module manual_tester (
        
         dff gamemode 
         dff state[$width(States)](#INIT(States.SELECT_GAME))
-     
-        
+
         simple_ram reg
-        counter ctr (#DIV(21), #SIZE(8), #TOP(8-1),.rst(rst))
+        counter ctr (#DIV(5), #SIZE(10), #TOP(9),.rst(rst))
         multi_seven_seg seg(#DIV(4),.rst(rst)) 
         multi_word_seg word_seg(#DIV(4),.rst(rst)) 
     }
@@ -181,6 +180,7 @@ module manual_tester (
            seg.values  = c{{4hf},{c{hf}},{reg.level_select[7:4]},{reg.level_select[3:0]}} //display difficulty level
             if(reg.z==0){
                     iROM.address = 10 // -4  RESET REG[7] SUBC 4
+                    state.d = States.PRE_SELECT 
                 }
              if (select_button){
              iROM.address = 8 // ADD  1 to level select
@@ -269,16 +269,15 @@ module manual_tester (
                state.d = States.PLAYER_INPUT  
             States.GAMEOVER :
                 iROM.address = 32
-                state.d = States.ANIMATE
+                state.d = States.WAIT
 
             States.ANIMATE:
            iROM.address = 33 
              state.d = States.WAIT   
     
             States.WAIT:
-            if (ctr.value[7]){
-                 state.d = States.ANIMATE   
-                }
+                
+
             if (start_button){
              state.d = States.SELECT_GAME
             reg.rst =1

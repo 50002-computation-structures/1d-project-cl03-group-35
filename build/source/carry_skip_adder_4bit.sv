@@ -11,24 +11,24 @@ module carry_skip_adder_4bit (
         output reg [3:0] s,
         output reg cout
     );
-    logic [31:0] R_167876ca_i;
-    logic [31:0] RR_167876ca_i;
+    logic [31:0] R_332391f4_i;
+    logic [31:0] RR_332391f4_i;
     logic [3:0] M_fa_a;
     logic [3:0] M_fa_b;
     logic [3:0] M_fa_cin;
     logic [3:0] M_fa_s;
     logic [3:0] M_fa_cout;
     
-    genvar idx_0_439300591;
+    genvar idx_0_756183600;
     
     generate
-        for (idx_0_439300591 = 0; idx_0_439300591 < 4; idx_0_439300591 = idx_0_439300591 + 1) begin: forLoop_idx_0_439300591
+        for (idx_0_756183600 = 0; idx_0_756183600 < 4; idx_0_756183600 = idx_0_756183600 + 1) begin: forLoop_idx_0_756183600
             fa fa (
-                .a(M_fa_a[idx_0_439300591]),
-                .b(M_fa_b[idx_0_439300591]),
-                .cin(M_fa_cin[idx_0_439300591]),
-                .s(M_fa_s[idx_0_439300591]),
-                .cout(M_fa_cout[idx_0_439300591])
+                .a(M_fa_a[idx_0_756183600]),
+                .b(M_fa_b[idx_0_756183600]),
+                .cin(M_fa_cin[idx_0_756183600]),
+                .s(M_fa_s[idx_0_756183600]),
+                .cout(M_fa_cout[idx_0_756183600])
             );
         end
     endgenerate
@@ -38,12 +38,12 @@ module carry_skip_adder_4bit (
         M_fa_a = a;
         M_fa_b = b;
         s = M_fa_s;
-        for (RR_167876ca_i = 0; RR_167876ca_i < 3'h4; RR_167876ca_i = RR_167876ca_i + 1) begin
-      R_167876ca_i = (0) + RR_167876ca_i * (1);
-            if (R_167876ca_i == 1'h0) begin
+        for (RR_332391f4_i = 0; RR_332391f4_i < 3'h4; RR_332391f4_i = RR_332391f4_i + 1) begin
+      R_332391f4_i = (0) + RR_332391f4_i * (1);
+            if (R_332391f4_i == 1'h0) begin
                 M_fa_cin[1'h0] = ci;
             end else begin
-                M_fa_cin[R_167876ca_i] = M_fa_cout[R_167876ca_i - 1'h1];
+                M_fa_cin[R_332391f4_i] = M_fa_cout[R_332391f4_i - 1'h1];
             end
         end
         if ((&M_fa_cout)) begin

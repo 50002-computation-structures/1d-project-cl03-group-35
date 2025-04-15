@@ -188,12 +188,6 @@
             {
                 "file": {
                     "type": "DiskFile",
-                    "path": "source/carry_skip_adder32.luc"
-                }
-            },
-            {
-                "file": {
-                    "type": "DiskFile",
                     "path": "source/daw.luc"
                 }
             },
@@ -201,6 +195,18 @@
                 "file": {
                     "type": "DiskFile",
                     "path": "source/rca.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/csa.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/csa_adder.luc"
                 }
             }
         ],

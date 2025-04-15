@@ -1,0 +1,22 @@
+module csa (
+    input a[32],
+    input b[32],
+    input cin,
+    output s[32],
+    output cout
+) {
+   carry_skip_adder_4bit csa_4[8]
+    always {
+        s = $flatten(csa_4.s)
+        repeat(i,8){
+            csa_4.a[i] = a[3+4*i:0+4*i]
+            csa_4.b[i] = b[3+4*i:0+4*i]
+            cout = csa_4.cout[7]
+            if (i==0){
+                csa_4.ci[0] =cin
+            }else{
+                csa_4.ci[i] = csa_4.cout[i-1]
+            }
+            
+        }
+}}

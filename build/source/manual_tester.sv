@@ -84,17 +84,17 @@ module manual_tester (
     );
     
     
-    localparam _MP_SIZE_265774081 = 4'h8;
-    localparam _MP_DIV_265774081 = 5'h15;
-    localparam _MP_TOP_265774081 = 5'h7;
-    localparam _MP_UP_265774081 = 1'h1;
-    logic [7:0] M_ctr_value;
+    localparam _MP_SIZE_883633495 = 4'ha;
+    localparam _MP_DIV_883633495 = 3'h5;
+    localparam _MP_TOP_883633495 = 4'h9;
+    localparam _MP_UP_883633495 = 1'h1;
+    logic [9:0] M_ctr_value;
     
     counter #(
-        .SIZE(_MP_SIZE_265774081),
-        .DIV(_MP_DIV_265774081),
-        .TOP(_MP_TOP_265774081),
-        .UP(_MP_UP_265774081)
+        .SIZE(_MP_SIZE_883633495),
+        .DIV(_MP_DIV_883633495),
+        .TOP(_MP_TOP_883633495),
+        .UP(_MP_UP_883633495)
     ) ctr (
         .rst(rst),
         .clk(clk),
@@ -102,15 +102,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_733630956 = 3'h4;
-    localparam _MP_DIV_733630956 = 3'h4;
+    localparam _MP_DIGITS_295516445 = 3'h4;
+    localparam _MP_DIV_295516445 = 3'h4;
     logic [3:0][3:0] M_seg_values;
     logic [7:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_733630956),
-        .DIV(_MP_DIV_733630956)
+        .DIGITS(_MP_DIGITS_295516445),
+        .DIV(_MP_DIV_295516445)
     ) seg (
         .rst(rst),
         .clk(clk),
@@ -120,15 +120,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_571000480 = 3'h4;
-    localparam _MP_DIV_571000480 = 3'h4;
+    localparam _MP_DIGITS_7708731 = 3'h4;
+    localparam _MP_DIV_7708731 = 3'h4;
     logic [3:0][3:0] M_word_seg_values;
     logic [7:0] M_word_seg_seg;
     logic [3:0] M_word_seg_sel;
     
     multi_word_seg #(
-        .DIGITS(_MP_DIGITS_571000480),
-        .DIV(_MP_DIV_571000480)
+        .DIGITS(_MP_DIGITS_7708731),
+        .DIV(_MP_DIV_7708731)
     ) word_seg (
         .rst(rst),
         .clk(clk),
@@ -179,14 +179,14 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1755334381 = 3'h4;
-    localparam _MP_LEADING_ZEROS_1755334381 = 1'h1;
+    localparam _MP_DIGITS_795252047 = 3'h4;
+    localparam _MP_LEADING_ZEROS_795252047 = 1'h1;
     logic [13:0] M_decimal_renderer_value;
     logic [3:0][3:0] M_decimal_renderer_digits;
     
     bin_to_dec #(
-        .DIGITS(_MP_DIGITS_1755334381),
-        .LEADING_ZEROS(_MP_LEADING_ZEROS_1755334381)
+        .DIGITS(_MP_DIGITS_795252047),
+        .LEADING_ZEROS(_MP_LEADING_ZEROS_795252047)
     ) decimal_renderer (
         .value(M_decimal_renderer_value),
         .digits(M_decimal_renderer_digits)
@@ -348,6 +348,7 @@ module manual_tester (
                 M_seg_values = {{{4'hf}}, {{4'hf}}, {M_reg_level_select[3'h7:3'h4]}, {M_reg_level_select[2'h3:1'h0]}};
                 if (M_reg_z == 1'h0) begin
                     M_iROM_address = 4'ha;
+                    D_state_d = 5'hf;
                 end
                 if (select_button) begin
                     M_iROM_address = 4'h8;
@@ -449,16 +450,13 @@ module manual_tester (
             end
             5'hc: begin
                 M_iROM_address = 6'h20;
-                D_state_d = 5'h11;
+                D_state_d = 5'h12;
             end
             5'h11: begin
                 M_iROM_address = 6'h21;
                 D_state_d = 5'h12;
             end
             5'h12: begin
-                if (M_ctr_value[2'h3]) begin
-                    D_state_d = 5'h11;
-                end
                 if (start_button) begin
                     D_state_d = 5'h1;
                     M_reg_rst = 1'h1;

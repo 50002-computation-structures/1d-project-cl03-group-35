@@ -71,14 +71,14 @@ module alu (
     );
     
     
-    localparam _MP_SIZE_1471703250 = 6'h20;
+    localparam _MP_SIZE_896588849 = 6'h20;
     logic [31:0] M_boolean_a;
     logic [31:0] M_boolean_b;
     logic [5:0] M_boolean_alufn;
     logic [31:0] M_boolean_bool;
     
     bool #(
-        .SIZE(_MP_SIZE_1471703250)
+        .SIZE(_MP_SIZE_896588849)
     ) boolean (
         .a(M_boolean_a),
         .b(M_boolean_b),

@@ -12,7 +12,7 @@ testbench daw {
         clk = 0 // initialize the value
         alu.a =4
         alu.b = 5
-        alu.alufn = b110111
+        alu.alufn = b0000
         $tick() // capture initial state
 
         // test goes here
