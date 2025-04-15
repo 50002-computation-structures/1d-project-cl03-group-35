@@ -1,0 +1,26 @@
+module carry_skip_adder_4bit (
+    input a[4],
+    input b[4],
+    input ci,
+    output s[4],
+    output cout
+) {
+    fa fa[4]
+    always {
+        fa.a = a
+        fa.b = b
+        s= fa.s
+        repeat(i,4){
+            if (i==0){
+                fa.cin[0]=ci
+            }else{
+                fa.cin[i]= fa.cout[i-1]
+            }
+        }
+        if (&fa.cout){
+            cout = ci
+        }else{
+            cout = fa.cout[3]
+        }
+    }
+}

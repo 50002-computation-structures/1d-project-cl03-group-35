@@ -184,6 +184,24 @@
                     "type": "Component",
                     "path": "Conditioning/button_conditioner.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/alu_cpm.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/carry_skip_adder.luc"
+                }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/carry_skip_adder32.luc"
+                }
             }
         ],
         "constraintFiles": [

@@ -39,6 +39,7 @@ module manual_tester (
     localparam E_States_PRE_SELECT = 5'h14;
     localparam E_States_MAP_SELECTOR = 5'h15;
     localparam E_States_INCRESE_ROMSEL_BY_3 = 5'h16;
+    localparam E_States_ANIMATE = 5'h17;
     logic [3:0] M_button_map_col;
     logic [3:0] M_button_map_row;
     logic [7:0] M_button_map_out;
@@ -88,15 +89,33 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1912787438 = 3'h4;
-    localparam _MP_DIV_1912787438 = 3'h4;
+    localparam _MP_SIZE_2074906041 = 3'h6;
+    localparam _MP_DIV_2074906041 = 5'h10;
+    localparam _MP_TOP_2074906041 = 4'h5;
+    localparam _MP_UP_2074906041 = 1'h1;
+    logic [5:0] M_ctr_value;
+    
+    counter #(
+        .SIZE(_MP_SIZE_2074906041),
+        .DIV(_MP_DIV_2074906041),
+        .TOP(_MP_TOP_2074906041),
+        .UP(_MP_UP_2074906041)
+    ) ctr (
+        .rst(rst),
+        .clk(clk),
+        .value(M_ctr_value)
+    );
+    
+    
+    localparam _MP_DIGITS_247720299 = 3'h4;
+    localparam _MP_DIV_247720299 = 3'h4;
     logic [3:0][3:0] M_seg_values;
     logic [7:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_1912787438),
-        .DIV(_MP_DIV_1912787438)
+        .DIGITS(_MP_DIGITS_247720299),
+        .DIV(_MP_DIV_247720299)
     ) seg (
         .rst(rst),
         .clk(clk),
@@ -106,15 +125,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1237422374 = 3'h4;
-    localparam _MP_DIV_1237422374 = 3'h4;
+    localparam _MP_DIGITS_954789452 = 3'h4;
+    localparam _MP_DIV_954789452 = 3'h4;
     logic [3:0][3:0] M_word_seg_values;
     logic [7:0] M_word_seg_seg;
     logic [3:0] M_word_seg_sel;
     
     multi_word_seg #(
-        .DIGITS(_MP_DIGITS_1237422374),
-        .DIV(_MP_DIV_1237422374)
+        .DIGITS(_MP_DIGITS_954789452),
+        .DIV(_MP_DIV_954789452)
     ) word_seg (
         .rst(rst),
         .clk(clk),
@@ -167,14 +186,14 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1028860062 = 3'h4;
-    localparam _MP_LEADING_ZEROS_1028860062 = 1'h1;
+    localparam _MP_DIGITS_704479086 = 3'h4;
+    localparam _MP_LEADING_ZEROS_704479086 = 1'h1;
     logic [13:0] M_decimal_renderer_value;
     logic [3:0][3:0] M_decimal_renderer_digits;
     
     bin_to_dec #(
-        .DIGITS(_MP_DIGITS_1028860062),
-        .LEADING_ZEROS(_MP_LEADING_ZEROS_1028860062)
+        .DIGITS(_MP_DIGITS_704479086),
+        .LEADING_ZEROS(_MP_LEADING_ZEROS_704479086)
     ) decimal_renderer (
         .value(M_decimal_renderer_value),
         .digits(M_decimal_renderer_digits)
@@ -196,7 +215,7 @@ module manual_tester (
         M_word_seg_values = {{4'hf, 4'hf, 4'hf, 4'hf}};
         M_seg_values = M_decimal_renderer_digits;
         io_segment = ~M_seg_seg;
-        seg_selector = ~M_seg_sel;
+        seg_selector = M_seg_sel;
         M_control_unit_opcode = M_iROM_out[5'h1f:5'h1a];
         M_reg_ra1 = M_iROM_out[5'h14:5'h10];
         M_reg_ra2 = M_iROM_out[4'hf:4'hb];
@@ -229,7 +248,7 @@ module manual_tester (
             5'h2: begin
                 M_word_seg_values = {{{4'hf}}, {{4'hf}}, {{4'hf}}, {{3'h0, D_gamemode_q}}};
                 io_segment = ~M_word_seg_seg;
-                seg_selector = ~M_word_seg_sel;
+                seg_selector = M_word_seg_sel;
                 if (select_button) begin
                     D_gamemode_d = D_gamemode_q ^ 1'h1;
                 end
@@ -259,28 +278,25 @@ module manual_tester (
                     D_state_d = 5'h3;
                     M_iROM_address = 3'h4;
                 end else begin
-                    D_state_d = 5'h7;
-                end
-            end
-            5'h7: begin
-                M_seg_values = {{{4'hf}}, {{4'hf}}, {M_reg_level_select[3'h7:3'h4]}, {M_reg_level_select[2'h3:1'h0]}};
-                if (select_button) begin
-                    M_iROM_address = 4'h8;
                     D_state_d = 5'h14;
-                end
-                if (start_button) begin
-                    D_state_d = 5'hb;
                 end
             end
             5'h14: begin
                 M_iROM_address = 4'h9;
-                D_state_d = 5'h12;
+                D_state_d = 5'h7;
             end
-            5'h12: begin
+            5'h7: begin
+                M_iROM_address = 4'h9;
+                M_seg_values = {{{4'hf}}, {{4'hf}}, {M_reg_level_select[3'h7:3'h4]}, {M_reg_level_select[2'h3:1'h0]}};
                 if (M_reg_z == 1'h0) begin
                     M_iROM_address = 4'ha;
                 end
-                D_state_d = 5'h7;
+                if (select_button) begin
+                    M_iROM_address = 4'h8;
+                end
+                if (start_button) begin
+                    D_state_d = 5'hb;
+                end
             end
             5'hb: begin
                 M_iROM_address = 4'hb;
@@ -288,24 +304,31 @@ module manual_tester (
             end
             5'h8: begin
                 M_iROM_address = M_reg_rom_sel;
-                D_state_d = 5'h9;
-            end
-            5'h9: begin
-                M_iROM_address = 4'hc;
                 D_state_d = 5'h16;
             end
             5'h16: begin
                 M_iROM_address = 4'hd;
+                D_state_d = 5'h9;
+            end
+            5'h9: begin
+                M_iROM_address = 4'hc;
                 D_state_d = 5'h11;
             end
             5'h11: begin
                 M_iROM_address = M_reg_rom_sel;
+                D_state_d = 5'h12;
+            end
+            5'h12: begin
+                M_iROM_address = 4'hf;
                 D_state_d = 5'ha;
             end
             5'ha: begin
                 M_iROM_address = 4'hf;
+                D_led_d = M_reg_z;
+                if (M_reg_z == 1'h1) begin
+                    D_state_d = 5'he;
+                end
                 if ((|M_button_map_out[2'h3:1'h0])) begin
-                    D_led_d = M_reg_z;
                     D_state_d = 5'hd;
                 end
                 if (select_button) begin
@@ -368,8 +391,18 @@ module manual_tester (
                 D_state_d = 5'ha;
             end
             5'he: begin
-                M_iROM_address = 4'hf;
-                D_state_d = 5'h2;
+                M_iROM_address = 7'h4d;
+                if (select_button) begin
+                    D_state_d = 5'h2;
+                end
+                D_state_d = 5'h17;
+            end
+            5'h17: begin
+                if (start_button) begin
+                    M_iROM_address = 7'h4e;
+                end else begin
+                    M_iROM_address = 1'h0;
+                end
             end
         endcase
     end

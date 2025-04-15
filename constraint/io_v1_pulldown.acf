@@ -9,22 +9,22 @@ PINOUT(V1), STANDARD(LVCMOS33) {
     pin io_led[7] B11
 
     
-    pin led_grid[0] C31
-    pin led_grid[1] C37
-    pin led_grid[2] C43
-    pin led_grid[3] C49
-    pin led_grid[4] C30
-    pin led_grid[5] C36
-    pin led_grid[6] C42
-    pin led_grid[7] C48
-    pin led_grid[8] C20
-    pin led_grid[9] C14
-    pin led_grid[10] C8
-    pin led_grid[11] C2
-    pin led_grid[12] C24
-    pin led_grid[13] C15
-    pin led_grid[14] C9
-    pin led_grid[15] C3
+    pin led_grid[0] A39
+    pin led_grid[1] A42
+    pin led_grid[2] A45
+    pin led_grid[3] A48
+    pin led_grid[4] A40
+    pin led_grid[5] A43
+    pin led_grid[6] A46
+    pin led_grid[7] A49
+    pin led_grid[8] A12
+    pin led_grid[9] A9
+    pin led_grid[10] A6
+    pin led_grid[11] A3
+    pin led_grid[12] A11
+    pin led_grid[13] A8
+    pin led_grid[14] A5
+    pin led_grid[15] A2
 
     
     
@@ -45,18 +45,18 @@ PINOUT(V1), STANDARD(LVCMOS33) {
         pin row[2] B3
         pin row[3] B2
     }
-     pin seg_selector[0] A9
-    pin seg_selector[1] A8
-    pin seg_selector[2] A42
-    pin seg_selector[3] A43
+     pin seg_selector[0] A24
+    pin seg_selector[1] A23
+    pin seg_selector[2] A27
+    pin seg_selector[3] A28
     
-    pin io_segment[0] A5
-    pin io_segment[1] A6
-    pin io_segment[2] A48
-    pin io_segment[3] A46
-    pin io_segment[4] A45
-    pin io_segment[5] A3
-    pin io_segment[6] A2
+    pin io_segment[0] A20
+    pin io_segment[1] A21
+    pin io_segment[2] A33
+    pin io_segment[3] A31
+    pin io_segment[4] A30
+    pin io_segment[5] A18
+    pin io_segment[6] A17
     
     
  

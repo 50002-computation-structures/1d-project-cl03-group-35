@@ -14,18 +14,6 @@ module cu (
     always @* begin
         
         case (opcode)
-            6'h32: begin
-                bsel = 1'h0;
-                pc_sel = 1'h1;
-                alufn = 4'ha;
-                we = 1'h1;
-            end
-            6'h1d: begin
-                bsel = 1'h0;
-                pc_sel = 1'h1;
-                alufn = 1'h0;
-                we = 1'h1;
-            end
             6'h3a: begin
                 bsel = 1'h0;
                 pc_sel = 1'h0;
@@ -35,30 +23,6 @@ module cu (
             6'h30: begin
                 bsel = 1'h0;
                 pc_sel = 1'h0;
-                alufn = 1'h0;
-                we = 1'h1;
-            end
-            6'h18: begin
-                bsel = 1'h0;
-                pc_sel = 1'h0;
-                alufn = 6'h1a;
-                we = 1'h1;
-            end
-            6'h1c: begin
-                bsel = 1'h0;
-                pc_sel = 1'h0;
-                alufn = 6'h1b;
-                we = 1'h1;
-            end
-            6'h3b: begin
-                bsel = 1'h0;
-                pc_sel = 2'h2;
-                alufn = 1'h0;
-                we = 1'h1;
-            end
-            6'h1b: begin
-                bsel = 1'h1;
-                pc_sel = 2'h2;
                 alufn = 1'h0;
                 we = 1'h1;
             end
@@ -90,6 +54,12 @@ module cu (
                 bsel = 1'h0;
                 pc_sel = 1'h0;
                 alufn = 6'h1;
+                we = 1'h1;
+            end
+            6'h33: begin
+                bsel = 1'h0;
+                pc_sel = 1'h0;
+                alufn = 6'h3;
                 we = 1'h1;
             end
             default: begin

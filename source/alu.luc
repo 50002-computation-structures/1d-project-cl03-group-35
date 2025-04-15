@@ -48,12 +48,14 @@ module alu (
         case(alufn[5:4]){
             
             2b00: 
-            case(alufn[1]){
-            1b0:
+            case(alufn[1:0]){
+            2b00:
             out= adder.out
             
-            1b1:
+            2b10:
             out = multiplier.mul
+            2b11: 
+            out = a/2
                 }
             
             

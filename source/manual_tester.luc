@@ -14,7 +14,7 @@ module manual_tester (
 
     enum States{ IDLE,SETUP,SELECT_GAME,LOAD,LOAD_INCREASE,LOAD_ADVANCE,LOAD_CHECK,SELECT_LEVEL,LOAD_MAP_TO_3,
         LOAD_MAP_TO_4,PLAYER_INPUT,ADD_LEVEL_TO_ROM_SEL,RESET,UPDATE,GAMEOVER,CHECK,LOAD_IN,LOAD_COUNTER,LEVEL_ADVANCE,CHECK_LEVEL,
-    PRE_SELECT,MAP_SELECTOR,INCRESE_ROMSEL_BY_3}
+    PRE_SELECT,MAP_SELECTOR,INCRESE_ROMSEL_BY_3,ANIMATE}
     .clk(clk) {
              
         button_map button_map(.rst(rst))
@@ -24,7 +24,7 @@ module manual_tester (
         dff led[8]
         
         simple_ram reg
-        
+        counter ctr (#DIV(16), #SIZE(6), #TOP(6-1),.rst(rst)) 
         multi_seven_seg seg(#DIV(4),.rst(rst)) 
         multi_word_seg word_seg(#DIV(4),.rst(rst)) 
     }
@@ -45,7 +45,7 @@ module manual_tester (
         word_seg.values = c{{4hf},{4hf},{4hf},{4hf}}
         seg.values = decimal_renderer.digits 
         io_segment = ~seg.seg
-        seg_selector = ~seg.sel 
+        seg_selector = seg.sel 
         
 
         // control_unit
@@ -84,7 +84,7 @@ module manual_tester (
             States.SELECT_GAME:
             word_seg.values  = c{{4hf},{4hf},{4hf},{c{3b0,gamemode.q}}} // DISPLAY E OR H  depending on gamemode
             io_segment = ~word_seg.seg
-            seg_selector = ~word_seg.sel 
+            seg_selector = word_seg.sel 
             if (select_button){
                    gamemode.d = gamemode.q ^ 1 
                     
@@ -117,33 +117,30 @@ module manual_tester (
             iROM.address =4  //ADD 1 to ROM
                 }
             else{
-            state.d = States.SELECT_LEVEL 
+            state.d = States.PRE_SELECT 
                 }
+           States.PRE_SELECT:
+            iROM.address = 9// CMPLEC if LEVEL SELECT <3
+             state.d = States.SELECT_LEVEL 
+ 
            States.SELECT_LEVEL:
-           
+           iROM.address = 9// CMPLEC if LEVEL SELECT <3
            seg.values  = c{{4hf},{c{hf}},{reg.level_select[7:4]},{reg.level_select[3:0]}} //display difficulty level
-           
+            if(reg.z== 0){
+                    iROM.address = 10 // -4  RESET REG[7] SUBC 4
+                }
              if (select_button){
              iROM.address = 8 // ADD  1 to level select
-             state.d = States.PRE_SELECT
+             
                 }
             if(start_button){
             state.d =States.ADD_LEVEL_TO_ROM_SEL
                 }  
             
             
-            States.PRE_SELECT:
-            iROM.address = 9// CMPLEC if LEVEL SELECT <3
- 
-            state.d = States.LEVEL_ADVANCE
+
             
-            States.LEVEL_ADVANCE:
-            
-            if (reg.z== 0){
-                  iROM.address = 10 // -4  RESET REG[7] SUBC 4
-                }
-            
-            state.d = States.SELECT_LEVEL    
+    
             
           
             States.ADD_LEVEL_TO_ROM_SEL:
@@ -152,25 +149,32 @@ module manual_tester (
                 
            States.LOAD_MAP_TO_3:    
             iROM.address = reg.rom_sel // ADD MAP TO REG[3]
-            state.d = States.LOAD_MAP_TO_4         
+            state.d = States.INCRESE_ROMSEL_BY_3         
 
-            
-            States.LOAD_MAP_TO_4:
-             iROM.address = 12 // LOAD REG  3 to REG 4
-            state.d = States.INCRESE_ROMSEL_BY_3  
-            
           States.INCRESE_ROMSEL_BY_3:
                 iROM.address = 13// ADD LEVEL SEL to ROM SEL
-            state.d = States.LOAD_COUNTER 
+            state.d = States.LOAD_MAP_TO_4 
+                        
+            States.LOAD_MAP_TO_4:
+             iROM.address = 12 // LOAD REG  3 to REG 4
+            state.d = States.LOAD_COUNTER  
+            
+
             States.LOAD_COUNTER:
              iROM.address = reg.rom_sel// ADD LEVEL SEL to ROM SEL
-            state.d = States.PLAYER_INPUT 
-            
+            state.d = States.LEVEL_ADVANCE 
+           
+            States.LEVEL_ADVANCE:
+            iROM.address = 15
+            state.d = States.PLAYER_INPUT
            States.PLAYER_INPUT:
            iROM.address = 15
-  
+           led.d = reg.z
+            if (reg.z ==1){
+                  state.d = States.GAMEOVER 
+                }
             if(|button_map.out[3:0]){
-            led.d = reg.z
+                
                 state.d = States.UPDATE  
                 
                 }
@@ -213,12 +217,24 @@ module manual_tester (
 
                     }
 
-               States.UPDATE:
-                iROM.address = 14
+             States.UPDATE:
+               iROM.address = 14
                state.d = States.PLAYER_INPUT  
             States.GAMEOVER :
-                iROM.address = 15 
-                state.d = States.SELECT_GAME     
+                iROM.address = 77
+            if (select_button){
+                  state.d = States.SELECT_GAME  
+                }
+                state.d = States.ANIMATE
+            
+            States.ANIMATE:
+                
+            if (start_button){
+                  iROM.address = 78  
+                }else{
+                  iROM.address = 0  
+                }
+          
         
             
         }

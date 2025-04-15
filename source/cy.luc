@@ -9,17 +9,8 @@ module cu (
 
     always {
         case(opcode){
-            b110010: //MULTIPLY C
-            bsel = 0
-            pc_sel =1
-            alufn = 000010
-            we =1
-            b011101: //BEQ
-            bsel = 0
-            pc_sel =1
-            alufn = 0
-            we =1
-            6b111010: // XORC
+
+          6b111010: // XORC
             bsel = 0
             pc_sel =0
             alufn = b010110
@@ -30,26 +21,7 @@ module cu (
             alufn = 0
             we =1
             
-        b011000: //choose A
-             bsel = 0
-            pc_sel =0
-            alufn = b011010
-            we =1  
-        b011100: //choose b sxtc
-            bsel = 0
-            pc_sel =0
-            alufn = b011011
-            we =1    
-        b111011://JMPC
-            bsel = 0
-            pc_sel =2
-            alufn = 0
-            we =1
-        b011011://JMP
-         bsel = 1
-         pc_sel =2
-         alufn = 0
-         we =1       
+  
         b100000://ADD
          bsel = 1
          pc_sel =0
@@ -66,7 +38,7 @@ module cu (
          pc_sel =0
          alufn = b110111
          we =1 
-        b110011: //CMEQC
+        b110011: //EQUAL
          bsel = 0
          pc_sel =0
          alufn = b110011
@@ -75,7 +47,12 @@ module cu (
          bsel = 0
          pc_sel =0
          alufn = b000001
-         we =1   
+         we =1
+        b110011://DIVC
+         bsel = 0
+         pc_sel =0
+         alufn = b000011
+         we =1     
 
         default: 
             bsel =1
