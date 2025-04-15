@@ -12,7 +12,8 @@ module simple_ram (
     output count_min[32],
     output rom_sel[32],
     input write_data[32],         // data to write
-    input write_enable
+    input write_enable,
+    output temp[16]
 
 
     
@@ -27,6 +28,7 @@ module simple_ram (
         count_min = reg.q[5]
         rom_sel = reg.q[11]
         z = reg.q[1]
+        temp = reg.q[2]
 
         if (write_enable){
             reg.d[rc] = write_data

@@ -63,6 +63,7 @@ module manual_tester (
     logic [31:0] M_reg_rom_sel;
     logic [31:0] M_reg_write_data;
     logic M_reg_write_enable;
+    logic [15:0] M_reg_temp;
     
     simple_ram L_reg (
         .clk(clk),
@@ -78,21 +79,22 @@ module manual_tester (
         .count_min(M_reg_count_min),
         .rom_sel(M_reg_rom_sel),
         .write_data(M_reg_write_data),
-        .write_enable(M_reg_write_enable)
+        .write_enable(M_reg_write_enable),
+        .temp(M_reg_temp)
     );
     
     
-    localparam _MP_SIZE_597847983 = 4'h8;
-    localparam _MP_DIV_597847983 = 5'h15;
-    localparam _MP_TOP_597847983 = 5'h7;
-    localparam _MP_UP_597847983 = 1'h1;
+    localparam _MP_SIZE_265774081 = 4'h8;
+    localparam _MP_DIV_265774081 = 5'h15;
+    localparam _MP_TOP_265774081 = 5'h7;
+    localparam _MP_UP_265774081 = 1'h1;
     logic [7:0] M_ctr_value;
     
     counter #(
-        .SIZE(_MP_SIZE_597847983),
-        .DIV(_MP_DIV_597847983),
-        .TOP(_MP_TOP_597847983),
-        .UP(_MP_UP_597847983)
+        .SIZE(_MP_SIZE_265774081),
+        .DIV(_MP_DIV_265774081),
+        .TOP(_MP_TOP_265774081),
+        .UP(_MP_UP_265774081)
     ) ctr (
         .rst(rst),
         .clk(clk),
@@ -100,15 +102,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1170861787 = 3'h4;
-    localparam _MP_DIV_1170861787 = 3'h4;
+    localparam _MP_DIGITS_733630956 = 3'h4;
+    localparam _MP_DIV_733630956 = 3'h4;
     logic [3:0][3:0] M_seg_values;
     logic [7:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_1170861787),
-        .DIV(_MP_DIV_1170861787)
+        .DIGITS(_MP_DIGITS_733630956),
+        .DIV(_MP_DIV_733630956)
     ) seg (
         .rst(rst),
         .clk(clk),
@@ -118,15 +120,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_427487402 = 3'h4;
-    localparam _MP_DIV_427487402 = 3'h4;
+    localparam _MP_DIGITS_571000480 = 3'h4;
+    localparam _MP_DIV_571000480 = 3'h4;
     logic [3:0][3:0] M_word_seg_values;
     logic [7:0] M_word_seg_seg;
     logic [3:0] M_word_seg_sel;
     
     multi_word_seg #(
-        .DIGITS(_MP_DIGITS_427487402),
-        .DIV(_MP_DIV_427487402)
+        .DIGITS(_MP_DIGITS_571000480),
+        .DIV(_MP_DIV_571000480)
     ) word_seg (
         .rst(rst),
         .clk(clk),
@@ -159,14 +161,12 @@ module manual_tester (
     logic [5:0] M_control_unit_alufn;
     logic M_control_unit_bsel;
     logic M_control_unit_we;
-    logic [1:0] M_control_unit_pc_sel;
     
     cu control_unit (
         .opcode(M_control_unit_opcode),
         .alufn(M_control_unit_alufn),
         .bsel(M_control_unit_bsel),
-        .we(M_control_unit_we),
-        .pc_sel(M_control_unit_pc_sel)
+        .we(M_control_unit_we)
     );
     
     
@@ -179,14 +179,14 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_1670075341 = 3'h4;
-    localparam _MP_LEADING_ZEROS_1670075341 = 1'h1;
+    localparam _MP_DIGITS_1755334381 = 3'h4;
+    localparam _MP_LEADING_ZEROS_1755334381 = 1'h1;
     logic [13:0] M_decimal_renderer_value;
     logic [3:0][3:0] M_decimal_renderer_digits;
     
     bin_to_dec #(
-        .DIGITS(_MP_DIGITS_1670075341),
-        .LEADING_ZEROS(_MP_LEADING_ZEROS_1670075341)
+        .DIGITS(_MP_DIGITS_1755334381),
+        .LEADING_ZEROS(_MP_LEADING_ZEROS_1755334381)
     ) decimal_renderer (
         .value(M_decimal_renderer_value),
         .digits(M_decimal_renderer_digits)
@@ -317,7 +317,7 @@ module manual_tester (
             end
             5'h0: begin
                 M_iROM_address = 2'h3;
-                D_state_d = 5'h2;
+                D_state_d = 5'h5;
             end
             5'h2: begin
                 M_iROM_address = M_reg_rom_sel;
@@ -329,11 +329,10 @@ module manual_tester (
             end
             5'h5: begin
                 M_iROM_address = 3'h6;
-                D_state_d = 5'h4;
+                D_state_d = 5'h2;
             end
             5'h4: begin
-                M_iROM_address = 3'h6;
-                if (M_reg_z == 1'h1) begin
+                if (M_reg_temp < 5'h11) begin
                     D_state_d = 5'h2;
                     M_iROM_address = 3'h4;
                 end else begin

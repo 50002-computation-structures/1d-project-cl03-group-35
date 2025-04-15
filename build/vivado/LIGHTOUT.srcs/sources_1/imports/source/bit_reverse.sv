@@ -10,12 +10,12 @@ module bit_reverse #(
         input wire [(SIZE)-1:0] in,
         output reg [(SIZE)-1:0] reversed
     );
-    logic [31:0] R_11bb388c_i;
-    logic [31:0] RR_11bb388c_i;
+    logic [31:0] R_22051687_i;
+    logic [31:0] RR_22051687_i;
     always @* begin
-        for (RR_11bb388c_i = 0; RR_11bb388c_i < SIZE; RR_11bb388c_i = RR_11bb388c_i + 1) begin
-      R_11bb388c_i = (0) + RR_11bb388c_i * (1);
-            reversed[R_11bb388c_i] = in[SIZE - 1'h1 - R_11bb388c_i];
+        for (RR_22051687_i = 0; RR_22051687_i < SIZE; RR_22051687_i = RR_22051687_i + 1) begin
+      R_22051687_i = (0) + RR_22051687_i * (1);
+            reversed[R_22051687_i] = in[SIZE - 1'h1 - R_22051687_i];
         end
     end
     

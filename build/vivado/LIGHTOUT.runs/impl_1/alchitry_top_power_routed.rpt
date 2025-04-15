@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-| Date             : Wed Apr 16 01:46:24 2025
+| Date             : Wed Apr 16 05:21:25 2025
 | Host             : Ideapad_S340 running 64-bit major release  (build 9200)
 | Command          : report_power -file alchitry_top_power_routed.rpt -pb alchitry_top_power_summary_routed.pb -rpx alchitry_top_power_routed.rpx
 | Design           : alchitry_top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.081        |
+| Total On-Chip Power (W)  | 0.082        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.009        |
+| Dynamic (W)              | 0.010        |
 | Device Static (W)        | 0.072        |
 | Effective TJA (C/W)      | 4.9          |
 | Max Ambient (C)          | 84.6         |
@@ -53,16 +53,16 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |    <0.001 |        3 |       --- |             --- |
-| Slice Logic    |     0.003 |     4304 |       --- |             --- |
-|   LUT as Logic |     0.003 |     2131 |     20800 |           10.25 |
-|   F7/F8 Muxes  |    <0.001 |      263 |     32600 |            0.81 |
+| Slice Logic    |     0.004 |     4290 |       --- |             --- |
+|   LUT as Logic |     0.004 |     2133 |     20800 |           10.25 |
+|   F7/F8 Muxes  |    <0.001 |      262 |     32600 |            0.80 |
 |   CARRY4       |    <0.001 |       82 |      8150 |            1.01 |
 |   Register     |    <0.001 |     1343 |     41600 |            3.23 |
 |   Others       |     0.000 |       48 |       --- |             --- |
-| Signals        |     0.004 |     3597 |       --- |             --- |
+| Signals        |     0.004 |     3581 |       --- |             --- |
 | I/O            |     0.002 |       41 |       170 |           24.12 |
 | Static Power   |     0.072 |          |           |                 |
-| Total          |     0.081 |          |           |                 |
+| Total          |     0.082 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -72,7 +72,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.017 |       0.007 |      0.010 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.018 |       0.008 |      0.010 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.013 |       0.000 |      0.013 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -141,9 +141,9 @@ Table of Contents
 +--------------+-----------+
 | Name         | Power (W) |
 +--------------+-----------+
-| alchitry_top |     0.009 |
-|   cpu        |     0.007 |
-|     L_reg    |     0.007 |
+| alchitry_top |     0.010 |
+|   cpu        |     0.008 |
+|     L_reg    |     0.008 |
 +--------------+-----------+
 
 

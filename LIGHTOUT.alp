@@ -196,6 +196,12 @@
                     "type": "DiskFile",
                     "path": "source/daw.luc"
                 }
+            },
+            {
+                "file": {
+                    "type": "DiskFile",
+                    "path": "source/rca.luc"
+                }
             }
         ],
         "constraintFiles": [

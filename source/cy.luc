@@ -2,8 +2,7 @@ module cu (
     input opcode[6],
     output alufn[6],
     output bsel,
-    output we,
-    output pc_sel[2]
+    output we
 ) {
 
 
@@ -12,53 +11,45 @@ module cu (
 
           6b111010: // XORC
             bsel = 0
-            pc_sel =0
             alufn = b010110
             we =1
         6b110000://ADDC
             bsel = 0
-            pc_sel =0
             alufn = 0
             we =1
             
   
         b100000://ADD
          bsel = 1
-         pc_sel =0
+
          alufn = 0
          we =1         
         
         b101010://XOR
          bsel = 1
-         pc_sel =0
          alufn = b010110
          we =1 
             
         b110110: //CMPLC
          bsel = 0
-         pc_sel =0
          alufn = b110111
          we =1 
         b110100 : //EQUAL
          bsel = 0
-         pc_sel =0
          alufn = b110011
          we =1 
         b110001://SUBC
          bsel = 0
-         pc_sel =0
          alufn = b000001
          we =1
         b100011://DIV
          bsel = 1
-         pc_sel =0
          alufn = b000011
          we =1     
 
 
         default: 
             bsel =1
-            pc_sel = 0
             alufn = 0
             we = 0 
             

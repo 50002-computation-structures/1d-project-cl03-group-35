@@ -146,11 +146,13 @@ module manual_tester (
                 }
            States.SETUP:
            iROM.address =  3
-           state.d = States.LOAD
-           States.LOAD: 
+           state.d = States.LOAD_CHECK
+          States.LOAD: 
             
             iROM.address =  reg.rom_sel  
             state.d = States.LOAD_INCREASE 
+                
+            
                 
 
            States.LOAD_INCREASE:
@@ -159,11 +161,11 @@ module manual_tester (
               
            States.LOAD_CHECK:
             iROM.address = 6 // CHECK if TEMP <15
-            state.d = States.LOAD_ADVANCE
+            state.d = States.LOAD
             
-           States.LOAD_ADVANCE: 
-            iROM.address = 6
-            if (reg.z ==1){ // if z = 1 , have not complete loading
+            States.LOAD_ADVANCE: 
+                          
+            if (reg.temp < 17){ // if z = 1 , have not complete loading
              state.d = States.LOAD
             iROM.address =4  //ADD 1 to ROM
                 }
@@ -177,7 +179,7 @@ module manual_tester (
            States.SELECT_LEVEL:
            iROM.address = 9// CMPLEC if LEVEL SELECT <3
            seg.values  = c{{4hf},{c{hf}},{reg.level_select[7:4]},{reg.level_select[3:0]}} //display difficulty level
-            if(reg.z== 0){
+            if(reg.z==0){
                     iROM.address = 10 // -4  RESET REG[7] SUBC 4
                 }
              if (select_button){
@@ -274,7 +276,7 @@ module manual_tester (
              state.d = States.WAIT   
     
             States.WAIT:
-            if (ctr.value[3]){
+            if (ctr.value[7]){
                  state.d = States.ANIMATE   
                 }
             if (start_button){

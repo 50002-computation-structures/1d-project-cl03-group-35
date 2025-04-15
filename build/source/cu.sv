@@ -8,63 +8,53 @@ module cu (
         input wire [5:0] opcode,
         output reg [5:0] alufn,
         output reg bsel,
-        output reg we,
-        output reg [1:0] pc_sel
+        output reg we
     );
     always @* begin
         
         case (opcode)
             6'h3a: begin
                 bsel = 1'h0;
-                pc_sel = 1'h0;
                 alufn = 6'h16;
                 we = 1'h1;
             end
             6'h30: begin
                 bsel = 1'h0;
-                pc_sel = 1'h0;
                 alufn = 1'h0;
                 we = 1'h1;
             end
             6'h20: begin
                 bsel = 1'h1;
-                pc_sel = 1'h0;
                 alufn = 1'h0;
                 we = 1'h1;
             end
             6'h2a: begin
                 bsel = 1'h1;
-                pc_sel = 1'h0;
                 alufn = 6'h16;
                 we = 1'h1;
             end
             6'h36: begin
                 bsel = 1'h0;
-                pc_sel = 1'h0;
                 alufn = 6'h37;
                 we = 1'h1;
             end
             6'h34: begin
                 bsel = 1'h0;
-                pc_sel = 1'h0;
                 alufn = 6'h33;
                 we = 1'h1;
             end
             6'h31: begin
                 bsel = 1'h0;
-                pc_sel = 1'h0;
                 alufn = 6'h1;
                 we = 1'h1;
             end
             6'h23: begin
                 bsel = 1'h1;
-                pc_sel = 1'h0;
                 alufn = 6'h3;
                 we = 1'h1;
             end
             default: begin
                 bsel = 1'h1;
-                pc_sel = 1'h0;
                 alufn = 1'h0;
                 we = 1'h0;
             end

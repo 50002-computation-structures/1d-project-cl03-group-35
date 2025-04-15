@@ -10,8 +10,8 @@ testbench daw {
     alu alu
     test myTest {
         clk = 0 // initialize the value
-        alu.a =b11111111
-        alu.b = 2
+        alu.a =4
+        alu.b = 5
         alu.alufn = b110111
         $tick() // capture initial state
 

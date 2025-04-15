@@ -92,8 +92,6 @@ read_verilog -library xil_defaultlib -sv {
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/button_conditioner.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/button_conditioner_matrix.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/button_map.sv
-  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/carry_skip_adder_32.sv
-  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/carry_skip_adder_4bit.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/compare.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/counter.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/cu.sv
@@ -109,6 +107,7 @@ read_verilog -library xil_defaultlib -sv {
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/mux_2.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/mux_4.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/pipeline.sv
+  C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/rca.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/reset_conditioner.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/seven_seg.sv
   C:/Users/weiya/OneDrive/Desktop/lab3/1d-project-cl03-group-35/build/vivado/LIGHTOUT.srcs/sources_1/imports/source/shifter.sv

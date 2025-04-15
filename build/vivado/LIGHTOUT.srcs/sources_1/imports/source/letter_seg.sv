@@ -32,33 +32,6 @@ module letter_seg (
             3'h6: begin
                 segs = 8'h6e;
             end
-            3'h7: begin
-                segs = 8'h7;
-            end
-            4'h8: begin
-                segs = 8'h7f;
-            end
-            4'h9: begin
-                segs = 8'h67;
-            end
-            4'ha: begin
-                segs = 8'h77;
-            end
-            4'hb: begin
-                segs = 8'h7c;
-            end
-            4'hc: begin
-                segs = 8'h39;
-            end
-            4'hd: begin
-                segs = 8'h5e;
-            end
-            4'he: begin
-                segs = 8'h79;
-            end
-            4'hf: begin
-                segs = 8'h0;
-            end
             4'hf: begin
                 segs = 8'h0;
             end
