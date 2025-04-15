@@ -6,25 +6,24 @@ module manual_tester (
     input row[4],
     output col[4],
     output led_grid[16],
-    output ledout [16],
     output io_segment[7],
     output seg_selector[4]
 ) {
 
 
-    enum States{ IDLE,SETUP,SELECT_GAME,LOAD,LOAD_INCREASE,LOAD_ADVANCE,LOAD_CHECK,SELECT_LEVEL,LOAD_MAP_TO_3,
-        LOAD_MAP_TO_4,PLAYER_INPUT,ADD_LEVEL_TO_ROM_SEL,RESET,UPDATE,GAMEOVER,CHECK,LOAD_IN,LOAD_COUNTER,LEVEL_ADVANCE,CHECK_LEVEL,
-    PRE_SELECT,MAP_SELECTOR,INCRESE_ROMSEL_BY_3,ANIMATE}
+    enum States{ SETUP,SELECT_GAME,LOAD,LOAD_INCREASE,LOAD_ADVANCE,LOAD_CHECK,SELECT_LEVEL,LOAD_MAP_TO_3,
+        LOAD_MAP_TO_4,PLAYER_INPUT,ADD_LEVEL_TO_ROM_SEL,UPDATE,GAMEOVER,LOAD_COUNTER,LEVEL_ADVANCE,
+    PRE_SELECT,INCRESE_ROMSEL_BY_3,ANIMATE,WAIT, TEST}
     .clk(clk) {
              
         button_map button_map(.rst(rst))
-        dff input_buffer[8]
+       
         dff gamemode 
-        dff state[$width(States)](#INIT(States.IDLE))
-        dff led[8]
+        dff state[$width(States)](#INIT(States.SELECT_GAME))
+     
         
         simple_ram reg
-        counter ctr (#DIV(16), #SIZE(6), #TOP(6-1),.rst(rst)) 
+        counter ctr (#DIV(21), #SIZE(8), #TOP(8-1),.rst(rst))
         multi_seven_seg seg(#DIV(4),.rst(rst)) 
         multi_word_seg word_seg(#DIV(4),.rst(rst)) 
     }
@@ -35,8 +34,8 @@ module manual_tester (
     bin_to_dec decimal_renderer(#DIGITS(4), #LEADING_ZEROS(1))
     
     always {
-        led.d =led.q
-        ledout =reg.z
+        
+        
         // i/o
         col = button_map.col 
         button_map.row  = row
@@ -52,12 +51,14 @@ module manual_tester (
         control_unit.opcode = iROM.out[31:26]
         
         //Registry 
+        reg.rst= 0
         reg.ra1 = iROM.out[20:16]
         reg.ra2 = iROM.out[15:11]
         reg.rc = iROM.out[25:21]
         reg.write_data = alu.out
         reg.write_enable = control_unit.we
-        
+        // ROM
+        iROM.address = 0
         
         //ALU
         alu.alufn = control_unit.alufn
@@ -70,19 +71,69 @@ module manual_tester (
             default:
             alu.b = iROM.out[15:0] 
         }
-        //Instruction ROM
-        input_buffer.d =input_buffer.q
-        iROM.address = input_buffer.q
+
 
         
         // State Machines
         state.d = state.q
         gamemode.d=gamemode.q
         case(state.q){
-            States.IDLE:
-            state.d = States.SELECT_GAME
+            States.TEST:
+            case(c{start_button,select_button}){
+            b10:
+                iROM.address = 50
+            b01:
+                iROM.address = 14
+            b11:
+               
+                state.d = States.SELECT_GAME 
+                    
+                }
+            case(button_map.out){      
+                b00010001:
+                    iROM.address = 34
+                b00100001:
+                    iROM.address = 35 
+                b01000001:
+                    iROM.address = 36   
+                b10000001:
+                    iROM.address = 37 
+                b00010010:
+                    iROM.address = 38   
+                b00100010:
+                    iROM.address = 39
+                b01000010:
+                    iROM.address = 40           
+                b10000010:
+                    iROM.address = 41   
+                b00010100:
+                    iROM.address = 42
+                b00100100:
+                    iROM.address = 43
+                b01000100:
+                    iROM.address = 44
+                b10000100:
+                    iROM.address = 45
+                b00011000:
+                    iROM.address = 46
+                b00101000:
+                    iROM.address = 47    
+                b01001000:
+                    iROM.address = 48
+                b10001000:
+                    iROM.address = 49
+
+                    }
             States.SELECT_GAME:
-            word_seg.values  = c{{4hf},{4hf},{4hf},{c{3b0,gamemode.q}}} // DISPLAY E OR H  depending on gamemode
+            if (button_map.out==b00010001){
+                   state.d = States.TEST 
+                }
+            if (gamemode.q){
+                 word_seg.values  =  c{{4h1},{4h2},{4h3},{c{4h4}}}   
+                }else{
+            word_seg.values  = c{{4h0},{4h2},{4h5},{c{4h6}}}         
+                }
+            // DISPLAY E OR H  depending on gamemode
             io_segment = ~word_seg.seg
             seg_selector = word_seg.sel 
             if (select_button){
@@ -111,8 +162,8 @@ module manual_tester (
             state.d = States.LOAD_ADVANCE
             
            States.LOAD_ADVANCE: 
-                          
-            if (reg.temp < 17){ // if z = 1 , have not complete loading
+            iROM.address = 6
+            if (reg.z ==1){ // if z = 1 , have not complete loading
              state.d = States.LOAD
             iROM.address =4  //ADD 1 to ROM
                 }
@@ -136,13 +187,7 @@ module manual_tester (
             if(start_button){
             state.d =States.ADD_LEVEL_TO_ROM_SEL
                 }  
-            
-            
 
-            
-    
-            
-          
             States.ADD_LEVEL_TO_ROM_SEL:
             iROM.address = 11 // ADD LEVEL SEL to ROM SEL
             state.d = States.LOAD_MAP_TO_3
@@ -169,7 +214,7 @@ module manual_tester (
             state.d = States.PLAYER_INPUT
            States.PLAYER_INPUT:
            iROM.address = 15
-           led.d = reg.z
+     
             if (reg.z ==1){
                   state.d = States.GAMEOVER 
                 }
@@ -221,21 +266,21 @@ module manual_tester (
                iROM.address = 14
                state.d = States.PLAYER_INPUT  
             States.GAMEOVER :
-                iROM.address = 77
-            if (select_button){
-                  state.d = States.SELECT_GAME  
-                }
+                iROM.address = 32
                 state.d = States.ANIMATE
-            
+
             States.ANIMATE:
-                
-            if (start_button){
-                  iROM.address = 78  
-                }else{
-                  iROM.address = 0  
+           iROM.address = 33 
+             state.d = States.WAIT   
+    
+            States.WAIT:
+            if (ctr.value[3]){
+                 state.d = States.ANIMATE   
                 }
-          
-        
+            if (start_button){
+             state.d = States.SELECT_GAME
+            reg.rst =1
+                }
             
         }
         }

@@ -1,4 +1,4 @@
-testbench alu_cpm {
+testbench daw {
     sig clk
 
     fun tick_clock() {
@@ -9,10 +9,10 @@ testbench alu_cpm {
     }
     alu alu
     test myTest {
-        alu.a = 6
-        alu.b = 5
-        alu.alufn = b110111
         clk = 0 // initialize the value
+        alu.a =b11111111
+        alu.b = 2
+        alu.alufn = b110111
         $tick() // capture initial state
 
         // test goes here

@@ -7,11 +7,11 @@ module letter_seg (
         case(char){
             0: segs = 8b01111001 //E
             1: segs = 8b01110110 //H
-            2: segs = 8b1011011
-            3: segs = 8b1001111
-            4: segs = 8b1100110
-            5: segs = 8b1101101
-            6: segs = 8b1111101
+            2: segs = 8b01110111//A
+            3: segs = 8b01010000 // R
+            4: segs = 8b01011110 // D
+            5: segs = 8b01101101 // S 
+            6: segs = 8b01101110 // Y
             7: segs = 8b0000111
             8: segs = 8b1111111
             9: segs = 8b1100111

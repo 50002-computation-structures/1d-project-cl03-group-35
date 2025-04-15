@@ -18,19 +18,19 @@ module letter_seg (
                 segs = 8'h76;
             end
             2'h2: begin
-                segs = 8'h5b;
+                segs = 8'h77;
             end
             2'h3: begin
-                segs = 8'h4f;
+                segs = 8'h50;
             end
             3'h4: begin
-                segs = 8'h66;
+                segs = 8'h5e;
             end
             3'h5: begin
                 segs = 8'h6d;
             end
             3'h6: begin
-                segs = 8'h7d;
+                segs = 8'h6e;
             end
             3'h7: begin
                 segs = 8'h7;

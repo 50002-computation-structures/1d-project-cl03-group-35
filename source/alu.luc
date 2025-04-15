@@ -11,7 +11,7 @@ module alu (
 {
     
     multiplier multiplier
-    adder adder(#SIZE(32))
+    adder adder
     compare compare
     shifter shifter
     bool boolean(#SIZE(32))
@@ -55,7 +55,7 @@ module alu (
             2b10:
             out = multiplier.mul
             2b11: 
-            out = a/2
+            out = a/b[3:0]
                 }
             
             

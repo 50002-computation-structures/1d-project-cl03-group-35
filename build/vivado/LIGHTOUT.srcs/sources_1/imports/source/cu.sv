@@ -44,7 +44,7 @@ module cu (
                 alufn = 6'h37;
                 we = 1'h1;
             end
-            6'h33: begin
+            6'h34: begin
                 bsel = 1'h0;
                 pc_sel = 1'h0;
                 alufn = 6'h33;
@@ -56,8 +56,8 @@ module cu (
                 alufn = 6'h1;
                 we = 1'h1;
             end
-            6'h33: begin
-                bsel = 1'h0;
+            6'h23: begin
+                bsel = 1'h1;
                 pc_sel = 1'h0;
                 alufn = 6'h3;
                 we = 1'h1;

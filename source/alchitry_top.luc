@@ -7,7 +7,7 @@ module alchitry_top (
     output col[4],
     input io_button[2],
     output led_grid[16],
-    output io_led[8],
+
     output io_segment[7],
     output seg_selector[4]
 ) {
@@ -24,10 +24,10 @@ module alchitry_top (
         button_conditioner_matrix io_button_cond_row[4](#CLK_FREQ(4x{{10000000}})) 
         
         edge_detector io_button_edge_start[1](#RISE({1}), #FALL({0}))
-        button_conditioner io_button_cond_start[1](#CLK_FREQ({10000000})) 
+        button_conditioner io_button_cond_start[1](#CLK_FREQ({10000000}),#MIN_DELAY({100})) 
         
         edge_detector io_button_edge_select[1](#RISE({1}), #FALL({0}))
-        button_conditioner io_button_cond_select[1](#CLK_FREQ({10000000})) 
+        button_conditioner io_button_cond_select[1](#CLK_FREQ({10000000}),#MIN_DELAY({100})) 
         
         manual_tester cpu(.rst(rst))
         
@@ -53,7 +53,7 @@ module alchitry_top (
         cpu.select_button =io_button_edge_select.out
         col = cpu.col
         led_grid = cpu.led_grid
-        io_led = cpu.ledout
+        
         seg_selector = cpu.seg_selector
         io_segment = cpu.io_segment
         

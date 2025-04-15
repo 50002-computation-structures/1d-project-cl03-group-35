@@ -1,5 +1,6 @@
 module simple_ram (
-    input clk,                            // clock
+    input clk,     
+    input rst,                       // clock
     input ra1[$clog2(32)],
     input ra2[$clog2(32)],
     input rc[$clog2(32)],  // address to read or write
@@ -11,11 +12,11 @@ module simple_ram (
     output count_min[32],
     output rom_sel[32],
     input write_data[32],         // data to write
-    input write_enable,
-    output temp[16]
+    input write_enable
+
 
     
-) {dff reg[32][32](.clk(clk))
+) {dff reg[32][32](.clk(clk),.rst(rst))
     
 
     always {
@@ -26,7 +27,7 @@ module simple_ram (
         count_min = reg.q[5]
         rom_sel = reg.q[11]
         z = reg.q[1]
-        temp = reg.q[2]
+
         if (write_enable){
             reg.d[rc] = write_data
         }

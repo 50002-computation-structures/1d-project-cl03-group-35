@@ -12,34 +12,29 @@ module manual_tester (
         input wire [3:0] row,
         output reg [3:0] col,
         output reg [15:0] led_grid,
-        output reg [15:0] ledout,
         output reg [6:0] io_segment,
         output reg [3:0] seg_selector
     );
-    localparam E_States_IDLE = 5'h0;
-    localparam E_States_SETUP = 5'h1;
-    localparam E_States_SELECT_GAME = 5'h2;
-    localparam E_States_LOAD = 5'h3;
-    localparam E_States_LOAD_INCREASE = 5'h4;
-    localparam E_States_LOAD_ADVANCE = 5'h5;
-    localparam E_States_LOAD_CHECK = 5'h6;
-    localparam E_States_SELECT_LEVEL = 5'h7;
-    localparam E_States_LOAD_MAP_TO_3 = 5'h8;
-    localparam E_States_LOAD_MAP_TO_4 = 5'h9;
-    localparam E_States_PLAYER_INPUT = 5'ha;
-    localparam E_States_ADD_LEVEL_TO_ROM_SEL = 5'hb;
-    localparam E_States_RESET = 5'hc;
-    localparam E_States_UPDATE = 5'hd;
-    localparam E_States_GAMEOVER = 5'he;
-    localparam E_States_CHECK = 5'hf;
-    localparam E_States_LOAD_IN = 5'h10;
-    localparam E_States_LOAD_COUNTER = 5'h11;
-    localparam E_States_LEVEL_ADVANCE = 5'h12;
-    localparam E_States_CHECK_LEVEL = 5'h13;
-    localparam E_States_PRE_SELECT = 5'h14;
-    localparam E_States_MAP_SELECTOR = 5'h15;
-    localparam E_States_INCRESE_ROMSEL_BY_3 = 5'h16;
-    localparam E_States_ANIMATE = 5'h17;
+    localparam E_States_SETUP = 5'h0;
+    localparam E_States_SELECT_GAME = 5'h1;
+    localparam E_States_LOAD = 5'h2;
+    localparam E_States_LOAD_INCREASE = 5'h3;
+    localparam E_States_LOAD_ADVANCE = 5'h4;
+    localparam E_States_LOAD_CHECK = 5'h5;
+    localparam E_States_SELECT_LEVEL = 5'h6;
+    localparam E_States_LOAD_MAP_TO_3 = 5'h7;
+    localparam E_States_LOAD_MAP_TO_4 = 5'h8;
+    localparam E_States_PLAYER_INPUT = 5'h9;
+    localparam E_States_ADD_LEVEL_TO_ROM_SEL = 5'ha;
+    localparam E_States_UPDATE = 5'hb;
+    localparam E_States_GAMEOVER = 5'hc;
+    localparam E_States_LOAD_COUNTER = 5'hd;
+    localparam E_States_LEVEL_ADVANCE = 5'he;
+    localparam E_States_PRE_SELECT = 5'hf;
+    localparam E_States_INCRESE_ROMSEL_BY_3 = 5'h10;
+    localparam E_States_ANIMATE = 5'h11;
+    localparam E_States_WAIT = 5'h12;
+    localparam E_States_TEST = 5'h13;
     logic [3:0] M_button_map_col;
     logic [3:0] M_button_map_row;
     logic [7:0] M_button_map_out;
@@ -53,10 +48,9 @@ module manual_tester (
     );
     
     
-    logic [7:0] D_input_buffer_d, D_input_buffer_q = 0;
     logic D_gamemode_d, D_gamemode_q = 0;
-    logic [4:0] D_state_d, D_state_q = 5'h0;
-    logic [7:0] D_led_d, D_led_q = 0;
+    logic [4:0] D_state_d, D_state_q = 5'h1;
+    logic M_reg_rst;
     logic [4:0] M_reg_ra1;
     logic [4:0] M_reg_ra2;
     logic [4:0] M_reg_rc;
@@ -69,10 +63,10 @@ module manual_tester (
     logic [31:0] M_reg_rom_sel;
     logic [31:0] M_reg_write_data;
     logic M_reg_write_enable;
-    logic [15:0] M_reg_temp;
     
     simple_ram L_reg (
         .clk(clk),
+        .rst(M_reg_rst),
         .ra1(M_reg_ra1),
         .ra2(M_reg_ra2),
         .rc(M_reg_rc),
@@ -84,22 +78,21 @@ module manual_tester (
         .count_min(M_reg_count_min),
         .rom_sel(M_reg_rom_sel),
         .write_data(M_reg_write_data),
-        .write_enable(M_reg_write_enable),
-        .temp(M_reg_temp)
+        .write_enable(M_reg_write_enable)
     );
     
     
-    localparam _MP_SIZE_2074906041 = 3'h6;
-    localparam _MP_DIV_2074906041 = 5'h10;
-    localparam _MP_TOP_2074906041 = 4'h5;
-    localparam _MP_UP_2074906041 = 1'h1;
-    logic [5:0] M_ctr_value;
+    localparam _MP_SIZE_597847983 = 4'h8;
+    localparam _MP_DIV_597847983 = 5'h15;
+    localparam _MP_TOP_597847983 = 5'h7;
+    localparam _MP_UP_597847983 = 1'h1;
+    logic [7:0] M_ctr_value;
     
     counter #(
-        .SIZE(_MP_SIZE_2074906041),
-        .DIV(_MP_DIV_2074906041),
-        .TOP(_MP_TOP_2074906041),
-        .UP(_MP_UP_2074906041)
+        .SIZE(_MP_SIZE_597847983),
+        .DIV(_MP_DIV_597847983),
+        .TOP(_MP_TOP_597847983),
+        .UP(_MP_UP_597847983)
     ) ctr (
         .rst(rst),
         .clk(clk),
@@ -107,15 +100,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_247720299 = 3'h4;
-    localparam _MP_DIV_247720299 = 3'h4;
+    localparam _MP_DIGITS_1170861787 = 3'h4;
+    localparam _MP_DIV_1170861787 = 3'h4;
     logic [3:0][3:0] M_seg_values;
     logic [7:0] M_seg_seg;
     logic [3:0] M_seg_sel;
     
     multi_seven_seg #(
-        .DIGITS(_MP_DIGITS_247720299),
-        .DIV(_MP_DIV_247720299)
+        .DIGITS(_MP_DIGITS_1170861787),
+        .DIV(_MP_DIV_1170861787)
     ) seg (
         .rst(rst),
         .clk(clk),
@@ -125,15 +118,15 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_954789452 = 3'h4;
-    localparam _MP_DIV_954789452 = 3'h4;
+    localparam _MP_DIGITS_427487402 = 3'h4;
+    localparam _MP_DIV_427487402 = 3'h4;
     logic [3:0][3:0] M_word_seg_values;
     logic [7:0] M_word_seg_seg;
     logic [3:0] M_word_seg_sel;
     
     multi_word_seg #(
-        .DIGITS(_MP_DIGITS_954789452),
-        .DIV(_MP_DIV_954789452)
+        .DIGITS(_MP_DIGITS_427487402),
+        .DIV(_MP_DIV_427487402)
     ) word_seg (
         .rst(rst),
         .clk(clk),
@@ -186,14 +179,14 @@ module manual_tester (
     );
     
     
-    localparam _MP_DIGITS_704479086 = 3'h4;
-    localparam _MP_LEADING_ZEROS_704479086 = 1'h1;
+    localparam _MP_DIGITS_1670075341 = 3'h4;
+    localparam _MP_LEADING_ZEROS_1670075341 = 1'h1;
     logic [13:0] M_decimal_renderer_value;
     logic [3:0][3:0] M_decimal_renderer_digits;
     
     bin_to_dec #(
-        .DIGITS(_MP_DIGITS_704479086),
-        .LEADING_ZEROS(_MP_LEADING_ZEROS_704479086)
+        .DIGITS(_MP_DIGITS_1670075341),
+        .LEADING_ZEROS(_MP_LEADING_ZEROS_1670075341)
     ) decimal_renderer (
         .value(M_decimal_renderer_value),
         .digits(M_decimal_renderer_digits)
@@ -201,13 +194,9 @@ module manual_tester (
     
     
     always @* begin
-        D_led_d = D_led_q;
-        D_input_buffer_d = D_input_buffer_q;
         D_state_d = D_state_q;
         D_gamemode_d = D_gamemode_q;
         
-        D_led_d = D_led_q;
-        ledout = M_reg_z;
         col = M_button_map_col;
         M_button_map_row = row;
         led_grid = M_reg_button_led;
@@ -217,11 +206,13 @@ module manual_tester (
         io_segment = ~M_seg_seg;
         seg_selector = M_seg_sel;
         M_control_unit_opcode = M_iROM_out[5'h1f:5'h1a];
+        M_reg_rst = 1'h0;
         M_reg_ra1 = M_iROM_out[5'h14:5'h10];
         M_reg_ra2 = M_iROM_out[4'hf:4'hb];
         M_reg_rc = M_iROM_out[5'h19:5'h15];
         M_reg_write_data = M_alu_out;
         M_reg_write_enable = M_control_unit_we;
+        M_iROM_address = 1'h0;
         M_alu_alufn = M_control_unit_alufn;
         M_alu_a = M_reg_rd1;
         
@@ -236,17 +227,84 @@ module manual_tester (
                 M_alu_b = M_iROM_out[4'hf:1'h0];
             end
         endcase
-        D_input_buffer_d = D_input_buffer_q;
-        M_iROM_address = D_input_buffer_q;
         D_state_d = D_state_q;
         D_gamemode_d = D_gamemode_q;
         
         case (D_state_q)
-            5'h0: begin
-                D_state_d = 5'h2;
+            5'h13: begin
+                
+                case ({start_button, select_button})
+                    2'h2: begin
+                        M_iROM_address = 6'h32;
+                    end
+                    2'h1: begin
+                        M_iROM_address = 4'he;
+                    end
+                    2'h3: begin
+                        D_state_d = 5'h1;
+                    end
+                endcase
+                
+                case (M_button_map_out)
+                    8'h11: begin
+                        M_iROM_address = 6'h22;
+                    end
+                    8'h21: begin
+                        M_iROM_address = 6'h23;
+                    end
+                    8'h41: begin
+                        M_iROM_address = 6'h24;
+                    end
+                    8'h81: begin
+                        M_iROM_address = 6'h25;
+                    end
+                    8'h12: begin
+                        M_iROM_address = 6'h26;
+                    end
+                    8'h22: begin
+                        M_iROM_address = 6'h27;
+                    end
+                    8'h42: begin
+                        M_iROM_address = 6'h28;
+                    end
+                    8'h82: begin
+                        M_iROM_address = 6'h29;
+                    end
+                    8'h14: begin
+                        M_iROM_address = 6'h2a;
+                    end
+                    8'h24: begin
+                        M_iROM_address = 6'h2b;
+                    end
+                    8'h44: begin
+                        M_iROM_address = 6'h2c;
+                    end
+                    8'h84: begin
+                        M_iROM_address = 6'h2d;
+                    end
+                    8'h18: begin
+                        M_iROM_address = 6'h2e;
+                    end
+                    8'h28: begin
+                        M_iROM_address = 6'h2f;
+                    end
+                    8'h48: begin
+                        M_iROM_address = 6'h30;
+                    end
+                    8'h88: begin
+                        M_iROM_address = 6'h31;
+                    end
+                endcase
             end
-            5'h2: begin
-                M_word_seg_values = {{{4'hf}}, {{4'hf}}, {{4'hf}}, {{3'h0, D_gamemode_q}}};
+            5'h1: begin
+                if (M_button_map_out == 8'h11) begin
+                    D_state_d = 5'h13;
+                end
+                if (D_gamemode_q) begin
+                    M_word_seg_values = {{4'h1, 4'h2, 4'h3, 4'h4}};
+                end else begin
+                    M_word_seg_values = {{4'h0, 4'h2, 4'h5, 4'h6}};
+                end
                 io_segment = ~M_word_seg_seg;
                 seg_selector = M_word_seg_sel;
                 if (select_button) begin
@@ -254,38 +312,39 @@ module manual_tester (
                 end
                 if (start_button) begin
                     M_iROM_address = D_gamemode_q + 1'h1;
-                    D_state_d = 5'h1;
+                    D_state_d = 5'h0;
                 end
             end
-            5'h1: begin
+            5'h0: begin
                 M_iROM_address = 2'h3;
+                D_state_d = 5'h2;
+            end
+            5'h2: begin
+                M_iROM_address = M_reg_rom_sel;
                 D_state_d = 5'h3;
             end
             5'h3: begin
-                M_iROM_address = M_reg_rom_sel;
+                M_iROM_address = 3'h5;
+                D_state_d = 5'h4;
+            end
+            5'h5: begin
+                M_iROM_address = 3'h6;
                 D_state_d = 5'h4;
             end
             5'h4: begin
-                M_iROM_address = 3'h5;
-                D_state_d = 5'h5;
-            end
-            5'h6: begin
                 M_iROM_address = 3'h6;
-                D_state_d = 5'h5;
-            end
-            5'h5: begin
-                if (M_reg_temp < 5'h11) begin
-                    D_state_d = 5'h3;
+                if (M_reg_z == 1'h1) begin
+                    D_state_d = 5'h2;
                     M_iROM_address = 3'h4;
                 end else begin
-                    D_state_d = 5'h14;
+                    D_state_d = 5'hf;
                 end
             end
-            5'h14: begin
+            5'hf: begin
                 M_iROM_address = 4'h9;
-                D_state_d = 5'h7;
+                D_state_d = 5'h6;
             end
-            5'h7: begin
+            5'h6: begin
                 M_iROM_address = 4'h9;
                 M_seg_values = {{{4'hf}}, {{4'hf}}, {M_reg_level_select[3'h7:3'h4]}, {M_reg_level_select[2'h3:1'h0]}};
                 if (M_reg_z == 1'h0) begin
@@ -295,44 +354,43 @@ module manual_tester (
                     M_iROM_address = 4'h8;
                 end
                 if (start_button) begin
-                    D_state_d = 5'hb;
+                    D_state_d = 5'ha;
                 end
             end
-            5'hb: begin
+            5'ha: begin
                 M_iROM_address = 4'hb;
+                D_state_d = 5'h7;
+            end
+            5'h7: begin
+                M_iROM_address = M_reg_rom_sel;
+                D_state_d = 5'h10;
+            end
+            5'h10: begin
+                M_iROM_address = 4'hd;
                 D_state_d = 5'h8;
             end
             5'h8: begin
-                M_iROM_address = M_reg_rom_sel;
-                D_state_d = 5'h16;
+                M_iROM_address = 4'hc;
+                D_state_d = 5'hd;
             end
-            5'h16: begin
-                M_iROM_address = 4'hd;
+            5'hd: begin
+                M_iROM_address = M_reg_rom_sel;
+                D_state_d = 5'he;
+            end
+            5'he: begin
+                M_iROM_address = 4'hf;
                 D_state_d = 5'h9;
             end
             5'h9: begin
-                M_iROM_address = 4'hc;
-                D_state_d = 5'h11;
-            end
-            5'h11: begin
-                M_iROM_address = M_reg_rom_sel;
-                D_state_d = 5'h12;
-            end
-            5'h12: begin
                 M_iROM_address = 4'hf;
-                D_state_d = 5'ha;
-            end
-            5'ha: begin
-                M_iROM_address = 4'hf;
-                D_led_d = M_reg_z;
                 if (M_reg_z == 1'h1) begin
-                    D_state_d = 5'he;
+                    D_state_d = 5'hc;
                 end
                 if ((|M_button_map_out[2'h3:1'h0])) begin
-                    D_state_d = 5'hd;
+                    D_state_d = 5'hb;
                 end
                 if (select_button) begin
-                    D_state_d = 5'h9;
+                    D_state_d = 5'h8;
                 end
                 
                 case (M_button_map_out)
@@ -386,22 +444,25 @@ module manual_tester (
                     end
                 endcase
             end
-            5'hd: begin
+            5'hb: begin
                 M_iROM_address = 4'he;
-                D_state_d = 5'ha;
+                D_state_d = 5'h9;
             end
-            5'he: begin
-                M_iROM_address = 7'h4d;
-                if (select_button) begin
-                    D_state_d = 5'h2;
+            5'hc: begin
+                M_iROM_address = 6'h20;
+                D_state_d = 5'h11;
+            end
+            5'h11: begin
+                M_iROM_address = 6'h21;
+                D_state_d = 5'h12;
+            end
+            5'h12: begin
+                if (M_ctr_value[2'h3]) begin
+                    D_state_d = 5'h11;
                 end
-                D_state_d = 5'h17;
-            end
-            5'h17: begin
                 if (start_button) begin
-                    M_iROM_address = 7'h4e;
-                end else begin
-                    M_iROM_address = 1'h0;
+                    D_state_d = 5'h1;
+                    M_reg_rst = 1'h1;
                 end
             end
         endcase
@@ -409,10 +470,8 @@ module manual_tester (
     
     
     always @(posedge (clk)) begin
-        D_input_buffer_q <= D_input_buffer_d;
         D_gamemode_q <= D_gamemode_d;
         D_state_q <= D_state_d;
-        D_led_q <= D_led_d;
         
     end
 endmodule

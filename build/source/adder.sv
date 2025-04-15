@@ -4,45 +4,40 @@
     This is a temporary file and any changes made to it will be destroyed.
 */
 
-module adder #(
-        parameter SIZE = 6'h20
-    ) (
-        input wire [(SIZE)-1:0] a,
-        input wire [(SIZE)-1:0] b,
+module adder (
+        input wire [31:0] a,
+        input wire [31:0] b,
         input wire [5:0] alufn,
-        output reg [(SIZE)-1:0] out,
+        output reg [31:0] out,
         output reg z,
         output reg v,
         output reg n
     );
-    localparam _MP_SIZE_1192162601 = 6'h20;
-    logic [31:0] M_rca_a;
-    logic [31:0] M_rca_b;
-    logic M_rca_ci;
-    logic [31:0] M_rca_s;
-    logic M_rca_cout;
+    logic [31:0] M_sca_a32;
+    logic [31:0] M_sca_b32;
+    logic M_sca_cin;
+    logic [31:0] M_sca_s32;
+    logic M_sca_cout32;
     
-    rca #(
-        .SIZE(_MP_SIZE_1192162601)
-    ) rca (
-        .a(M_rca_a),
-        .b(M_rca_b),
-        .ci(M_rca_ci),
-        .s(M_rca_s),
-        .cout(M_rca_cout)
+    carry_skip_adder_32 sca (
+        .a32(M_sca_a32),
+        .b32(M_sca_b32),
+        .cin(M_sca_cin),
+        .s32(M_sca_s32),
+        .cout32(M_sca_cout32)
     );
     
     
-    logic [(SIZE)-1:0] xb;
+    logic [31:0] xb;
     always @* begin
-        M_rca_a = a;
+        M_sca_a32 = a;
         xb = b ^ {6'h20{alufn[1'h0]}};
-        M_rca_b = xb;
-        M_rca_ci = alufn[1'h0];
-        out = M_rca_s;
-        z = ~(|M_rca_s);
-        v = (((alufn[1'h0] ^ b[SIZE - 1'h1]) & a[SIZE - 1'h1]) & ~M_rca_s[SIZE - 1'h1]) | ((~(alufn[1'h0] ^ b[SIZE - 1'h1]) & ~a[SIZE - 1'h1]) & M_rca_s[SIZE - 1'h1]);
-        n = M_rca_s[SIZE - 1'h1];
+        M_sca_b32 = xb;
+        M_sca_cin = alufn[1'h0];
+        out = M_sca_s32;
+        z = ~(|M_sca_s32);
+        v = (((alufn[1'h0] ^ a[5'h1f]) & a[5'h1f]) & ~M_sca_s32[5'h1f]) | ((~(alufn[1'h0] ^ b[5'h1f]) & ~a[5'h1f]) & M_sca_s32[5'h1f]);
+        n = M_sca_s32[5'h1f];
     end
     
     

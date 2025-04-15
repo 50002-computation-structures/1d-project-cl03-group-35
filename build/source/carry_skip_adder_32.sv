@@ -4,49 +4,47 @@
     This is a temporary file and any changes made to it will be destroyed.
 */
 
-module carry_skip_adder_32 #(
-        parameter SIZE = 6'h20
-    ) (
-        input wire [31:0] a,
-        input wire [31:0] b,
-        input wire ci,
-        output reg [31:0] s,
-        output reg cout
+module carry_skip_adder_32 (
+        input wire [31:0] a32,
+        input wire [31:0] b32,
+        input wire cin,
+        output reg [31:0] s32,
+        output reg cout32
     );
-    logic [31:0] R_7c612a1d_i;
-    logic [31:0] RR_7c612a1d_i;
+    logic [31:0] R_24a872a6_i;
+    logic [31:0] RR_24a872a6_i;
     logic [7:0][3:0] M_csa_4bit_a;
     logic [7:0][3:0] M_csa_4bit_b;
     logic [7:0] M_csa_4bit_ci;
     logic [7:0][3:0] M_csa_4bit_s;
     logic [7:0] M_csa_4bit_cout;
     
-    genvar idx_0_1971650153;
+    genvar idx_0_589438862;
     
     generate
-        for (idx_0_1971650153 = 0; idx_0_1971650153 < 8; idx_0_1971650153 = idx_0_1971650153 + 1) begin: forLoop_idx_0_1971650153
+        for (idx_0_589438862 = 0; idx_0_589438862 < 8; idx_0_589438862 = idx_0_589438862 + 1) begin: forLoop_idx_0_589438862
             carry_skip_adder_4bit csa_4bit (
-                .a(M_csa_4bit_a[idx_0_1971650153]),
-                .b(M_csa_4bit_b[idx_0_1971650153]),
-                .ci(M_csa_4bit_ci[idx_0_1971650153]),
-                .s(M_csa_4bit_s[idx_0_1971650153]),
-                .cout(M_csa_4bit_cout[idx_0_1971650153])
+                .a(M_csa_4bit_a[idx_0_589438862]),
+                .b(M_csa_4bit_b[idx_0_589438862]),
+                .ci(M_csa_4bit_ci[idx_0_589438862]),
+                .s(M_csa_4bit_s[idx_0_589438862]),
+                .cout(M_csa_4bit_cout[idx_0_589438862])
             );
         end
     endgenerate
     
     
     always @* begin
-        M_csa_4bit_a = {a[5'h1f:5'h1c], a[5'h1b:5'h18], a[5'h17:5'h14], a[5'h13:5'h10], a[4'hf:4'hc], a[4'hb:4'h8], a[3'h7:3'h4], a[2'h3:1'h0]};
-        M_csa_4bit_b = {b[5'h1f:5'h1c], b[5'h1b:5'h18], b[5'h17:5'h14], b[5'h13:5'h10], b[4'hf:4'hc], b[4'hb:4'h8], b[3'h7:3'h4], b[2'h3:1'h0]};
-        s = {M_csa_4bit_s[3'h7], M_csa_4bit_s[3'h6], M_csa_4bit_s[3'h5], M_csa_4bit_s[3'h4], M_csa_4bit_s[2'h3], M_csa_4bit_s[2'h2], M_csa_4bit_s[1'h1], M_csa_4bit_s[1'h0]};
-        cout = M_csa_4bit_cout[3'h7];
-        for (RR_7c612a1d_i = 0; RR_7c612a1d_i < 4'h8; RR_7c612a1d_i = RR_7c612a1d_i + 1) begin
-      R_7c612a1d_i = (0) + RR_7c612a1d_i * (1);
-            if (R_7c612a1d_i == 1'h0) begin
-                M_csa_4bit_ci[1'h0] = ci;
+        M_csa_4bit_a = {a32[5'h1f:5'h1c], a32[5'h1b:5'h18], a32[5'h17:5'h14], a32[5'h13:5'h10], a32[4'hf:4'hc], a32[4'hb:4'h8], a32[3'h7:3'h4], a32[2'h3:1'h0]};
+        M_csa_4bit_b = {b32[5'h1f:5'h1c], b32[5'h1b:5'h18], b32[5'h17:5'h14], b32[5'h13:5'h10], b32[4'hf:4'hc], b32[4'hb:4'h8], b32[3'h7:3'h4], b32[2'h3:1'h0]};
+        s32 = {M_csa_4bit_s[3'h7], M_csa_4bit_s[3'h6], M_csa_4bit_s[3'h5], M_csa_4bit_s[3'h4], M_csa_4bit_s[2'h3], M_csa_4bit_s[2'h2], M_csa_4bit_s[1'h1], M_csa_4bit_s[1'h0]};
+        cout32 = M_csa_4bit_cout[3'h7];
+        for (RR_24a872a6_i = 0; RR_24a872a6_i < 4'h8; RR_24a872a6_i = RR_24a872a6_i + 1) begin
+      R_24a872a6_i = (0) + RR_24a872a6_i * (1);
+            if (R_24a872a6_i == 1'h0) begin
+                M_csa_4bit_ci[1'h0] = cin;
             end else begin
-                M_csa_4bit_ci[R_7c612a1d_i] = M_csa_4bit_cout[R_7c612a1d_i - 1'h1];
+                M_csa_4bit_ci[R_24a872a6_i] = M_csa_4bit_cout[R_24a872a6_i - 1'h1];
             end
         end
     end

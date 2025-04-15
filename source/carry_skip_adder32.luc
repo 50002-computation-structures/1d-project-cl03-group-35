@@ -1,23 +1,22 @@
-module carry_skip_adder_32 #(
-    SIZE ~ 32 : SIZE > 1
-)(
-    input a[32],
-    input b[32],
-    input ci,
-    output s[32],
-    output cout
+module carry_skip_adder_32 
+    
+(
+    input a32[32],
+    input b32[32],
+    input cin,
+    output s32[32],
+    output cout32
 ) {
     carry_skip_adder_4bit csa_4bit[8];
     always {
         
-        csa_4bit.a = {a[31:28],a[27:24],a[23:20],a[19:16],a[15:12],a[11:8],a[7:4],a[3:0]}
-        csa_4bit.b = {b[31:28],b[27:24],b[23:20],b[19:16],b[15:12],b[11:8],b[7:4],b[3:0]}
-        s = c{csa_4bit.s[7],csa_4bit.s[6],csa_4bit.s[5],csa_4bit.s[4],
-            csa_4bit.s[3],csa_4bit.s[2],csa_4bit.s[1],csa_4bit.s[0]}
-        cout = csa_4bit.cout[7]
+        csa_4bit.a = {a32[31:28],a32[27:24],a32[23:20],a32[19:16],a32[15:12],a32[11:8],a32[7:4],a32[3:0]}
+        csa_4bit.b = {b32[31:28],b32[27:24],b32[23:20],b32[19:16],b32[15:12],b32[11:8],b32[7:4],b32[3:0]}
+        s32 = c{csa_4bit.s[7],csa_4bit.s[6],csa_4bit.s[5],csa_4bit.s[4],csa_4bit.s[3],csa_4bit.s[2],csa_4bit.s[1],csa_4bit.s[0]}
+        cout32 = csa_4bit.cout[7]
         repeat(i,8){
             if (i ==0){
-              csa_4bit.ci[0] = ci  
+              csa_4bit.ci[0] = cin  
             }else{
                csa_4bit.ci[i]  = csa_4bit.cout[i-1]
             }

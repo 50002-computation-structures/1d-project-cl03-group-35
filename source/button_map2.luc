@@ -9,7 +9,7 @@ module button_map (
         dff state[4]
         
     }
-    sig out_col[4]
+  
     always {
         state.d = state.q
         state.d = 4b0000

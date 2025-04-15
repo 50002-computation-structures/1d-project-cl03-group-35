@@ -33,12 +33,13 @@ module cu (
          pc_sel =0
          alufn = b010110
          we =1 
+            
         b110110: //CMPLC
          bsel = 0
          pc_sel =0
          alufn = b110111
          we =1 
-        b110011: //EQUAL
+        b110100 : //EQUAL
          bsel = 0
          pc_sel =0
          alufn = b110011
@@ -48,11 +49,12 @@ module cu (
          pc_sel =0
          alufn = b000001
          we =1
-        b110011://DIVC
-         bsel = 0
+        b100011://DIV
+         bsel = 1
          pc_sel =0
          alufn = b000011
          we =1     
+
 
         default: 
             bsel =1

@@ -1,38 +1,37 @@
-module adder #(
-    SIZE ~ 32 : SIZE > 1
-)(
-    input a[SIZE],
-    input b[SIZE],
+module adder (
+    input a[32],
+    input b[32],
     input alufn[6],
-    output out[SIZE],
+    output out[32],
     output z,
     output v,
     output n
     
 ) {
-    
-    rca rca(#SIZE(32))
-    sig xb[SIZE]
+    carry_skip_adder_32 sca
+  //  rca rca(#SIZE(32))
+    sig xb[32]
     
     
     always {
         
         
-        rca.a = a
+        sca.a32 = a
         xb = b^32x{alufn[0] }
-        rca.b = xb
-        rca.ci = alufn[0]
+        sca.b32 = xb
+        sca.cin= alufn[0]
         
         
         // implement adder/subtractor unit logic here
         
-        out = rca.s
-        z = ~|rca.s
+        out = sca.s32
+        z = ~|sca.s32
         //v = (a[SIZE-1] & xb[SIZE-1] &~rca.s[SIZE-1]  | ~a[SIZE-1] & ~xb[SIZE-1] & rca.s[SIZE-1] )
               
-        v = (((alufn[0] ^ b[SIZE-1]) & a[SIZE-1]) & ~rca.s[SIZE-1]) | ((~(alufn[0] ^ b[SIZE-1]) & ~a[SIZE-1]) & rca.s[SIZE-1])
+        v = (((alufn[0] ^ a[31]) & a[31]) & ~sca.s32[31]) | 
+        ((~(alufn[0] ^ b[31]) & ~a[31]) & sca.s32[31])
         
-        n = rca.s[SIZE-1]
+        n = sca.s32[31]
         
     }
 }

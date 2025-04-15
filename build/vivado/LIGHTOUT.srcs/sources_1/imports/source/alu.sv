@@ -24,7 +24,6 @@ module alu (
     );
     
     
-    localparam _MP_SIZE_1503377567 = 6'h20;
     logic [31:0] M_adder_a;
     logic [31:0] M_adder_b;
     logic [5:0] M_adder_alufn;
@@ -33,9 +32,7 @@ module alu (
     logic M_adder_v;
     logic M_adder_n;
     
-    adder #(
-        .SIZE(_MP_SIZE_1503377567)
-    ) adder (
+    adder adder (
         .a(M_adder_a),
         .b(M_adder_b),
         .alufn(M_adder_alufn),
@@ -74,14 +71,14 @@ module alu (
     );
     
     
-    localparam _MP_SIZE_1814085365 = 6'h20;
+    localparam _MP_SIZE_1221781084 = 6'h20;
     logic [31:0] M_boolean_a;
     logic [31:0] M_boolean_b;
     logic [5:0] M_boolean_alufn;
     logic [31:0] M_boolean_bool;
     
     bool #(
-        .SIZE(_MP_SIZE_1814085365)
+        .SIZE(_MP_SIZE_1221781084)
     ) boolean (
         .a(M_boolean_a),
         .b(M_boolean_b),
@@ -122,7 +119,7 @@ module alu (
                         out = M_multiplier_mul;
                     end
                     2'h3: begin
-                        out = a / 2'h2;
+                        out = a / b[2'h3:1'h0];
                     end
                 endcase
             end

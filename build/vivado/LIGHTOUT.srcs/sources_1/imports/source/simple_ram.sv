@@ -6,6 +6,7 @@
 
 module simple_ram (
         input wire clk,
+        input wire rst,
         input wire [4:0] ra1,
         input wire [4:0] ra2,
         input wire [4:0] rc,
@@ -17,8 +18,7 @@ module simple_ram (
         output reg [31:0] count_min,
         output reg [31:0] rom_sel,
         input wire [31:0] write_data,
-        input wire write_enable,
-        output reg [15:0] temp
+        input wire write_enable
     );
     logic [31:0][31:0] D_reg_d, D_reg_q = 0;
     always @* begin
@@ -31,7 +31,6 @@ module simple_ram (
         count_min = D_reg_q[3'h5];
         rom_sel = D_reg_q[4'hb];
         z = D_reg_q[1'h1];
-        temp = D_reg_q[2'h2];
         if (write_enable) begin
             D_reg_d[rc] = write_data;
         end
@@ -39,7 +38,10 @@ module simple_ram (
     
     
     always @(posedge (clk)) begin
-        D_reg_q <= D_reg_d;
-        
+        if ((rst) == 1'b1) begin
+            D_reg_q <= 0;
+        end else begin
+            D_reg_q <= D_reg_d;
+        end
     end
 endmodule

@@ -13,30 +13,6 @@ set_property IOSTANDARD LVCMOS33 [get_ports {usb_rx}]
 set_property PACKAGE_PIN P16 [get_ports {usb_tx}]
 set_property IOSTANDARD LVCMOS33 [get_ports {usb_tx}]
 
-set_property PACKAGE_PIN B6 [get_ports {io_led[0]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {io_led[0]}]
-
-set_property PACKAGE_PIN B5 [get_ports {io_led[1]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {io_led[1]}]
-
-set_property PACKAGE_PIN A5 [get_ports {io_led[2]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {io_led[2]}]
-
-set_property PACKAGE_PIN A4 [get_ports {io_led[3]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {io_led[3]}]
-
-set_property PACKAGE_PIN B4 [get_ports {io_led[4]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {io_led[4]}]
-
-set_property PACKAGE_PIN A3 [get_ports {io_led[5]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {io_led[5]}]
-
-set_property PACKAGE_PIN F4 [get_ports {io_led[6]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {io_led[6]}]
-
-set_property PACKAGE_PIN F3 [get_ports {io_led[7]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {io_led[7]}]
-
 set_property PACKAGE_PIN K3 [get_ports {led_grid[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led_grid[0]}]
 
